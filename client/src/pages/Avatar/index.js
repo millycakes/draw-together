@@ -19,7 +19,7 @@ export default function Avatar() {
 
     return(
         <div className = "avatar-page" style={{height: '100vh'}}>
-            <a href className = "home-logo"><Link to = "/">DRAW TOGETHER</Link></a>
+            <Link to = "/" className = "home-logo">DRAW TOGETHER</Link>
             <div className = "avatar">
                 <p>Playing With</p>
                 <img src = {avatar1}/>

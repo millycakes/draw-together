@@ -10,7 +10,9 @@ export default function CreateRoom () {
     return(
         <form onSubmit = {handleSubmit}>
             <p>Create your room to begin</p>
-            <button className = "large-button"><Link to = "/avatar">Create Room</Link></button>
+            <Link to = "/avatar">      
+                <button className = "large-button">Create Room</button>
+            </Link>
         </form>
     )
 }
