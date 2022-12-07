@@ -1,11 +1,10 @@
 // import logo from './logo.svg';
-import './App.css';
-import {Link, Routes, Route} from "react-router-dom"
-import Home from './pages/Home';
-import PlayerSettings from './pages/PlayerSettings';
-import HostSettings from './pages/HostSettings';
-import Loading from './pages/Loading';
-import Canvas from './pages/Canvas';
+import {Routes, Route} from "react-router-dom"
+
+import Home from './components/Home';
+import PlayerSettings from './components/PlayerSettings';
+import HostSettings from './components/HostSettings';
+import Loading from './components/Loading';
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
           <Route path = "/player-settings"  element = {<PlayerSettings />}/>
           <Route path = "/host-settings"  element = {<HostSettings />}/>
           <Route path = "/loading"  element = {<Loading />}/>
-          <Route path = "/canvas"  element = {<Canvas />}/>
       </Routes>
   );
 }
