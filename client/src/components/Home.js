@@ -1,6 +1,5 @@
 import React from "react"
 import {Link} from "react-router-dom"
-
 import "./style.css"
 import logo from "../assets/logo.png"
 
@@ -31,7 +30,7 @@ export default function Home () {
     return(
         <div className = "home" style={{height: '100vh'}}>
             <div className = "form">
-                <img className = "logo" src = {logo}/>
+                <img className = "logo" alt = "logo" src = {logo}/>
                 <form onSubmit = {handleCreateSubmit}>
                     <p>Create your room to begin</p>
                     <Link to = "/host-settings">      
