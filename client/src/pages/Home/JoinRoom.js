@@ -28,7 +28,7 @@ export default function JoinRoom () {
         <form onSubmit = {handleSubmit}>
             <div className = "key-form">
                 <p className = "enter-key">Enter key</p>
-                <input className = "key-input" type = "text" placeholder = "A1B2C3" onChange = {handleChange}></input>
+                <input className = "key-input" type = "text" placeholder = "A1B-2C3" onChange = {handleChange}></input>
                 <p className =  "key-format">{validKeyFormat ? "valid key format" : "invalid key format"}</p>
             </div>
             <button className = "large-button"><Link to = "/player-settings">Join Room</Link></button>

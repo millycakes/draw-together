@@ -12,9 +12,31 @@ export default function Avatar() {
     
     const [name, setName] = React.useState("");
 
+    const uuid = () => {
+        let fin = '';
+        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        for (let i = 0; i<6; i++) {
+            if (i == 3) fin += "-";
+            fin+=chars.charAt(Math.floor(Math.random()*chars.length));
+        }
+        return fin;
+    }
+
+    const [key, setKey] = React.useState("");
+
+    
+    React.useEffect(() => {
+        setKey(uuid());
+        console.log(key);
+    }, [])
+
     function handleChange(event) {
         setName(event.target.value);
         console.log(name);
+    }
+
+    function copyKey(){
+        navigator.clipboard.writeText(key)
     }
 
     return(
@@ -28,8 +50,8 @@ export default function Avatar() {
             <div className ="vl"></div>
             <div className = "avatar">
                 <p>Copy the following key to invite your friend!</p>
-                <p className = "input">A1B2C3</p>
-                <button className = "copy-button">Copy Room Key</button>
+                <p className = "input">{key}</p>
+                <button className = "copy-button" onClick = {copyKey}>Copy Room Key</button>
             </div>
             <button className = "back-button"><Link to = "/">Return</Link></button>
             <button className = "next-button"><Link to = "/loading">Next</Link></button>
