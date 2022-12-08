@@ -21,12 +21,12 @@ export default function HostSettings(props) {
         return fin;
     }    
     
+    
     React.useEffect(() => {
         setHostKey(uuid());
         props.validKeys.push(hostKey);
         props.socket.emit("join_room", hostKey);
-        console.log(hostKey);
-    }, [])
+    },[])
 
 
     function hostJoin(event)  {
@@ -40,7 +40,7 @@ export default function HostSettings(props) {
             host:true
         };
         props.setUser(indData);
-        props.setJoinedRoom(true);
+        props.setHostJoin(true);
     }
 
     function handleChange(event) {

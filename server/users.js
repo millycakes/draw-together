@@ -9,3 +9,8 @@ const newUser = (name, host , key, id) => {
 const getUsers = () => {
     return users;
 }
+
+module.exports = {
+    newUser,
+    getUsers
+  };

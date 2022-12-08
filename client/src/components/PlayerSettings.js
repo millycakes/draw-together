@@ -16,6 +16,7 @@ export default function PlayerSettings(props) {
         console.log(name);
     }
 
+
     function playerJoin(event) {
         event.preventDefault();
 
@@ -23,7 +24,8 @@ export default function PlayerSettings(props) {
             setName("Player 2");
         }
         props.user.name = name;
-        props.setJoinedRoom(true);
+        //i don't know abuot the line above but the line below is not working (maybe because boolean has already been set to true by host?)
+        props.setPlayerJoin(true);
     }
 
     return(

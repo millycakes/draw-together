@@ -16,21 +16,22 @@ export default function Home (props) {
         setPlayerKey((event.target.value).toUpperCase());
     }
 
+    //this function is not being called for some reason
     function handleJoinSubmit(event) {
+        console.log("submitted");
         event.preventDefault();
-        console.log("Join room: " + playerKey);
         if (validKey) {
             props.socket.emit("join_room", playerKey);
             props.user.key = playerKey;
             props.user.host = false;
-        }
+       }
     }
 
     //need to prevent user from moving forward if valid key is false
 
     let validKey = false;
 
-    if (playerKey.length === 6 && playerKey.match(/^[0-9A-Z]+$/) && props.validKeys.includes(playerKey)){
+    if (props.validKeys.includes(playerKey)){
         validKey = true;
     }
 
