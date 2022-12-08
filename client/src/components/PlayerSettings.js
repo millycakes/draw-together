@@ -6,14 +6,24 @@ import avatar4 from "../assets/avatar4.png"
 import avatar5 from "../assets/avatar5.png"
 import {Link} from "react-router-dom"
 
+export default function PlayerSettings(socket, user, setJoinedRoom) {
 
-export default function PlayerSettings() {
+    const[name, setName] = React.useState("");
+
     
-    const [name, setName] = React.useState("");
-
     function handleChange(event) {
         setName(event.target.value);
         console.log(name);
+    }
+
+    function playerJoin(event) {
+        event.preventDefault();
+
+        if (name==="") {
+            setName("Player 2");
+        }
+        user.name = name;
+        setJoinedRoom(true);
     }
 
     return(
@@ -31,7 +41,7 @@ export default function PlayerSettings() {
                 <input className = "input" type = "text" placeholder = "Enter your name" onChange = {handleChange}/>
             </div>
             <button className = "back-button"><Link to = "/">Return</Link></button>
-            <button className = "next-button"><Link to = "/loading">Next</Link></button>
+            <button className = "next-button" onClick = {playerJoin}><Link to = "/loading">Next</Link></button>
         </div>
     )
 }

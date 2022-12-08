@@ -3,28 +3,35 @@ import {Link} from "react-router-dom"
 import "./style.css"
 import logo from "../assets/logo.png"
 
-export default function Home () {
+
+export default function Home (socket, validKeys, user) {
+
+    const [playerKey, setPlayerKey] = React.useState("");
 
     function handleCreateSubmit(event){
         event.preventDefault();
         console.log("Create room");
-    }
-
-    const [key, setKey] = React.useState("");
-    
+    }    
     function handleChange(event) {
-        setKey((event.target.value).toUpperCase());
+        setPlayerKey((event.target.value).toUpperCase());
     }
 
     function handleJoinSubmit(event) {
-        event.preventDefault()
-        console.log("Join room: " + key);
+        event.preventDefault();
+        console.log("Join room: " + playerKey);
+        if (validKey) {
+            socket.emit("join_room", playerKey);
+            user.key = playerKey;
+            user.host = false;
+        }
     }
 
-    let validKeyFormat = false;
+    //need to prevent user from moving forward if valid key is false
 
-    if (key.length === 6 && key.match(/^[0-9A-Z]+$/)){
-        validKeyFormat = true;
+    let validKey = false;
+
+    if (playerKey.length === 6 && playerKey.match(/^[0-9A-Z]+$/) && validKeys.includes(playerKey)){
+        validKey = true;
     }
 
     return(
@@ -48,7 +55,7 @@ export default function Home () {
                             name = "key"
                             onChange = {handleChange}>
                         </input>
-                        <p className =  "key-format">{validKeyFormat ? "valid key format" : "invalid key format"}</p>
+                        <p className =  "key-format">{validKey ? "valid key format" : "invalid key format"}</p>
                     </div>
                     <button className = "large-button"><Link to = "/player-settings">Join Room</Link></button>
                 </form>

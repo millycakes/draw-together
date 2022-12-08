@@ -7,9 +7,10 @@ import avatar5 from "../assets/avatar5.png"
 import {Link} from "react-router-dom"
 
 
-export default function HostSettings() {
-    
+export default function HostSettings(socket, setUser, setJoinedRoom, validKeys) {
+
     const [name, setName] = React.useState("");
+    const [hostKey, setHostKey] = React.useState("");
 
     const uuid = () => {
         let fin = '';
@@ -18,14 +19,29 @@ export default function HostSettings() {
             fin+=chars.charAt(Math.floor(Math.random()*chars.length));
         }
         return fin;
-    }
-
-    const [key, setKey] = React.useState("");
+    }    
     
     React.useEffect(() => {
-        setKey(uuid());
-        console.log(key);
+        setHostKey(uuid());
+        validKeys.push(hostKey);
+        socket.emit("join_room", hostKey);
+        console.log(hostKey);
     }, [])
+
+
+    function hostJoin(event)  {
+        event.preventDefault();
+        if (name==="") {
+            setName("Player 1");
+        }
+        const indData = {
+            name: name,
+            key: hostKey,
+            host:true
+        };
+        setUser(indData);
+        setJoinedRoom(true);
+    }
 
     function handleChange(event) {
         setName(event.target.value);
@@ -33,7 +49,7 @@ export default function HostSettings() {
     }
 
     function copyKey(){
-        navigator.clipboard.writeText(key)
+        navigator.clipboard.writeText(hostKey)
     }
 
     return(
@@ -47,11 +63,11 @@ export default function HostSettings() {
             <div className ="vl"></div>
             <div className = "avatar">
                 <p>Copy the following key to invite your friend!</p>
-                <p className = "input">{key}</p>
+                <p className = "input">{hostKey}</p>
                 <button className = "copy-button" onClick = {copyKey}>Copy Room Key</button>
             </div>
             <button className = "back-button"><Link to = "/">Return</Link></button>
-            <button className = "next-button"><Link to = "/loading">Next</Link></button>
+            <button className = "next-button" onClick = {hostJoin}><Link to = "/loading">Next</Link></button>
         </div>
     )
 }
