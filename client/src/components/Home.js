@@ -4,7 +4,7 @@ import "./style.css"
 import logo from "../assets/logo.png"
 
 
-export default function Home (socket, validKeys, user) {
+export default function Home (props) {
 
     const [playerKey, setPlayerKey] = React.useState("");
 
@@ -20,9 +20,9 @@ export default function Home (socket, validKeys, user) {
         event.preventDefault();
         console.log("Join room: " + playerKey);
         if (validKey) {
-            socket.emit("join_room", playerKey);
-            user.key = playerKey;
-            user.host = false;
+            props.socket.emit("join_room", playerKey);
+            props.user.key = playerKey;
+            props.user.host = false;
         }
     }
 
@@ -30,7 +30,7 @@ export default function Home (socket, validKeys, user) {
 
     let validKey = false;
 
-    if (playerKey.length === 6 && playerKey.match(/^[0-9A-Z]+$/) && validKeys.includes(playerKey)){
+    if (playerKey.length === 6 && playerKey.match(/^[0-9A-Z]+$/) && props.validKeys.includes(playerKey)){
         validKey = true;
     }
 

@@ -9,7 +9,7 @@ import io from "socket.io-client";
 
 function App() {
   const socket = io.connect("http://localhost:3000");
-  const[user, setUser] = React.useState({});
+  const[user, setUser] = React.useState({name:"", key:"A1B2C3", host: false});
   const[joinedRoom, setJoinedRoom] = React.useState(false);
   const validKeys = [];
 
@@ -24,7 +24,7 @@ function App() {
       <Routes>
           <Route path = "/loading"  element ={<Loading socket = {socket} user = {user}/>}/>
           <Route path = "/"  element = {<Home socket = {socket} validKeys = {validKeys} user = {user}/>}/>
-          <Route path = "/player-settings"  element = {<PlayerSettings socket = {socket} setUser = {setUser} setJoinedRoom = {setJoinedRoom}/>}/>
+          <Route path = "/player-settings"  element = {<PlayerSettings setUser = {setUser} setJoinedRoom = {setJoinedRoom}/>}/>
           <Route path = "/host-settings"  element = {<HostSettings socket = {socket} setUser = {setUser} setJoinedRoom = {setJoinedRoom} validKeys = {validKeys}/>}/>
       </Routes>
   );

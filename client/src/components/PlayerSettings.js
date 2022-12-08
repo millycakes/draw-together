@@ -6,7 +6,7 @@ import avatar4 from "../assets/avatar4.png"
 import avatar5 from "../assets/avatar5.png"
 import {Link} from "react-router-dom"
 
-export default function PlayerSettings(socket, user, setJoinedRoom) {
+export default function PlayerSettings(props) {
 
     const[name, setName] = React.useState("");
 
@@ -22,8 +22,8 @@ export default function PlayerSettings(socket, user, setJoinedRoom) {
         if (name==="") {
             setName("Player 2");
         }
-        user.name = name;
-        setJoinedRoom(true);
+        props.user.name = name;
+        props.setJoinedRoom(true);
     }
 
     return(
