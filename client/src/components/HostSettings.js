@@ -7,7 +7,7 @@ import avatar5 from "../assets/avatar5.png"
 import {Link} from "react-router-dom"
 
 
-export default function HostSettings(socket, setUser, setJoinedRoom, validKeys) {
+export default function HostSettings(props) {
 
     const [name, setName] = React.useState("");
     const [hostKey, setHostKey] = React.useState("");
@@ -23,8 +23,8 @@ export default function HostSettings(socket, setUser, setJoinedRoom, validKeys) 
     
     React.useEffect(() => {
         setHostKey(uuid());
-        validKeys.push(hostKey);
-        socket.emit("join_room", hostKey);
+        props.validKeys.push(hostKey);
+        props.socket.emit("join_room", hostKey);
         console.log(hostKey);
     }, [])
 
@@ -39,8 +39,8 @@ export default function HostSettings(socket, setUser, setJoinedRoom, validKeys) 
             key: hostKey,
             host:true
         };
-        setUser(indData);
-        setJoinedRoom(true);
+        props.setUser(indData);
+        props.setJoinedRoom(true);
     }
 
     function handleChange(event) {
