@@ -1,14 +1,18 @@
 import React from "react"
-import {Link} from "react-router-dom"
 import "./style.css"
 import logo from "../assets/logo.png"
+import { useNavigate } from 'react-router-dom';
+
 //import toast
 
 export default function Home ({socket, validKeys, playerKey, setPlayerKey}) {
 
+    const navigate = useNavigate();
+
     function handleCreateSubmit(event){
         event.preventDefault();
         console.log("create room");
+        navigate("/host-settings")
     }    
 
     function updateKey(event) {
@@ -20,12 +24,13 @@ export default function Home ({socket, validKeys, playerKey, setPlayerKey}) {
         event.preventDefault();
         console.log("join room");
         console.log(playerKey)
-        if (validKey) {
-            socket.emit("join_room", playerKey);
+
+        socket.emit("join_room", playerKey);
 
             // props.user.key = playerKey;
             // props.user.host = false;
-       }
+       
+       navigate("/player-settings")
     }
 
     //need to prevent user from moving forward if valid key is false
@@ -43,9 +48,7 @@ export default function Home ({socket, validKeys, playerKey, setPlayerKey}) {
                 <img className = "logo" alt = "logo" src = {logo}/>
                 <form onSubmit = {handleCreateSubmit}>
                     <p>Create your room to begin</p>
-                    <Link to = "/host-settings">      
-                        <button className = "large-button">Create Room</button>
-                    </Link>
+                    <button onClick = {handleCreateSubmit} className = "large-button">Create Room</button>
                 </form>
                 <p className = "line-block"><span>or join an existing room</span></p>
                 <form onSubmit = {handleJoinSubmit}>
@@ -60,7 +63,7 @@ export default function Home ({socket, validKeys, playerKey, setPlayerKey}) {
                         </input>
                         <p className =  "key-format">{validKey ? "valid key format" : "invalid key format"}</p>
                     </div>
-                    <button className = "large-button"><Link to = "/player-settings">Join Room</Link></button>
+                    <button className = "large-button">Join Room</button>
                 </form>
             </div>
         </div>

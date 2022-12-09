@@ -1,9 +1,7 @@
 import React from "react";
-export default function Loading ({socket, user}) {
-    
-    //when both players in room are ready, twoready boolean will be set to true
+import { Navigate, useNavigate } from 'react-router-dom';
 
-    let twoready = false;
+let twoready = false;
 
     React.useEffect(() => {
         socket.on("ready_two", () => {
@@ -11,7 +9,14 @@ export default function Loading ({socket, user}) {
         })
     }, []);
 
+const navigate = useNavigate();
 
+    setTimeout(function(){
+        navigate("/canvas");
+      }, 2000);
+
+
+export default function Loading ({socket, user}) {
     return(
         <div>
             <img src = "https://i.imgur.com/00ZlPQ0.gif" />
