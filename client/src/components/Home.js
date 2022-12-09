@@ -12,7 +12,6 @@ export default function Home ({validKeys, playerKey, setPlayerKey, setPlayerSock
     function handleCreateSubmit(event){
         event.preventDefault();
         console.log("create room");
-        setHostSocket(true);
         navigate("/host-settings")
     }    
 

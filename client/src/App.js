@@ -57,7 +57,6 @@ function App() {
               playerKey = {playerKey}
               setPlayerKey = {setPlayerKey}
               setPlayerSocket = {setPlayerSocket}
-              setHostSocket = {setHostSocket}
             />
           }/>
           <Route path = "/player-settings"  element = {
