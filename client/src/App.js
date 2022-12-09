@@ -24,6 +24,7 @@ function App() {
   const[playerSocket, setPlayerSocket] = React.useState(false);
   const[hostSocket, setHostSocket] = React.useState(false);
 
+  let counter = 0;
   useEffect(() => {
     if (joined) {
       socket.emit("user_join", user);
@@ -34,7 +35,7 @@ function App() {
     if (hostSocket) {
       socket.emit("join_room", hostKey);
     }
-  })
+  }, [])
 
   return (
       <Routes>
