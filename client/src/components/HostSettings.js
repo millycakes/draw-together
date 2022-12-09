@@ -7,7 +7,7 @@ import avatar5 from "../assets/avatar5.png"
 import {Link} from "react-router-dom"
 
 
-export default function HostSettings(props) {
+export default function HostSettings({socket, user, setUser, joined, setJoined, validKeys, setValidKeys}) {
 
     const [name, setName] = React.useState("");
     const [hostKey, setHostKey] = React.useState("");
@@ -21,31 +21,45 @@ export default function HostSettings(props) {
         return fin;
     }    
     
-    
     React.useEffect(() => {
-        setHostKey(uuid());
-        props.validKeys.push(hostKey);
-        props.socket.emit("join_room", hostKey);
+        let key = uuid();
+        setHostKey(key);
+        setValidKeys(
+            [
+                ...validKeys,
+                key
+            ]
+        )
+        setHostKey(key);
+        socket.emit("join_room", hostKey);
     },[])
-
 
     function hostJoin(event)  {
         event.preventDefault();
+
+        console.log("host joining");
         if (name==="") {
             setName("Player 1");
         }
-        const indData = {
+        const userData = {
             name: name,
             key: hostKey,
-            host:true
+            host: true
         };
-        props.setUser(indData);
-        props.setHostJoin(true);
+        setUser(userData);
+        setJoined(true);
+
+        // may not always log updated data -> setState() does not immediately mutate this.state but creates a pending state transition
+        console.log("user data");
+        console.log(user);
+        console.log("joined " + joined);
+        console.log("valid keys " + validKeys);
+
     }
 
-    function handleChange(event) {
+
+    function updateName(event) {
         setName(event.target.value);
-        console.log(name);
     }
 
     function copyKey(){
@@ -58,7 +72,7 @@ export default function HostSettings(props) {
             <div className = "avatar">
                 <p>You</p>
                 <img src = {avatar2}/>
-                <input className = "input" type = "text" placeholder = "Enter your name" onChange = {handleChange}/>
+                <input className = "input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
             </div>
             <div className ="vl"></div>
             <div className = "avatar">

@@ -2,36 +2,38 @@ import React from "react"
 import {Link} from "react-router-dom"
 import "./style.css"
 import logo from "../assets/logo.png"
+//import toast
 
-
-export default function Home (props) {
-
-    const [playerKey, setPlayerKey] = React.useState("");
+export default function Home ({socket, validKeys, playerKey, setPlayerKey}) {
 
     function handleCreateSubmit(event){
         event.preventDefault();
-        console.log("Create room");
+        console.log("create room");
     }    
-    function handleChange(event) {
+
+    function updateKey(event) {
         setPlayerKey((event.target.value).toUpperCase());
     }
 
     //this function is not being called for some reason
     function handleJoinSubmit(event) {
-        console.log("submitted");
         event.preventDefault();
+        console.log("join room");
+        console.log(playerKey)
         if (validKey) {
-            props.socket.emit("join_room", playerKey);
-            props.user.key = playerKey;
-            props.user.host = false;
+            socket.emit("join_room", playerKey);
+
+            // props.user.key = playerKey;
+            // props.user.host = false;
        }
     }
 
     //need to prevent user from moving forward if valid key is false
+    //lets work on this after getting the server to work with multiple valid keys
 
     let validKey = false;
 
-    if (props.validKeys.includes(playerKey)){
+    if (validKeys.includes(playerKey)){
         validKey = true;
     }
 
@@ -54,7 +56,7 @@ export default function Home (props) {
                             placeholder = "A1B2C3" 
                             className = "key-input" 
                             name = "key"
-                            onChange = {handleChange}>
+                            onChange = {updateKey}>
                         </input>
                         <p className =  "key-format">{validKey ? "valid key format" : "invalid key format"}</p>
                     </div>

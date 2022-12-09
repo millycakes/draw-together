@@ -6,26 +6,34 @@ import avatar4 from "../assets/avatar4.png"
 import avatar5 from "../assets/avatar5.png"
 import {Link} from "react-router-dom"
 
-export default function PlayerSettings(props) {
+export default function PlayerSettings({socket, user, setUser, joined, setJoined, playerKey}) {
 
     const[name, setName] = React.useState("");
-
-    
+   
     function handleChange(event) {
         setName(event.target.value);
-        console.log(name);
     }
-
 
     function playerJoin(event) {
         event.preventDefault();
 
-        if (name==="") {
-            setName("Player 2");
-        }
-        props.user.name = name;
-        //i don't know abuot the line above but the line below is not working (maybe because boolean has already been set to true by host?)
-        props.setPlayerJoin(true);
+        // if (name==="") {
+        //     setName("Player 2");
+        // }
+
+        const userData = {
+            name: name,
+            key: playerKey,
+            host: false
+        };
+
+        setUser(userData);
+        setJoined(true);
+
+        // may not always log updated data -> setState() does not immediately mutate this.state but creates a pending state transition
+        console.log("user data");
+        console.log(user);
+        console.log("joined " + joined);
     }
 
     return(
