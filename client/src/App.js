@@ -29,13 +29,19 @@ function App() {
     if (joined) {
       socket.emit("user_join", user);
     }
+  }, [joined])
+
+  useEffect(() => {
     if (playerSocket) {
       socket.emit("join_room", playerKey);
     }
+  }, [playerSocket])
+
+  useEffect(() => {
     if (hostSocket) {
       socket.emit("join_room", hostKey);
     }
-  }, [])
+  }, [hostSocket])
 
   return (
       <Routes>
@@ -51,6 +57,7 @@ function App() {
               playerKey = {playerKey}
               setPlayerKey = {setPlayerKey}
               setPlayerSocket = {setPlayerSocket}
+              setHostSocket = {setHostSocket}
             />
           }/>
           <Route path = "/player-settings"  element = {
