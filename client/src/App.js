@@ -6,6 +6,7 @@ import PlayerSettings from './components/PlayerSettings';
 import HostSettings from './components/HostSettings';
 import Loading from './components/Loading';
 import io from "socket.io-client";
+import Canvas from "./components/Canvas";
 
 function App() {
   const socket = io.connect("http://localhost:3000");
@@ -61,6 +62,10 @@ function App() {
               setJoined = {setJoined} 
               validKeys = {validKeys}
               setValidKeys = {setValidKeys} 
+            />}
+          />
+          <Route path = "/canvas"  element = {
+            <Canvas
             />}
           />
       </Routes>
