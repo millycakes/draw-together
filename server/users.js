@@ -6,11 +6,17 @@ const newUser = (name, host , key, id) => {
     return user;
 }
 
-const getUsers = () => {
-    return users;
+const getUsers = (matchkey) => {
+    const temp = []
+    for (let i = 0; i<users.length; i++) {
+        if (users[i].key===matchkey) {
+            temp.push(users[i]);
+        } 
+    }
+    return temp;
 }
 
 module.exports = {
     newUser,
-    getUsers
+    getUsers,
   };

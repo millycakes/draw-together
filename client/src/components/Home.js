@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 //import toast
 
-export default function Home ({socket, validKeys, playerKey, setPlayerKey}) {
+export default function Home ({validKeys, playerKey, setPlayerKey, setPlayerSocket}) {
 
     const navigate = useNavigate();
 
@@ -23,14 +23,8 @@ export default function Home ({socket, validKeys, playerKey, setPlayerKey}) {
     function handleJoinSubmit(event) {
         event.preventDefault();
         console.log("join room");
-        console.log(playerKey)
-
-        socket.emit("join_room", playerKey);
-
-            // props.user.key = playerKey;
-            // props.user.host = false;
-       
-       navigate("/player-settings")
+        setPlayerSocket(true);
+       navigate("/player-settings");
     }
 
     //need to prevent user from moving forward if valid key is false

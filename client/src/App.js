@@ -9,7 +9,7 @@ import io from "socket.io-client";
 import Canvas from "./components/Canvas";
 
 function App() {
-  const socket = io.connect("http://localhost:3000");
+  const socket = io.connect("http://localhost:4000");
 
   const[user, setUser] = React.useState({
     name: "player",
@@ -20,10 +20,19 @@ function App() {
   const[joined, setJoined] = React.useState(false);
   const [validKeys, setValidKeys] = React.useState([]);
   const [playerKey, setPlayerKey] = React.useState("");
+  const[hostKey, setHostKey] = React.useState("");
+  const[playerSocket, setPlayerSocket] = React.useState(false);
+  const[hostSocket, setHostSocket] = React.useState(false);
 
   useEffect(() => {
     if (joined) {
       socket.emit("user_join", user);
+    }
+    if (playerSocket) {
+      socket.emit("join_room", playerKey);
+    }
+    if (hostSocket) {
+      socket.emit("join_room", hostKey);
     }
   })
 
@@ -37,15 +46,14 @@ function App() {
           }/>
           <Route path = "/" element = {
             <Home 
-              socket = {socket} 
               validKeys = {validKeys} 
               playerKey = {playerKey}
               setPlayerKey = {setPlayerKey}
+              setPlayerSocket = {setPlayerSocket}
             />
           }/>
           <Route path = "/player-settings"  element = {
             <PlayerSettings 
-              socket = {socket} 
               user = {user}
               setUser = {setUser} 
               joined = {joined}
@@ -55,13 +63,15 @@ function App() {
           }/>
           <Route path = "/host-settings"  element = {
             <HostSettings 
-              socket = {socket} 
               user = {user}
               setUser = {setUser} 
               joined = {joined}
               setJoined = {setJoined} 
               validKeys = {validKeys}
               setValidKeys = {setValidKeys} 
+              hostKey = {hostKey}
+              setHostKey = {setHostKey}
+              setHostSocket = {setHostSocket}
             />}
           />
           <Route path = "/canvas"  element = {
