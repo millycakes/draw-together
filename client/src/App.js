@@ -15,6 +15,7 @@ function App() {
     host: false,
     key: 0
   });
+
   const[joined, setJoined] = React.useState(false);
   const [validKeys, setValidKeys] = React.useState([]);
   const [playerKey, setPlayerKey] = React.useState("");
