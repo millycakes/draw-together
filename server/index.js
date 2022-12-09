@@ -22,7 +22,7 @@ io.on("connection", (socket) => {
         const user = newUser(name, host, key, socket.id);
         console.log(name + " is ready to play");
         if (getUsers(user.key).length===2) {
-            socket.emit("ready_two");
+            socket.to(user.key).emit("ready_two");
             console.log("Both players ready");
         }
     })
