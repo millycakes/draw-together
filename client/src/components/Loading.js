@@ -3,20 +3,13 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
-export default function Loading ({socket, user}) {
-    let twoready = false;
+export default function Loading ({socket, user, twoready}) {
 
-    React.useEffect(() => {
-        socket.on("ready_two", () => {
-            twoready = true;
-        })
-    }, []);
+    const navigate = useNavigate();
 
-const navigate = useNavigate();
-
-    setTimeout(function(){
+    if (twoready) {
         navigate("/canvas");
-      }, 2000);
+    }
 
     return(
         <div>

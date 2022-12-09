@@ -23,31 +23,35 @@ function App() {
   const[hostKey, setHostKey] = React.useState("");
   const[playerSocket, setPlayerSocket] = React.useState(false);
   const[hostSocket, setHostSocket] = React.useState(false);
+  const[twoready, setTwoReady] = React.useState(false);
 
-  let counter = 0;
+  socket.on("ready_two", () => {
+    setTwoReady(true);
+  });
+
   useEffect(() => {
     if (joined) {
       socket.emit("user_join", user);
     }
-  }, [joined])
+  }, [joined]);
 
   useEffect(() => {
     if (playerSocket) {
       socket.emit("join_room", playerKey);
     }
-  }, [playerSocket])
+  }, [playerSocket]);
 
   useEffect(() => {
     if (hostSocket) {
       socket.emit("join_room", hostKey);
     }
-  }, [hostSocket])
+  }, [hostSocket]);
 
   return (
       <Routes>
           <Route path = "/loading" element = {
             <Loading 
-              socket = {socket} 
+              twoready = {twoready}
               user = {user}
             />
           }/>
