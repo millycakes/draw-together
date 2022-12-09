@@ -6,7 +6,7 @@ import avatar4 from "../assets/avatar4.png"
 import avatar5 from "../assets/avatar5.png"
 import {Link} from "react-router-dom"
 
-export default function PlayerSettings({socket, user, setUser, joined, setJoined, playerKey}) {
+export default function PlayerSettings({user, setUser, joined, setJoined, playerKey}) {
 
     const[name, setName] = React.useState("");
    
