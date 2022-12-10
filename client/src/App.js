@@ -87,6 +87,7 @@ function App() {
           />
           <Route path = "/canvas"  element = {
             <Canvas
+              socket = {socket}
             />}
           />
       </Routes>
