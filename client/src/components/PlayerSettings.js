@@ -42,7 +42,7 @@ export default function PlayerSettings({user, setUser, joined, setJoined, player
             <div className = "avatar">
                 <p>Playing With</p>
                 <img src = {avatar1}/>
-                <p>Emily W</p>
+                <p>Host</p>
             </div>
             <div className ="vl"></div>
             <div className = "avatar">
