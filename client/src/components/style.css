@@ -193,3 +193,25 @@ a:active {
     border: none;
 }
 
+/* canvas */
+
+.loading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #FEFDFD;
+}
+.loading p{
+    text-align: center;
+}
+
+.canvas{
+    background-color: #FFFFFF;
+    background-image: radial-gradient(#FEEAEA 2%, transparent 20%);
+    background-position: 0 0, 50px 50px;
+    background-size: 28px 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

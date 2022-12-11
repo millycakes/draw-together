@@ -1,9 +1,9 @@
 import React from "react";
 import { Navigate, useNavigate } from 'react-router-dom';
+import pencil from "../assets/pencil-animation.gif"
 
 
-
-export default function Loading ({socket, user, twoready}) {
+export default function Loading ({user, twoready}) {
 
     const navigate = useNavigate();
 
@@ -14,8 +14,8 @@ export default function Loading ({socket, user, twoready}) {
     }, [twoready])
 
     return(
-        <div>
-            <img src = "https://i.imgur.com/00ZlPQ0.gif" />
+        <div class = "loading" style={{height: '100vh' }}>
+            <img style = {{width: "200px"}} src = {pencil} />
             <p> {user.host ? "Waiting for player..." : "Waiting for host to start the game..."} </p>
         </div>
     )
