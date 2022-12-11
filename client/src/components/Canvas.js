@@ -39,6 +39,8 @@ export default function Canvas (props) {
             y: p5.mouseY
         }
 
+        //https://p5js.org/reference/#/p5/get
+
         props.socket.emit('mouse', data)
 
         props.socket.on('mouse',
@@ -53,5 +55,9 @@ export default function Canvas (props) {
       );
     }
 
-	return <Sketch setup={setup} draw={draw} mouseDragged = {mouseDragged} />;
+	return (
+    <div class = "canvas"  style={{height: '100vh' }}>
+        <Sketch setup={setup} draw={draw} mouseDragged = {mouseDragged} />;
+    </div>
+  )
 };
