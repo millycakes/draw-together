@@ -26,6 +26,13 @@ io.on("connection", (socket) => {
             console.log("Both players ready");
         }
     })
+    socket.on("mouse", (data) => {
+        console.log("received mouse data");
+        console.log(data)
+        socket.broadcast.emit('mouse', data);
+    })
+
+    
 })
 
 http.listen(4000, () => {

@@ -7,9 +7,11 @@ export default function Loading ({socket, user, twoready}) {
 
     const navigate = useNavigate();
 
-    if (twoready) {
-        navigate("/canvas");
-    }
+    React.useEffect(() => {
+        if (twoready) {
+            navigate("/canvas");
+        }
+    }, [twoready])
 
     return(
         <div>
