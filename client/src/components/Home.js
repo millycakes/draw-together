@@ -22,9 +22,15 @@ export default function Home ({validKeys, playerKey, setPlayerKey, setPlayerSock
     //this function is not being called for some reason
     function handleJoinSubmit(event) {
         event.preventDefault();
-        console.log("join room");
-        setPlayerSocket(true);
-        navigate("/player-settings");
+
+        if (validKeys.includes(playerKey)){
+            console.log("join room");
+            setPlayerSocket(true);
+            navigate("/player-settings");
+        }
+        else{
+            console.log("key invalid")
+        }
     }
 
     //need to prevent user from moving forward if valid key is false
