@@ -82,7 +82,7 @@ home
     background: #FFFFFF;
     border: 1px solid #CDC1B3;
     border-radius: 16px;
-    padding: 60px;
+    padding: 60px 48px;
 }
 
 .form form {
@@ -152,6 +152,18 @@ host, player settings
     justify-content: space-evenly;
     align-items: center;
 }
+
+@media (max-width: 760px) {
+    .avatar-page{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .vl{
+        display: none;
+    }
+  }
 
 .home-logo{
     font-family: 'Patrick Hand';
@@ -391,6 +403,60 @@ hr.vertical {
     right: 64px;
     top: 16px;
 }
+
+@media (max-width: 800px) {
+    .canvas--download{
+        position: absolute;
+        right: 40px;
+    }
+    .home-logo{
+        position: absolute;
+        left: 40px;
+    }
+    .canvas--board{
+        position: relative;
+        top: 40px;
+    }
+    .canvas{
+        display: flex;
+        gap: 0;
+        justify-content: center;
+        align-items: center;
+    }
+    hr.vertical {
+        display: none;
+    }
+    .toolbox{
+        flex-wrap: wrap;
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+    }
+    .palette{
+        flex-wrap: wrap;
+        padding: 0;
+        padding-bottom: 12px;
+    }
+    .strokes{
+        flex-wrap: wrap;
+        padding: 0;
+    }
+    .tools{
+        flex-wrap: wrap;
+        padding: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .canvas--download{
+        display: none;
+    }
+    .home-logo{
+        display: none;
+    }
+  }
+
 
 /****************************
 404
