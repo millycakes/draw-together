@@ -1,9 +1,9 @@
 import React from 'react';
-import avatar1 from "../assets/avatar1.png"
-import avatar2 from "../assets/avatar2.png"
-import avatar3 from "../assets/avatar4.png"
-import avatar4 from "../assets/avatar4.png"
-import avatar5 from "../assets/avatar5.png"
+import avatar1 from "../assets/avatar/avatar1.png"
+import avatar2 from "../assets/avatar/avatar2.png"
+import avatar3 from "../assets/avatar/avatar4.png"
+import avatar4 from "../assets/avatar/avatar4.png"
+import avatar5 from "../assets/avatar/avatar5.png"
 import {Link} from "react-router-dom"
 
 

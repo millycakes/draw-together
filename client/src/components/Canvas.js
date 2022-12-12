@@ -1,5 +1,10 @@
 import React from "react";
 import Sketch from "react-p5";
+import {Link} from "react-router-dom"
+import pencil from "../assets/tools/pencil.png"
+import eraser from "../assets/tools/eraser.png"
+import eyedropper from "../assets/tools/eyedropper.png"
+import clear from "../assets/tools/clear.png"
 
 let brush = {
     x: 0,
@@ -15,8 +20,8 @@ export default function Canvas (props) {
 	const setup = (p5, canvasParentRef) => {
 		// use parent to render the canvas in this ref
 		// (without that p5 will render the canvas outside of your component)
-		p5.createCanvas(500, 500).parent(canvasParentRef);
-        p5.background(0);
+		p5.createCanvas(600, 600).parent(canvasParentRef);
+      p5.background(255);
 
 
 	};
@@ -32,7 +37,7 @@ export default function Canvas (props) {
         console.log("sending " + p5.mouseX, p5.mouseY)
 
         p5.noStroke();
-        p5.fill(255);
+        p5.fill(0);
 
         var data = {
             x: p5.mouseX, 
@@ -57,7 +62,40 @@ export default function Canvas (props) {
 
 	return (
     <div class = "canvas"  style={{height: '100vh' }}>
-        <Sketch setup={setup} draw={draw} mouseDragged = {mouseDragged} />;
+      <div>
+        <Link to = "/" className = "home-logo">DRAW TOGETHER</Link>
+        <p>Drawing by Player 1 and Player 2</p>
+      </div>
+      <div>
+        <img />
+        <img />
+      </div>
+      <i />
+      <Sketch setup={setup} draw={draw} mouseDragged = {mouseDragged} />
+      <div class = "toolbox">
+        <ul class = "tools">
+          <li id = "tools--pencil"><img src = {pencil}/></li>
+          <li id = "tools--eraser"><img src = {eraser}/></li>
+          <li id = "tools--eyedropper"><img src = {eyedropper}/></li>
+          <li id = "tools--clear"><img src = {clear}/></li>
+        </ul>
+        <ul class = "stroke">
+          <li id = "stroke--small"></li>
+          <li id = "stroke--medium"></li>
+          <li id = "stroke--large"></li>
+        </ul>
+        <ul class = "palette">
+          <li id = "palette--pink"></li>
+          <li id = "palette--red"></li>
+          <li id = "palette--orange"></li>
+          <li id = "palette--yellow"></li>
+          <li id = "palette--green"></li>
+          <li id = "palette--blue"></li>
+          <li id = "palette--purple"></li>
+          <li id = "palette--black"></li>
+          <li id = "palette--white"></li>
+        </ul>
+      </div>
     </div>
   )
 };

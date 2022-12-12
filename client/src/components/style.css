@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto+Mono&display=swap');
 
+/*global*/
 body{
   margin: 0;
   padding: 0;
@@ -29,13 +30,23 @@ a:active {
   color: black;
 }
 
-
+.small-shadow{
+    border: 1px solid #E3E3E3;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04), 0px 8px 16px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
 
 /* HOME */
 
 :root{
+    --text: #2C2C2C;
+    --stroke-light: #E3E3E3;
+    --stroke-default: #A4A4A4;
+    --stroke-dark: #707070;
+    --stroke-brown: #CDC1B3;
+    --background-white: #FFFFFF;
+    --background-grey: #F5F5F5;
     --accent: #FEEAEA;
-    --error: #DB3A3A;
 }
 
 .home{
@@ -207,11 +218,97 @@ a:active {
 }
 
 .canvas{
-    background-color: #FFFFFF;
-    background-image: radial-gradient(#FEEAEA 2%, transparent 20%);
+    background-color: var(--background-grey);
+    background-image: radial-gradient(var(--stroke-light) 4%, transparent 12%);
     background-position: 0 0, 50px 50px;
     background-size: 28px 28px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+
+ul {
+    list-style: none;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 20px;
+}
+
+.palette li {
+    width: 32px;
+    height: 32px;  
+    border: 1px var(--stroke-dark) solid;  
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.stroke li {
+    width: 32px;
+    height: 32px;  
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+ul li:hover {
+    transform: scale(1.1);
+}
+
+.tools li:hover {
+    transform: scale(1.1);
+}
+.tools img {
+    width: 32px;
+    height: 32px;
+}
+
+#stroke--small {
+    width: 12px;
+    height: 12px;  
+    background-color: var(--stroke-dark);
+}
+#stroke--medium {
+    width: 20px;
+    height: 20px;  
+    background-color: var(--stroke-dark);
+}
+#stroke--large {
+    width: 28px;
+    height: 28px;  
+    background-color: var(--stroke-dark);
+}
+
+#palette--pink {
+    background-color: #FA94C2;
+}
+#palette--red {
+    background-color: #F66C6C;
+}
+#palette--orange {
+    background-color: #F5943F;
+}
+#palette--yellow {
+    background-color: #F9D948;
+}
+#palette--green {
+    background-color: #74C283;
+}
+#palette--blue {
+    background-color: #6DA6E8;
+}
+#palette--purple {
+    background-color: #696CD4;
+}
+#palette--black {
+    background-color: #4F4F4F;
+}
+#palette--white {
+    background-color: #F6F5F5;
+}
+
+.toolbox{
+    background-color: var(--background-white);
 }
