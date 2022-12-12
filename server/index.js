@@ -32,8 +32,7 @@ io.on("connection", (socket) => {
         }
     })
     socket.on("mouse", (data) => {
-        console.log("received mouse data");
-        console.log(data)
+        // console.log("received mouse data");
         socket.broadcast.emit('mouse', data);
     })
     socket.on("newKey", (data) => {

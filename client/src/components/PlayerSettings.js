@@ -1,9 +1,9 @@
 import React from 'react';
 import avatar1 from "../assets/avatar/avatar1.png"
 import avatar2 from "../assets/avatar/avatar2.png"
-import avatar3 from "../assets/avatar/avatar4.png"
-import avatar4 from "../assets/avatar/avatar4.png"
-import avatar5 from "../assets/avatar/avatar5.png"
+// import avatar3 from "../assets/avatar/avatar4.png"
+// import avatar4 from "../assets/avatar/avatar4.png"
+// import avatar5 from "../assets/avatar/avatar5.png"
 import {Link} from "react-router-dom"
 
 export default function PlayerSettings({user, setUser, joined, setJoined, playerKey}) {
@@ -17,10 +17,6 @@ export default function PlayerSettings({user, setUser, joined, setJoined, player
     function playerJoin(event) {
         event.preventDefault();
 
-        // if (name==="") {
-        //     setName("Player 2");
-        // }
-
         const userData = {
             name: name,
             key: playerKey,
@@ -29,11 +25,6 @@ export default function PlayerSettings({user, setUser, joined, setJoined, player
 
         setUser(userData);
         setJoined(true);
-
-        // may not always log updated data -> setState() does not immediately mutate this.state but creates a pending state transition
-        console.log("user data");
-        console.log(user);
-        console.log("joined " + joined);
     }
 
     return(

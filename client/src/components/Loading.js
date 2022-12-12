@@ -14,7 +14,7 @@ export default function Loading ({user, twoready}) {
     }, [twoready])
 
     return(
-        <div class = "loading" style={{height: '100vh' }}>
+        <div className = "loading" style={{height: '100vh' }}>
             <img style = {{width: "200px"}} src = {pencil} />
             <p> {user.host ? "Waiting for player..." : "Waiting for host to start the game..."} </p>
         </div>

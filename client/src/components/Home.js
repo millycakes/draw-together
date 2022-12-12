@@ -2,7 +2,6 @@ import React from "react"
 import "./style.css"
 import logo from "../assets/logo.png"
 import { useNavigate } from 'react-router-dom';
-import { Socket } from "socket.io-client";
 
 //import toast
 
@@ -59,7 +58,7 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
                             name = "key"
                             onChange = {updateKey}>
                         </input>
-                        <p className =  "key-format">{validKey ? "valid key format" : "invalid key format"}</p>
+                        <p className =  "key-format">{validKey ? "valid key" : "invalid key"}</p>
                     </div>
                     <button className = "large-button">Join Room</button>
                 </form>
