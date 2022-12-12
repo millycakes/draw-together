@@ -1,4 +1,4 @@
-const users = []
+const users = [];
 
 const newUser = (name, host , key, id) => {
     const user = {name, host, key, id};

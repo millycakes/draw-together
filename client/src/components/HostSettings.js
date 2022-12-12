@@ -7,7 +7,7 @@ import avatar5 from "../assets/avatar5.png"
 import {Link} from "react-router-dom"
 
 
-export default function HostSettings({user, setUser, joined, setJoined, validKeys, setValidKeys, hostKey, setHostKey, setHostSocket}) {
+export default function HostSettings({user, setUser, joined, setJoined, hostKey, setHostKey, setHostSocket}) {
 
     const [name, setName] = React.useState("");
 
@@ -22,12 +22,6 @@ export default function HostSettings({user, setUser, joined, setJoined, validKey
     
     React.useEffect(() => {
         let key = uuid();
-        setValidKeys(
-            [
-                ...validKeys,
-                key
-            ]
-        )
         setHostKey(key);
         setHostSocket(true);
     },[])
@@ -51,7 +45,6 @@ export default function HostSettings({user, setUser, joined, setJoined, validKey
         console.log("user data");
         console.log(user);
         console.log("joined " + joined);
-        console.log("valid keys " + validKeys);
 
     }
 

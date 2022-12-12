@@ -2,10 +2,11 @@ import React from "react"
 import "./style.css"
 import logo from "../assets/logo.png"
 import { useNavigate } from 'react-router-dom';
+import { Socket } from "socket.io-client";
 
 //import toast
 
-export default function Home ({validKeys, playerKey, setPlayerKey, setPlayerSocket, setHostSocket}) {
+export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket, setRetrieveKeys}) {
 
     const navigate = useNavigate();
 
@@ -17,13 +18,13 @@ export default function Home ({validKeys, playerKey, setPlayerKey, setPlayerSock
 
     function updateKey(event) {
         setPlayerKey((event.target.value).toUpperCase());
+        setRetrieveKeys(true);
     }
 
-    //this function is not being called for some reason
     function handleJoinSubmit(event) {
         event.preventDefault();
 
-        if (validKeys.includes(playerKey)){
+        if (validKey){
             console.log("join room");
             setPlayerSocket(true);
             navigate("/player-settings");
@@ -33,12 +34,9 @@ export default function Home ({validKeys, playerKey, setPlayerKey, setPlayerSock
         }
     }
 
-    //need to prevent user from moving forward if valid key is false
-    //lets work on this after getting the server to work with multiple valid keys
-
     let validKey = false;
 
-    if (validKeys.includes(playerKey)){
+    if (allKeys.includes(playerKey)){
         validKey = true;
     }
 

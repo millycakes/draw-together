@@ -12,9 +12,14 @@ const io = require('socket.io')(http, {
     }
 });
 
+const keys = [];
+
 io.on("connection", (socket) => {
     socket.on("join_room", (key) => {
         console.log(socket.id + " has joined room " + key);
+        if (!keys.includes(key)) {
+            keys.push(key);
+        }
         socket.join(key);
     })
     socket.on("user_join", (data) => {
@@ -30,6 +35,11 @@ io.on("connection", (socket) => {
         console.log("received mouse data");
         console.log(data)
         socket.broadcast.emit('mouse', data);
+    })
+    socket.on("newKey", (data) => {
+        keys.push(data);
+        let temp = keys;
+        socket.emit("newKey", temp);
     })
 
     

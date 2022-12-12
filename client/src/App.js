@@ -11,6 +11,7 @@ import Canvas from "./components/Canvas";
 function App() {
   const socket = io.connect("http://localhost:4000");
 
+
   const[user, setUser] = React.useState({
     name: "player",
     host: false,
@@ -18,16 +19,27 @@ function App() {
   });
 
   const[joined, setJoined] = React.useState(false);
-  const [validKeys, setValidKeys] = React.useState([]);
   const [playerKey, setPlayerKey] = React.useState("");
   const[hostKey, setHostKey] = React.useState("");
   const[playerSocket, setPlayerSocket] = React.useState(false);
   const[hostSocket, setHostSocket] = React.useState(false);
   const[twoready, setTwoReady] = React.useState(false);
+  const[allKeys, setAllKeys] = React.useState([]);
+  const[retrieveKeys, setRetrieveKeys] = React.useState(false);
 
   socket.on("ready_two", () => {
     setTwoReady(true);
   });
+
+  socket.on("newKey", (data) => {
+    setAllKeys(data);
+  })
+
+  useEffect(() => {
+    if (retrieveKeys) {
+      socket.emit("newKey", hostKey);
+    }
+  }, [retrieveKeys]);
 
   useEffect(() => {
     if (joined) {
@@ -57,10 +69,11 @@ function App() {
           }/>
           <Route path = "/" element = {
             <Home 
-              validKeys = {validKeys} 
+              allKeys = {allKeys} 
               playerKey = {playerKey}
               setPlayerKey = {setPlayerKey}
               setPlayerSocket = {setPlayerSocket}
+              setRetrieveKeys = {setRetrieveKeys}
             />
           }/>
           <Route path = "/player-settings"  element = {
@@ -78,8 +91,6 @@ function App() {
               setUser = {setUser} 
               joined = {joined}
               setJoined = {setJoined} 
-              validKeys = {validKeys}
-              setValidKeys = {setValidKeys} 
               hostKey = {hostKey}
               setHostKey = {setHostKey}
               setHostSocket = {setHostSocket}
