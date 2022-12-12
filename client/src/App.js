@@ -7,10 +7,10 @@ import HostSettings from './components/HostSettings';
 import Loading from './components/Loading';
 import io from "socket.io-client";
 import Canvas from "./components/Canvas";
+import NotFound from "./components/NotFound";
 
 function App() {
   const socket = io.connect("http://localhost:4000");
-
 
   const[user, setUser] = React.useState({
     name: "player",
@@ -101,6 +101,7 @@ function App() {
               socket = {socket}
             />}
           />
+          <Route path='*' element={<NotFound />}/>
       </Routes>
   );
 }

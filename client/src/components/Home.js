@@ -22,6 +22,9 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
 
     function handleJoinSubmit(event) {
         event.preventDefault();
+    
+        //not sure why but this code only works sometimes 
+        //set true for now  
 
         if (validKey){
             console.log("join room");
@@ -58,9 +61,8 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
                             name = "key"
                             onChange = {updateKey}>
                         </input>
-                        <p className =  "key-format">{validKey ? "valid key" : "invalid key"}</p>
                     </div>
-                    <button className = "large-button">Join Room</button>
+                    <button style = {{margin: "16px 0px"}} className = "large-button">Join Room</button>
                 </form>
             </div>
         </div>

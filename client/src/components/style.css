@@ -391,3 +391,30 @@ hr.vertical {
     right: 64px;
     top: 16px;
 }
+
+/****************************
+404
+*****************************/
+
+.not-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.not-found img {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.not-found h1 {
+    font-family: 'Patrick Hand', cursive;
+}
+
+.home-link{
+    margin-top: 20px;
+    font-family: 'Roboto Mono', monospace;
+    text-decoration: underline !important;
+}
