@@ -29,6 +29,7 @@ io.on("connection", (socket) => {
         if (getUsers(user.key).length===2) {
             socket.to(user.key).emit("ready_two");
             console.log("Both players ready");
+            keys.splice(keys.indexOf(key),1);
         }
     })
     socket.on("mouse", (data) => {
