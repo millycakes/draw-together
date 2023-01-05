@@ -3,14 +3,16 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import swap from "../assets/modes/canvasswap.png"
 import together from "../assets/modes/drawtogether.png"
 import split from "../assets/modes/topbottom.png"
+import {Link} from "react-router-dom"
+
 
 export default function GameSelection({setSelection,setMode, selection}) {
 
     const navigate = useNavigate();
-
+    
     React.useEffect(() => {
         if (selection) {
-            navigate("/canvas");
+            navigate("/loading");
         }
     }, [selection])
 
@@ -30,6 +32,10 @@ export default function GameSelection({setSelection,setMode, selection}) {
         event.preventDefault();
         setSelection(true);
         setMode("split");
+    }
+
+    function hostJoin (event){
+        event.preventDefault();
     }
 
     return (

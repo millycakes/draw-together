@@ -83,6 +83,7 @@ function App() {
             <Loading 
               twoready = {twoready}
               user = {user}
+              selection = {selection}
             />
           }/>
           <Route path = "/" element = {

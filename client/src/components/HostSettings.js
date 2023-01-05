@@ -72,7 +72,7 @@ export default function HostSettings({user, setUser, joined, setJoined, hostKey,
                 <button className = "copy-button" onClick = {copyKey}>Copy Room Key</button>
             </div>
             <button className = "back-button"><Link to = "/">Return</Link></button>
-            <button className = "next-button" onClick = {hostJoin}><Link to = "/loading">Next</Link></button>
+            <button className = "next-button" onClick = {hostJoin}><Link to = "/mode-selection">Next</Link></button>
         </div>
     )
 }

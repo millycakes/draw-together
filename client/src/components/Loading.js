@@ -3,13 +3,15 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import pencil from "../assets/pencil-animation.gif"
 
 
-export default function Loading ({user, twoready}) {
+export default function Loading ({user, twoready, selection}) {
 
     const navigate = useNavigate();
 
+    console.log(selection);
+
     React.useEffect(() => {
-        if (twoready && user.host) {
-            navigate("/mode-selection");
+        if (twoready) {
+            navigate("/canvas");
         }
     }, [twoready])
 

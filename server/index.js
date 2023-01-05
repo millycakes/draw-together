@@ -46,6 +46,7 @@ io.on("connection", (socket) => {
         console.log(socket.id + " has selected a new game mode: " + mode);
         updateMode(mode,userkey);
         console.log(getUsers(userkey))
+        
     })
     
 })
