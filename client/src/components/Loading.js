@@ -8,8 +8,8 @@ export default function Loading ({user, twoready}) {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        if (twoready) {
-            navigate("/canvas");
+        if (twoready && user.host) {
+            navigate("/mode-selection");
         }
     }, [twoready])
 

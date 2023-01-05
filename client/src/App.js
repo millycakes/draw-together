@@ -8,6 +8,7 @@ import Loading from './components/Loading';
 import io from "socket.io-client";
 import Canvas from "./components/Canvas";
 import NotFound from "./components/NotFound";
+import ModeSelection from './components/GameSelection';
 
 function App() {
   const socket = io.connect("http://localhost:4000");
@@ -26,6 +27,9 @@ function App() {
   const[twoready, setTwoReady] = React.useState(false);
   const[allKeys, setAllKeys] = React.useState([]);
   const[retrieveKeys, setRetrieveKeys] = React.useState(false);
+  const[selection, setSelection] = React.useState(false);
+  const [mode, setMode] = React.useState("");
+
 
   socket.on("ready_two", () => {
     setTwoReady(true);
@@ -40,6 +44,13 @@ function App() {
       socket.emit("newKey", hostKey);
     }
   }, [retrieveKeys]);
+
+  useEffect(() => {
+    if (selection) {
+      const data = [mode, user.key]
+      socket.emit("selection", data);
+    }
+  }, [selection]);
 
   useEffect(() => {
     if (joined) {
@@ -61,6 +72,13 @@ function App() {
 
   return (
       <Routes>
+          <Route path = "/mode-selection" element = {
+            <ModeSelection
+              setSelection = {setSelection}
+              setMode = {setMode}
+              selection = {selection}
+            />
+          }/>
           <Route path = "/loading" element = {
             <Loading 
               twoready = {twoready}
@@ -99,6 +117,7 @@ function App() {
           <Route path = "/canvas"  element = {
             <Canvas
               socket = {socket}
+              mode = {mode}
             />}
           />
           <Route path='*' element={<NotFound />}/>
