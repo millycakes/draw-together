@@ -16,7 +16,16 @@ const getUsers = (matchkey) => {
     return temp;
 }
 
+const updateMode = (mode, userkey) => {
+    for (let i = 0; i<users.length; i++) {
+        if (users[i].key===userkey) {
+            users[i].mode = mode;
+        } 
+    }
+}
+
 module.exports = {
     newUser,
     getUsers,
+    updateMode,
   };

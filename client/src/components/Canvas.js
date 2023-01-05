@@ -12,6 +12,8 @@ import eraserCursor from "../assets/cursors/eraser.png"
 import eyedropperCursor from "../assets/cursors/eyedropper.png"
 
 export default function Canvas (props) {
+
+  alert(props.mode);
   
   const [data, setData] = React.useState(
     {

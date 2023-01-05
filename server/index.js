@@ -3,7 +3,7 @@ const app = express();
 const PORT = 4000;
 const http = require('http').Server(app);
 const cors = require('cors');
-const {newUser, getUsers} = require("./users");
+const {newUser, getUsers, updateMode} = require("./users");
 app.use(cors());
 
 const io = require('socket.io')(http, {
@@ -41,7 +41,12 @@ io.on("connection", (socket) => {
         let temp = keys;
         socket.emit("newKey", temp);
     })
-
+    socket.on("selection", (data) => {
+        const[mode, userkey] = data;
+        console.log(socket.id + " has selected a new game mode: " + mode);
+        updateMode(mode,userkey);
+        console.log(getUsers(userkey))
+    })
     
 })
 
