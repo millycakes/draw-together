@@ -7,7 +7,6 @@ import HostSettings from './components/HostSettings';
 import Loading from './components/Loading';
 import io from "socket.io-client";
 import Canvas from "./components/Canvas";
-import NotFound from "./components/NotFound";
 import ModeSelection from './components/GameSelection';
 
 function App() {
@@ -28,7 +27,7 @@ function App() {
   const[allKeys, setAllKeys] = React.useState([]);
   const[retrieveKeys, setRetrieveKeys] = React.useState(false);
   const[selection, setSelection] = React.useState(false);
-  const [mode, setMode] = React.useState("");
+  const[mode, setMode] = React.useState("");
 
 
   socket.on("ready_two", () => {
@@ -121,7 +120,6 @@ function App() {
               mode = {mode}
             />}
           />
-          <Route path='*' element={<NotFound />}/>
       </Routes>
   );
 }

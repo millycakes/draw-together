@@ -3,8 +3,6 @@ import "./style.css"
 import logo from "../assets/logo.png"
 import { useNavigate } from 'react-router-dom';
 
-//import toast
-
 export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket, setRetrieveKeys}) {
 
     const navigate = useNavigate();
@@ -22,9 +20,6 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
 
     function handleJoinSubmit(event) {
         event.preventDefault();
-    
-        //not sure why but this code only works sometimes 
-        //set true for now  
 
         if (validKey){
             console.log("join room");
@@ -44,8 +39,9 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
 
     return(
         <div className = "home" style={{height: '100vh'}}>
-            <div className = "form">
-                <img className = "logo" alt = "logo" src = {logo}/>
+            <div className = "home--background">
+                <div className = "home--form">
+                <img className = "home--logo" alt = "logo" src = {logo}/>
                 <form onSubmit = {handleCreateSubmit}>
                     <p>Create your room to begin</p>
                     <button onClick = {handleCreateSubmit} className = "large-button">Create Room</button>
@@ -65,6 +61,8 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
                     <button style = {{margin: "16px 0px"}} className = "large-button">Join Room</button>
                 </form>
             </div>
+            </div>
+            
         </div>
     )
 }

@@ -1,9 +1,10 @@
 import React from 'react';
-import avatar1 from "../assets/avatar/avatar1.png"
-import avatar2 from "../assets/avatar/avatar2.png"
-// import avatar3 from "../assets/avatar/avatar4.png"
-// import avatar4 from "../assets/avatar/avatar4.png"
-// import avatar5 from "../assets/avatar/avatar5.png"
+import bear from "../assets/avatar/bear.png"
+import cat from "../assets/avatar/cat.png"
+import dog from "../assets/avatar/dog.png"
+import duck from "../assets/avatar/duck.png"
+import sheep from "../assets/avatar/sheep.png"
+
 import {Link} from "react-router-dom"
 
 export default function PlayerSettings({user, setUser, joined, setJoined, playerKey}) {
@@ -29,16 +30,16 @@ export default function PlayerSettings({user, setUser, joined, setJoined, player
 
     return(
         <div className = "avatar-page" style={{height: '100vh'}}>
-            <Link to = "/" className = "home-logo">DRAW TOGETHER</Link>
+            <Link to = "/" className = "logo">DRAW TOGETHER</Link>
             <div className = "avatar">
                 <p>Playing With</p>
-                <img src = {avatar1}/>
+                <img src = {duck}/>
                 <p>Host</p>
             </div>
             <div className ="vl"></div>
             <div className = "avatar">
                 <p>You</p>
-                <img src = {avatar2}/>
+                <img src = {cat}/>
                 <input className = "input" type = "text" placeholder = "Enter your name" onChange = {handleChange}/>
             </div>
             <button className = "back-button"><Link to = "/">Return</Link></button>
