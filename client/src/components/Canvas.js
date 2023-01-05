@@ -5,16 +5,27 @@ import pencil from "../assets/tools/pencil.png"
 import eraser from "../assets/tools/eraser.png"
 import eyedropper from "../assets/tools/eyedropper.png"
 import clear from "../assets/tools/clear.png"
-import downloadIcon from "../assets/download.png"
+
+
+import downloadIcon from "../assets/icons/download.png"
+import backIcon from "../assets/icons/back.png"
+import helpIcon from "../assets/icons/help.png"
+import zoomIn from "../assets/icons/zoom-in.png"
+import zoomOut from "../assets/icons/zoom-out.png"
 
 import pencilCursor from "../assets/cursors/pencil.png"
 import eraserCursor from "../assets/cursors/eraser.png"
 import eyedropperCursor from "../assets/cursors/eyedropper.png"
 
-export default function Canvas (props) {
+import bear from "../assets/avatar/bear.png"
+import cat from "../assets/avatar/cat.png"
 
-  alert(props.mode);
+import { Navigate, useNavigate } from 'react-router-dom';
+
+export default function Canvas ({mode, socket}) {
   
+  const navigate = useNavigate();
+
   const [data, setData] = React.useState(
     {
       x: 0, 
@@ -69,6 +80,10 @@ export default function Canvas (props) {
     download = true;
   }
 
+  function navigateHome(){
+    navigate("/")
+  }
+
 	const setup = (p5, canvasParentRef) => {
 		p5.createCanvas(500, 500).parent(canvasParentRef);
       p5.background(255);
@@ -82,7 +97,7 @@ export default function Canvas (props) {
     }
 
     //handle data from socket
-    props.socket.on('mouse',
+    socket.on('mouse',
     function(data) {
       console.log(data)
       p5.fill(data.color);
@@ -132,7 +147,7 @@ export default function Canvas (props) {
         break;
     }
 
-    props.socket.emit('mouse', data)
+    socket.emit('mouse', data)
 
     if (handleClear){
       data.tool = "pencil";
@@ -141,15 +156,37 @@ export default function Canvas (props) {
 
 	return (
     <div className = "canvas"  style={{height: '100vh' }}>
-      <div>
-        <Link to = "/" className = "home-logo">DRAW TOGETHER</Link>
+      <div className = "canvas--section">
+        <Link to = "/" className = "logo">DRAW TOGETHER</Link>
+        <div className="vl"/>
+        <p>{mode}</p>
       </div>
-      <input type = "image"  src = {downloadIcon} onClick = {downloadDrawing} className = "canvas--download small-shadow" />
+      <div className = "canvas--section">
+        <img src = {bear} alt = "avatar"/>
+        <img src = {cat} alt = "avatar"/>
+        <div className = "vl"/>
+        <button>Download<input type = "image"  src = {downloadIcon} onClick = {downloadDrawing} className = "canvas--icon" /></button>
+        <button>Tutorial<input type = "image"  src = {helpIcon} onClick = {downloadDrawing} className = "canvas--icon" /></button>
+      </div>
+      <div className = "canvas--section">
+        <input type = "image" src = {backIcon} onClick = {navigateHome} />
+      </div>
       <div style = {{cursor: `url(${cursor}), auto`}}>
         <Sketch className = "canvas--board small-shadow" 
         setup={setup} draw={draw} mousePressed = {mousePressed} mouseDragged = {mouseDragged} />
       </div>
-      <div className = "toolbox small-shadow">
+      <div className = "canvas--section">
+        <div className = "canvas--icon-wrapper">
+          <input type = "image"  src = {zoomIn} className = "canvas--icon"/>
+        </div>
+        <div className = "canvas--icon-wrapper">
+          <p>100%</p>
+        </div>
+        <div className = "canvas--icon-wrapper">
+          <input type = "image"  src = {zoomOut} className = "canvas--icon" />
+        </div>
+      </div>
+      <div className = "toolbox">
         <ul className = "tools" onClick = {updateTool}>
           <li><img id = "tools--pencil" alt = "pencil icon" src = {pencil}/></li>
           <li><img id = "tools--eraser" alt = "eraser icon" src = {eraser}/></li>
