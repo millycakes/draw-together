@@ -33,6 +33,10 @@ function App() {
     setTwoReady(true);
   });
 
+  socket.on("player_mode", (data) => {
+    setMode(data);
+  });
+
   socket.on("newKey", (data) => {
     setAllKeys(data);
   })

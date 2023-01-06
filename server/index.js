@@ -40,9 +40,8 @@ io.on("connection", (socket) => {
         const[mode, userkey] = data;
         console.log(socket.id + " has selected a new game mode: " + mode);
         updateMode(mode,userkey);
+        socket.to(userkey).emit("player_mode",mode);
         socket.to(userkey).emit("ready_two");
-        console.log(getUsers(userkey))
-        
     })
     
 })
