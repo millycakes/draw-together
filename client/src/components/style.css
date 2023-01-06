@@ -494,3 +494,14 @@ hr.vertical {
     width: 36px;
     height: 36px;
 }
+
+#cover{
+    display: none;
+    position: relative;
+    border: #000 1px solid;
+    top: -250px;
+    left: 0px;
+    background-color: var(--accent);
+    width: 500px;
+    height: 250px;
+}

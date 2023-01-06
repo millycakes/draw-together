@@ -19,6 +19,7 @@ import bear from "../assets/avatar/bear.png"
 import cat from "../assets/avatar/cat.png"
 
 import { useNavigate } from 'react-router-dom';
+import ExitConfirmation from "./ExitConfirmation"
 
 export default function Canvas ({mode, socket}) {
   
@@ -103,6 +104,8 @@ export default function Canvas ({mode, socket}) {
     }))
   }
 
+  const [modalOpen, setModalOpen] = React.useState(false);
+
   function navigateHome(){
     navigate("/")
   }
@@ -114,8 +117,9 @@ export default function Canvas ({mode, socket}) {
 	return (
     <div className = "canvas"  style={{height: '100vh' }}>
       <div className = "canvas--section">
-        <Link to = "/" className = "logo">DRAW TOGETHER</Link>
+        <Link to = "/">DRAW TOGETHER</Link>
         <div className="vl"/>
+        <p>test</p>
         <p>{mode}</p>
       </div>
       <div className = "canvas--section">
@@ -125,16 +129,25 @@ export default function Canvas ({mode, socket}) {
         <button>Download<input type = "image"  src = {downloadIcon} onClick = {downloadDrawing} className = "canvas--icon" /></button>
         <button>Tutorial<input type = "image"  src = {helpIcon} onClick = {downloadDrawing} className = "canvas--icon" /></button>
       </div>
-      <canvas className = "drawing-canvas"
-        ref = {canvasRef}
-        onMouseDown = {startDrawing}
-        onMouseMove = {draw}
-        onMouseUp = {stopDrawing}
-        onMouseLeave = {stopDrawing}
-       >
-      </canvas>
+      <div>
+        <canvas className = "drawing-canvas"
+          ref = {canvasRef}
+          onMouseDown = {startDrawing}
+          onMouseMove = {draw}
+          onMouseUp = {stopDrawing}
+          onMouseLeave = {stopDrawing}
+        >
+        </canvas>
+        <div id = "cover">
+
+        </div>
+      </div>
       <div className = "canvas--section">
-        <input type = "image" src = {backIcon} onClick = {navigateHome} />
+        <input type = "image" src = {backIcon} onClick = {() => {
+          setModalOpen(true);
+        }} />
+        {modalOpen && <ExitConfirmation setOpenModal={setModalOpen} />}
+
       </div>
       <div className = "toolbox">
         <ul className = "tools" onClick = {updateTool}>
@@ -146,7 +159,7 @@ export default function Canvas ({mode, socket}) {
         <hr className = "vertical"/>
         <div className = "stroke" onClick = {updateStroke}>
           <label htmlFor="stroke">Thickness</label>
-          <input type="range" id="stroke" name="stroke" min="0" max="80"
+          <input type="range" id="stroke" name="stroke" min="1" max="100"
           onChange={updateStroke}
           defaultValue = "5"
           />
