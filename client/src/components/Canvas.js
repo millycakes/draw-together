@@ -18,17 +18,19 @@ import eyedropperCursor from "../assets/cursors/eyedropper.png"
 import bear from "../assets/avatar/bear.png"
 import cat from "../assets/avatar/cat.png"
 
-import { useNavigate } from 'react-router-dom';
 import ExitConfirmation from "./ExitConfirmation"
+import Tutorial from "./Tutorial"
 
 export default function Canvas ({mode, socket}) {
   
-  const navigate = useNavigate();
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   
   const [isDrawing, setIsDrawing] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [tutOpen, setTutOpen] = React.useState(false);
+
 
   const [brush, setBrush] = React.useState(
     {
@@ -104,11 +106,7 @@ export default function Canvas ({mode, socket}) {
     }))
   }
 
-  const [modalOpen, setModalOpen] = React.useState(false);
-
-  function navigateHome(){
-    navigate("/")
-  }
+  
 
   function downloadDrawing(){
 
@@ -126,8 +124,14 @@ export default function Canvas ({mode, socket}) {
         <img src = {bear} className = "small-avatar" alt = "avatar"/>
         <img src = {cat} className = "small-avatar" alt = "avatar"/>
         <div className = "vl"/>
-        <button>Download<input type = "image"  src = {downloadIcon} onClick = {downloadDrawing} className = "canvas--icon" /></button>
-        <button>Tutorial<input type = "image"  src = {helpIcon} onClick = {downloadDrawing} className = "canvas--icon" /></button>
+        <button onClick={downloadDrawing}>Download<input type = "image"  src = {downloadIcon} className = "canvas--icon" /></button>
+        {tutOpen && <Tutorial />}
+        <button
+            onClick = {() => {
+              setTutOpen(prev => !prev)
+            }}
+        >Tutorial<input type = "image"  src = {helpIcon} 
+        className = "canvas--icon" /></button>
       </div>
       <div>
         <canvas className = "drawing-canvas"
