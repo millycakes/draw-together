@@ -73,6 +73,12 @@ button:hover{
     left: 64px;
     top: 24px;
 }
+
+/* || typography */
+
+
+
+
 /* || home */
 
 .home{
@@ -476,3 +482,15 @@ hr.vertical {
     }
   }
 
+/* || drawing canvas */
+.drawing-canvas{
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+    background-color: var(--background-white);
+}
+
+.small-avatar{
+    width: 36px;
+    height: 36px;
+}

@@ -40,14 +40,7 @@ export default function HostSettings({user, setUser, joined, setJoined, hostKey,
         };
         setUser(userData);
         setJoined(true);
-
-        // may not always log updated data -> setState() does not immediately mutate this.state but creates a pending state transition
-        console.log("user data");
-        console.log(user);
-        console.log("joined " + joined);
-
     }
-
 
     function updateName(event) {
         setName(event.target.value);

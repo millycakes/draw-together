@@ -29,7 +29,6 @@ function App() {
   const[selection, setSelection] = React.useState(false);
   const[mode, setMode] = React.useState("");
 
-
   socket.on("ready_two", () => {
     setTwoReady(true);
   });
@@ -120,6 +119,7 @@ function App() {
               mode = {mode}
             />}
           />
+          
       </Routes>
   );
 }

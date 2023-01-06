@@ -1,11 +1,9 @@
-import React from "react";
-import Sketch from "react-p5";
+import React, { useRef } from "react"
 import {Link} from "react-router-dom"
 import pencil from "../assets/tools/pencil.png"
 import eraser from "../assets/tools/eraser.png"
 import eyedropper from "../assets/tools/eyedropper.png"
 import clear from "../assets/tools/clear.png"
-
 
 import downloadIcon from "../assets/icons/download.png"
 import backIcon from "../assets/icons/back.png"
@@ -20,21 +18,66 @@ import eyedropperCursor from "../assets/cursors/eyedropper.png"
 import bear from "../assets/avatar/bear.png"
 import cat from "../assets/avatar/cat.png"
 
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Canvas ({mode, socket}) {
   
   const navigate = useNavigate();
 
-  const [data, setData] = React.useState(
+  const canvasRef = useRef(null);
+  const contextRef = useRef(null);
+  
+  const [isDrawing, setIsDrawing] = React.useState(false);
+
+  const [brush, setBrush] = React.useState(
     {
-      x: 0, 
-      y: 0,
-      color: "rgb(79, 79, 79)",
-      strokeWeight: 20,
-      tool: "pencil"
+      strokeStyle: "rgb(79, 79, 79)",
+      lineWidth: 5
     }
   )
+
+  React.useEffect(() => {
+      const canvas = canvasRef.current;
+      canvas.width = 500;
+      canvas.height = 500;
+      const context = canvas.getContext("2d");
+  
+      context.lineCap = "round";
+      context.strokeStyle = brush.strokeStyle;
+      context.lineWidth = brush.lineWidth;
+
+      contextRef.current = context;
+  },[])
+
+  React.useEffect(() => {
+    contextRef.current.strokeStyle = brush.strokeStyle;
+    contextRef.current.lineWidth = brush.lineWidth;
+  }, [brush])
+
+  const startDrawing = ({nativeEvent}) => {
+      const {offsetX, offsetY} = nativeEvent;
+      contextRef.current.beginPath();
+      contextRef.current.moveTo(offsetX, offsetY);
+      contextRef.current.lineTo(offsetX, offsetY);
+      contextRef.current.stroke();
+      setIsDrawing(true);
+      nativeEvent.preventDefault();
+  };
+
+  const draw = ({nativeEvent}) => {
+      if (!isDrawing){
+          return
+      }
+      const {offsetX, offsetY} = nativeEvent;
+      contextRef.current.lineTo(offsetX, offsetY);
+      contextRef.current.stroke();
+      nativeEvent.preventDefault();
+  }
+
+  const stopDrawing = () => {
+      contextRef.current.closePath();
+      setIsDrawing(false);
+  }
 
   const [cursor, setCursor] = React.useState(pencilCursor);
 
@@ -42,116 +85,30 @@ export default function Canvas ({mode, socket}) {
     let tool = e.target.id;
     tool = tool.slice(7, tool.length);
     
-    data.tool = tool;
-
-    switch (data.tool){
-      case "pencil":
-        setCursor(pencilCursor);
-        break;
-      case "eraser":
-        setCursor(eraserCursor);
-        break;
-      case "eyedropper":
-        setCursor(eyedropperCursor);
-        break;
-      default:
-        break;
-    }
-  }
-
-  function updateEyedropperCursor(){
-    setCursor(pencilCursor);
-  }
-
-  function updateStroke(e){
-    let strokeWeight = window.getComputedStyle(e.target, null).getPropertyValue("width");
-    strokeWeight = strokeWeight.slice(0, strokeWeight.length - 2);
-    data.strokeWeight = strokeWeight
   }
 
   function updateColor(e){
     let color = window.getComputedStyle(e.target, null).getPropertyValue("background-color");
-    data.color = color;
+    setBrush(prev => ({
+      ...prev,
+      strokeStyle: color
+    }))
   }
 
-  let download = false;
-
-  function downloadDrawing(){
-    download = true;
+  function updateStroke(e){
+    let stroke = e.target.value;
+    setBrush(prev => ({
+      ...prev,
+      lineWidth: stroke
+    }))
   }
 
   function navigateHome(){
     navigate("/")
   }
 
-	const setup = (p5, canvasParentRef) => {
-		p5.createCanvas(500, 500).parent(canvasParentRef);
-      p5.background(255);
-	};
+  function downloadDrawing(){
 
-	const draw = (p5) => {
-
-    if (download){
-      p5.saveCanvas("drawing", "png");
-      download = false;
-    }
-
-    //handle data from socket
-    socket.on('mouse',
-    function(data) {
-      console.log(data)
-      p5.fill(data.color);
-      p5.noStroke();
-      p5.ellipse(data.x, data.y, data.strokeWeight, data.strokeWeight);
-
-      if (data.tool === "clear"){
-        p5.fill(255,255,255)
-        p5.rect(0, 0, 500, 500);
-      }
-    }
-
-  );};
-  
-  const mousePressed = (p5) => {
-    if (data.tool === "eyedropper"){
-      data.color = p5.get(p5.mouseX, p5.mouseY);
-      data.tool = "pencil"
-      updateEyedropperCursor()
-    }
-  }
-  
-  const mouseDragged = (p5) => {
-    p5.noStroke();
-    p5.fill(data.color);
-
-    let handleClear = false;
-
-    data.x = p5.mouseX;
-    data.y = p5.mouseY;
-    
-    switch (data.tool){
-      case "pencil":
-        p5.ellipse(data.x, data.y, data.strokeWeight, data.strokeWeight);
-        break;
-      case "eraser":
-        p5.fill(255,255,255)
-        data.color = ("rgb(255, 255, 255)")
-        p5.ellipse(data.x, data.y, data.strokeWeight, data.strokeWeight);
-        break;        
-      case "clear":
-        p5.fill(255,255,255);
-        p5.rect(0, 0, 500, 500);
-        handleClear = true;
-        break;
-      default:
-        break;
-    }
-
-    socket.emit('mouse', data)
-
-    if (handleClear){
-      data.tool = "pencil";
-    }
   }
 
 	return (
@@ -162,29 +119,22 @@ export default function Canvas ({mode, socket}) {
         <p>{mode}</p>
       </div>
       <div className = "canvas--section">
-        <img src = {bear} alt = "avatar"/>
-        <img src = {cat} alt = "avatar"/>
+        <img src = {bear} className = "small-avatar" alt = "avatar"/>
+        <img src = {cat} className = "small-avatar" alt = "avatar"/>
         <div className = "vl"/>
         <button>Download<input type = "image"  src = {downloadIcon} onClick = {downloadDrawing} className = "canvas--icon" /></button>
         <button>Tutorial<input type = "image"  src = {helpIcon} onClick = {downloadDrawing} className = "canvas--icon" /></button>
       </div>
+      <canvas className = "drawing-canvas"
+        ref = {canvasRef}
+        onMouseDown = {startDrawing}
+        onMouseMove = {draw}
+        onMouseUp = {stopDrawing}
+        onMouseLeave = {stopDrawing}
+       >
+      </canvas>
       <div className = "canvas--section">
         <input type = "image" src = {backIcon} onClick = {navigateHome} />
-      </div>
-      <div style = {{cursor: `url(${cursor}), auto`}}>
-        <Sketch className = "canvas--board small-shadow" 
-        setup={setup} draw={draw} mousePressed = {mousePressed} mouseDragged = {mouseDragged} />
-      </div>
-      <div className = "canvas--section">
-        <div className = "canvas--icon-wrapper">
-          <input type = "image"  src = {zoomIn} className = "canvas--icon"/>
-        </div>
-        <div className = "canvas--icon-wrapper">
-          <p>100%</p>
-        </div>
-        <div className = "canvas--icon-wrapper">
-          <input type = "image"  src = {zoomOut} className = "canvas--icon" />
-        </div>
       </div>
       <div className = "toolbox">
         <ul className = "tools" onClick = {updateTool}>
@@ -194,11 +144,13 @@ export default function Canvas ({mode, socket}) {
           <li><img id = "tools--clear" alt = "clear icon" src = {clear}/></li>
         </ul>
         <hr className = "vertical"/>
-        <ul className = "stroke" onClick = {updateStroke}>
-          <li id = "stroke--small"></li>
-          <li id = "stroke--medium"></li>
-          <li id = "stroke--large"></li>
-        </ul>
+        <div className = "stroke" onClick = {updateStroke}>
+          <label htmlFor="stroke">Thickness</label>
+          <input type="range" id="stroke" name="stroke" min="0" max="80"
+          onChange={updateStroke}
+          defaultValue = "5"
+          />
+        </div>
         <hr className = "vertical"/>
         <ul className = "palette" onClick = {updateColor}>
           <li id = "palette--pink"></li>
@@ -211,6 +163,17 @@ export default function Canvas ({mode, socket}) {
           <li id = "palette--black"></li>
           <li id = "palette--white"></li>
         </ul>
+      </div>
+      <div className = "canvas--section">
+        <div className = "canvas--icon-wrapper">
+          <input type = "image"  src = {zoomIn} className = "canvas--icon"/>
+        </div>
+        <div className = "canvas--icon-wrapper">
+          <p>100%</p>
+        </div>
+        <div className = "canvas--icon-wrapper">
+          <input type = "image"  src = {zoomOut} className = "canvas--icon" />
+        </div>
       </div>
     </div>
   )

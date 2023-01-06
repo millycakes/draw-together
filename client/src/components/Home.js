@@ -13,11 +13,6 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
         navigate("/host-settings")
     }    
 
-    function updateKey(event) {
-        setPlayerKey((event.target.value).toUpperCase());
-        setRetrieveKeys(true);
-    }
-
     function handleJoinSubmit(event) {
         event.preventDefault();
 
@@ -31,6 +26,11 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
         }
     }
 
+    function updateKey(event) {
+        setPlayerKey((event.target.value).toUpperCase());
+        setRetrieveKeys(true);
+    }
+    
     let validKey = false;
 
     if (allKeys.includes(playerKey)){
