@@ -29,6 +29,10 @@ function App() {
   const[selection, setSelection] = React.useState(false);
   const[mode, setMode] = React.useState("");
 
+  socket.on("player_selection", () => {
+    setSelection(true);
+  });
+
   socket.on("ready_two", () => {
     setTwoReady(true);
   });
@@ -48,7 +52,7 @@ function App() {
   }, [retrieveKeys]);
 
   useEffect(() => {
-    if (selection) {
+    if (selection&&user.host) {
       const data = [mode, user.key]
       socket.emit("selection", data);
     }

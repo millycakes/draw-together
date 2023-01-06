@@ -26,6 +26,12 @@ io.on("connection", (socket) => {
         const{name, key, host} = data;
         const user = newUser(name, host, key, socket.id);
         console.log(name + " is ready to play");
+        if (getUsers(user.key).length===2) {
+            socket.to(user.key).emit("ready_two");
+            updateMode(getUsers(user.key)[0].mode,user.key);
+            socket.to(user.key).emit("player_selection");
+            socket.to(user.key).emit("player_mode",getUsers(user.key)[0].mode);
+        }
     })
     socket.on("mouse", (data) => {
         // console.log("received mouse data");
@@ -40,8 +46,8 @@ io.on("connection", (socket) => {
         const[mode, userkey] = data;
         console.log(socket.id + " has selected a new game mode: " + mode);
         updateMode(mode,userkey);
+        socket.to(userkey).emit("player_selection");
         socket.to(userkey).emit("player_mode",mode);
-        socket.to(userkey).emit("ready_two");
     })
     
 })

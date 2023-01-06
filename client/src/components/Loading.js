@@ -5,12 +5,12 @@ import pencil from "../assets/pencil-animation.gif"
 
 export default function Loading ({user, twoready, selection}) {
 
+    alert(twoready+selection);
+
     const navigate = useNavigate();
 
-    console.log(selection);
-
     React.useEffect(() => {
-        if (twoready) {
+        if (twoready && selection) {
             navigate("/canvas");
         }
     }, [twoready])
