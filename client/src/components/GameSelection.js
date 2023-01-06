@@ -19,19 +19,19 @@ export default function GameSelection({setSelection,setMode, selection}) {
     function swapselection (event) {
         event.preventDefault();
         setSelection(true);
-        setMode("swap");
+        setMode("Canvas Swap");
     }
 
     function togetherselection (event) {
         event.preventDefault();
         setSelection(true);
-        setMode("together");
+        setMode("Draw Together");
     }
 
     function splitselection (event) {
         event.preventDefault();
         setSelection(true);
-        setMode("split");
+        setMode("Top Bottom");
     }
 
     function hostJoin (event){

@@ -106,8 +106,6 @@ export default function Canvas ({mode, socket}) {
     }))
   }
 
-  
-
   function downloadDrawing(){
 
   }
@@ -117,7 +115,6 @@ export default function Canvas ({mode, socket}) {
       <div className = "canvas--section">
         <Link to = "/">DRAW TOGETHER</Link>
         <div className="vl"/>
-        <p>test</p>
         <p>{mode}</p>
       </div>
       <div className = "canvas--section">
