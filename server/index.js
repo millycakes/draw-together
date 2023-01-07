@@ -4,6 +4,7 @@ const PORT = 4000;
 const http = require('http').Server(app);
 const cors = require('cors');
 const {newUser, getUsers, updateMode} = require("./users");
+const e = require('express');
 app.use(cors());
 
 const io = require('socket.io')(http, {
@@ -16,20 +17,20 @@ const keys = [];
 
 io.on("connection", (socket) => {
     socket.on("join_room", (key) => {
+        socket.join(key);
         console.log(socket.id + " has joined room " + key);
         if (!keys.includes(key)) {
             keys.push(key);
         }
-        socket.join(key);
     })
     socket.on("user_join", (data) => {
         const{name, key, host, avatar} = data;
-        const user = newUser(name, host, key, socket.id, avatar);
+        const user = newUser(name, key, host, avatar);
         if (user.host) {
-            socket.broadcast.to(user.key).emit("host_data",data);
+            socket.to(user.key).emit("host_data",data);
         }
         else {
-            socket.broadcast.to(user.key).emit("player_data",data);
+            socket.to(user.key).emit("player_data",data);
         }
         console.log(name + " is ready to play");
         if (getUsers(user.key).length===2 && getUsers(user.key)[0].mode!=null) {
@@ -40,8 +41,9 @@ io.on("connection", (socket) => {
         }
         else if (getUsers(user.key).length===2) {
             socket.to(user.key).emit("ready_two");
-        }
-    })
+            socket.to(user.key).emit("host_data",getUsers(user.key)[0]);
+            }
+        })
     socket.on("mouse", (data) => {
         // console.log("received mouse data");
         socket.broadcast.emit('mouse', data);

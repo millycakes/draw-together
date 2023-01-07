@@ -55,6 +55,7 @@ function App() {
 
   socket.on("host_data", (data)=> {
     setHost(data);
+    setHostAvatar(data.avatar)
   })
 
   socket.on("player_selection", () => {
@@ -171,6 +172,8 @@ function App() {
             <Canvas
               socket = {socket}
               mode = {mode}
+              player = {player}
+              host = {host}
             />}
           />
           

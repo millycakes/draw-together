@@ -18,7 +18,7 @@ import Palette from "./Palette"
 import Logo from "../../components/Logo"
 import Button from "../../components/Button"
 
-export default function Game ({mode, socket}) {  
+export default function Game ({mode, socket, player, host}) {  
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -124,8 +124,8 @@ export default function Game ({mode, socket}) {
       </div>
       <div className = "canvas--section-2">
         <div className = "canvas--avatars">
-          <img src = {bear} className = "small-avatar" alt = "avatar"/>
-          <img src = {cat} className = "small-avatar vl" alt = "avatar"/>
+          <img src = {host.avatar} className = "small-avatar" alt = "avatar"/>
+          <img src = {player.avatar} className = "small-avatar vl" alt = "avatar"/>
         </div>
         <div className = "canvas--buttons">
           {(mode != "Draw Together") && <Button variant = "icon" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}

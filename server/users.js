@@ -1,7 +1,7 @@
 const users = [];
 
-const newUser = (name, host , key, id, avatar) => {
-    const user = {name, host, key, id, avatar};
+const newUser = (name, key, host, avatar) => {
+    const user = {name, key, host, avatar};
     users.push(user);
     return user;
 }
