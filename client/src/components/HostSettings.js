@@ -1,15 +1,13 @@
 import React from 'react';
-import bear from "../assets/avatar/bear.png"
-import cat from "../assets/avatar/cat.png"
-import dog from "../assets/avatar/dog.png"
-import duck from "../assets/avatar/duck.png"
-import sheep from "../assets/avatar/sheep.png"
 import {Link} from "react-router-dom"
+import editIcon from "../assets/icons/edit.png"
+import AvatarSelection from './AvatarSelection';
 
 
-export default function HostSettings({user, setUser, joined, setJoined, hostKey, setHostKey, setHostSocket}) {
+export default function HostSettings({user, setUser, setJoined, hostKey, setHostKey, setHostSocket}) {
 
     const [name, setName] = React.useState("");
+    const [avatarSelection, setAvatarSelection] = React.useState(false);
 
     const uuid = () => {
         let fin = '';
@@ -36,7 +34,8 @@ export default function HostSettings({user, setUser, joined, setJoined, hostKey,
         const userData = {
             name: name,
             key: hostKey,
-            host: true
+            host: true,
+            avatar: user.avatar
         };
         setUser(userData);
         setJoined(true);
@@ -55,7 +54,9 @@ export default function HostSettings({user, setUser, joined, setJoined, hostKey,
             <Link to = "/" className = "logo">DRAW TOGETHER</Link>
             <div className = "avatar">
                 <p>You</p>
-                <img src = {cat}/>
+                <img className = "large-avatar" src = {user.avatar}/>
+                <button onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
+                {avatarSelection && <AvatarSelection setUser = {setUser} setAvatarSelection = {setAvatarSelection}/>}
                 <input className = "input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
             </div>
             <div className ="vl"></div>

@@ -8,6 +8,7 @@ import Loading from './components/Loading';
 import io from "socket.io-client";
 import Canvas from "./components/Canvas";
 import ModeSelection from './components/GameSelection';
+import bear from "./assets/avatar/bear.png"
 
 function App() {
   const socket = io.connect("http://localhost:4000");
@@ -15,7 +16,8 @@ function App() {
   const[user, setUser] = React.useState({
     name: "player",
     host: false,
-    key: 0
+    key: 0,
+    avatar: bear
   });
 
   const[joined, setJoined] = React.useState(false);
@@ -29,9 +31,12 @@ function App() {
   const[selection, setSelection] = React.useState(false);
   const[mode, setMode] = React.useState("");
 
+<<<<<<< Updated upstream
   socket.on("player_selection", () => {
     setSelection(true);
   });
+=======
+>>>>>>> Stashed changes
 
   socket.on("ready_two", () => {
     setTwoReady(true);
@@ -114,7 +119,6 @@ function App() {
             <HostSettings 
               user = {user}
               setUser = {setUser} 
-              joined = {joined}
               setJoined = {setJoined} 
               hostKey = {hostKey}
               setHostKey = {setHostKey}

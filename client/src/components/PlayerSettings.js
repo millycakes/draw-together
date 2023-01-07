@@ -1,16 +1,13 @@
 import React from 'react';
-import bear from "../assets/avatar/bear.png"
-import cat from "../assets/avatar/cat.png"
-import dog from "../assets/avatar/dog.png"
-import duck from "../assets/avatar/duck.png"
-import sheep from "../assets/avatar/sheep.png"
-
+import editIcon from "../assets/icons/edit.png"
+import AvatarSelection from './AvatarSelection';
 import {Link} from "react-router-dom"
 
-export default function PlayerSettings({user, setUser, joined, setJoined, playerKey}) {
+export default function PlayerSettings({user, setUser, setJoined, playerKey, avatar}) {
 
     const[name, setName] = React.useState("");
-   
+    const [avatarSelection, setAvatarSelection] = React.useState(false);
+
     function handleChange(event) {
         setName(event.target.value);
     }
@@ -21,7 +18,8 @@ export default function PlayerSettings({user, setUser, joined, setJoined, player
         const userData = {
             name: name,
             key: playerKey,
-            host: false
+            host: false,
+            avatar: user.avatar
         };
 
         setUser(userData);
@@ -33,13 +31,15 @@ export default function PlayerSettings({user, setUser, joined, setJoined, player
             <Link to = "/" className = "logo">DRAW TOGETHER</Link>
             <div className = "avatar">
                 <p>Playing With</p>
-                <img src = {duck}/>
+                <img className = "large-avatar" src = {user.avatar}/>
                 <p>Host</p>
             </div>
             <div className ="vl"></div>
             <div className = "avatar">
                 <p>You</p>
-                <img src = {cat}/>
+                <img className = "large-avatar" src = {user.avatar}/>
+                <button onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
+                {avatarSelection && <AvatarSelection setUser = {setUser} setAvatarSelection = {setAvatarSelection}/>}
                 <input className = "input" type = "text" placeholder = "Enter your name" onChange = {handleChange}/>
             </div>
             <button className = "back-button"><Link to = "/">Return</Link></button>
