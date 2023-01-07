@@ -1,7 +1,8 @@
 import React from "react"
-import "./style.css"
-import logo from "../assets/logo.png"
+import logo from "../../assets/logo.png"
 import { useNavigate } from 'react-router-dom';
+import "../../style.css"
+import "./home.css"
 
 export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket, setRetrieveKeys}) {
 

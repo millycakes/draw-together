@@ -1,13 +1,11 @@
 import React from "react";
-import { Navigate, useNavigate } from 'react-router-dom';
-import pencil from "../assets/pencil-animation.gif"
-
+import { useNavigate } from 'react-router-dom';
+import pencil from "../../assets/pencil-animation.gif"
+import "./loading.css"
 
 export default function Loading ({user, twoready, selection}) {
 
-    
     const navigate = useNavigate();
-
         if (twoready && selection) {
             navigate("/canvas");
         }
@@ -19,4 +17,3 @@ export default function Loading ({user, twoready, selection}) {
         </div>
     )
 }
-

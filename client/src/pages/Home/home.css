@@ -1,0 +1,72 @@
+
+.home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-image:  linear-gradient(#E3E1DD 1px, transparent 1px), linear-gradient(to right, #E3E1DD 1px, #FCFAF6 1px);
+    background-size: 32px 32px;
+}
+
+.home--logo{
+    max-width: 320px;
+}
+
+.home--background{
+    height: 100%;
+    width: 100%;
+    background: url("../../assets/background.png") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home--form{
+    flex-direction: column;
+    text-align: center;
+    background: #FFFFFF;
+    border: 1px solid #CDC1B3;
+    border-radius: 16px;
+    padding: 60px 48px;
+}
+
+.line-block {
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: 4px 0 4px; 
+} 
+ 
+.line-block span{ 
+    background:#fff; 
+    padding:0 10px; 
+}
+
+
+.key-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.key-form p{
+    font-size: 12px;
+}
+
+.enter-key{
+    text-align: left;
+}
+
+.key-format{
+    text-align: right;
+    color: var(--error)
+}
+
+.key-input{
+    font-size: 14px;
+    padding: 12px;
+    font-family: 'Roboto Mono', monospace;
+}

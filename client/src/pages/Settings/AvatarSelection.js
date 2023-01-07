@@ -1,9 +1,10 @@
-import React, { useReducer } from "react";
-import bear from "../assets/avatar/bear.png"
-import duck from "../assets/avatar/duck.png"
-import dog from "../assets/avatar/dog.png"
-import sheep from "../assets/avatar/sheep.png"
-import cat from "../assets/avatar/cat.png"
+import React from "react";
+import bear from "../../assets/avatar/bear.png"
+import duck from "../../assets/avatar/duck.png"
+import dog from "../../assets/avatar/dog.png"
+import sheep from "../../assets/avatar/sheep.png"
+import cat from "../../assets/avatar/cat.png"
+import "./settings.css"
 
 export default function AvatarSelection ({isHost, setUser, setAvatarSelection, setRetrieve, setHostAvatar}) {
 

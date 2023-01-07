@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react"
 import React from "react"
+import "./game.css"
 
 export default function Countdown({seconds, setCountdownComplete}){
     const [countdown, setCountdown] = React.useState(seconds);

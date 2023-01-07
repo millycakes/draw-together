@@ -1,10 +1,9 @@
 import React from "react";
-import { Navigate, useNavigate } from 'react-router-dom';
-import swap from "../assets/modes/canvasswap.png"
-import together from "../assets/modes/drawtogether.png"
-import split from "../assets/modes/topbottom.png"
-import {Link} from "react-router-dom"
-
+import { useNavigate } from 'react-router-dom';
+import swap from "../../assets/modes/canvasswap.png"
+import together from "../../assets/modes/drawtogether.png"
+import split from "../../assets/modes/topbottom.png"
+import "./settings.css"
 
 export default function GameSelection({setSelection,setMode,selection,twoready}) {
 

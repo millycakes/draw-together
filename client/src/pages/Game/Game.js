@@ -1,27 +1,29 @@
 import React, { useRef } from "react"
 import {Link} from "react-router-dom"
-import pencil from "../assets/tools/pencil.png"
-import eraser from "../assets/tools/eraser.png"
-import eyedropper from "../assets/tools/eyedropper.png"
-import clear from "../assets/tools/clear.png"
+import pencil from "../../assets/tools/pencil.png"
+import eraser from "../../assets/tools/eraser.png"
+import eyedropper from "../../assets/tools/eyedropper.png"
+import clear from "../../assets/tools/clear.png"
 
-import downloadIcon from "../assets/icons/download.png"
-import backIcon from "../assets/icons/back.png"
-import helpIcon from "../assets/icons/help.png"
-import zoomIn from "../assets/icons/zoom-in.png"
-import zoomOut from "../assets/icons/zoom-out.png"
+import downloadIcon from "../../assets/icons/download.png"
+import backIcon from "../../assets/icons/back.png"
+import helpIcon from "../../assets/icons/help.png"
+import zoomIn from "../../assets/icons/zoom-in.png"
+import zoomOut from "../../assets/icons/zoom-out.png"
 import Countdown from "./Countdown"
-import pencilCursor from "../assets/cursors/pencil.png"
-import eraserCursor from "../assets/cursors/eraser.png"
-import eyedropperCursor from "../assets/cursors/eyedropper.png"
+import pencilCursor from "../../assets/cursors/pencil.png"
+import eraserCursor from "../../assets/cursors/eraser.png"
+import eyedropperCursor from "../../assets/cursors/eyedropper.png"
 
-import bear from "../assets/avatar/bear.png"
-import cat from "../assets/avatar/cat.png"
+import bear from "../../assets/avatar/bear.png"
+import cat from "../../assets/avatar/cat.png"
 
 import ExitConfirmation from "./ExitConfirmation"
 import Tutorial from "./Tutorial"
 
-export default function Canvas ({mode, socket}) {  
+import "./game.css"
+
+export default function Game ({mode, socket}) {  
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);

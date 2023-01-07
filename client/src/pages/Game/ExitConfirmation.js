@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import "./game.css"
 
 export default function ExitConfirmation({setOpenModal}){
     const navigate = useNavigate();

@@ -1,14 +1,16 @@
 // import logo from './logo.svg';
 import React, { useEffect } from "react";
 import {Routes, Route} from "react-router-dom"
-import Home from './components/Home';
-import PlayerSettings from './components/PlayerSettings';
-import HostSettings from './components/HostSettings';
-import Loading from './components/Loading';
 import io from "socket.io-client";
-import Canvas from "./components/Canvas";
-import ModeSelection from './components/GameSelection';
 import bear from "./assets/avatar/bear.png"
+
+import Home from './pages/Home/Home';
+import Loading from "./pages/Loading/Loading";
+import AvatarSelection from "./pages/Settings/AvatarSelection";
+import GameSelection from "./pages/Settings/GameSelection";
+import HostSettings from "./pages/Settings/HostSettings";
+import PlayerSettings from "./pages/Settings/PlayerSettings";
+import Game from "./pages/Game/Game";
 
 function App() {
   const socket = io.connect("http://localhost:4000");
@@ -95,7 +97,7 @@ function App() {
   return (
       <Routes>
           <Route path = "/mode-selection" element = {
-            <ModeSelection
+            <GameSelection
               setSelection = {setSelection}
               setMode = {setMode}
               selection = {selection}
@@ -143,7 +145,7 @@ function App() {
             />}
           />
           <Route path = "/canvas"  element = {
-            <Canvas
+            <Game
               socket = {socket}
               mode = {mode}
             />}

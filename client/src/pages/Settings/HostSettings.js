@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from "react-router-dom"
-import editIcon from "../assets/icons/edit.png"
+import editIcon from "../../assets/icons/edit.png"
 import AvatarSelection from './AvatarSelection';
-
+import "./settings.css"
 
 export default function HostSettings({user, setUser, setJoined, hostKey, setHostKey, setHostSocket, setRetrieve, setHostAvatar}) {
 

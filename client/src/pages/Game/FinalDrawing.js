@@ -1,3 +1,5 @@
+import "./game.css"
+
 export default function FinalDrawing(){
     return(
         <div>

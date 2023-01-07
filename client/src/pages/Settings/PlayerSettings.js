@@ -1,7 +1,8 @@
 import React from 'react';
-import editIcon from "../assets/icons/edit.png"
+import editIcon from "../../assets/icons/edit.png"
 import AvatarSelection from './AvatarSelection';
 import {Link} from "react-router-dom"
+import "./settings.css"
 
 export default function PlayerSettings({user, setUser, setJoined, playerKey, hostAvatar, setRetrieve, setHostAvatar}) {
 

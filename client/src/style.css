@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto+Mono&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --text: #2C2C2C;
+    --stroke-light: #E3E3E3;
+    --stroke-default: #A4A4A4;
+    --stroke-dark: #707070;
+    --stroke-brown: #CDC1B3;
+    --background-white: #FFFFFF;
+    --background-grey: #F5F5F5;
+    --accent: #FEEAEA;
+    --accent-hover: #fee4e4;
+}
+
+p{
+  font-family: 'Patrick Hand', cursive;
+}
+
+a:link {
+  text-decoration: none; 
+  color: black;
+}
+
+a:visited { 
+  text-decoration: none; 
+  color: black;
+}
+
+a:hover { 
+  text-decoration: none; 
+  color: black;
+}
+
+a:active { 
+  text-decoration: none; 
+  color: black;
+}
+
+button {
+    font-family: 'Roboto Mono', monospace;
+}
+
+button:hover{
+    background-color: var(--accent-hover);
+}
+
+.large-button{
+    width: 100%;
+    background-color: var(--accent);
+    border: 0;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.logo{
+    font-family: 'Patrick Hand';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: 0.2em;
+    
+    position: absolute;
+    left: 64px;
+    top: 24px;
+}
