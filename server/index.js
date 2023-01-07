@@ -26,11 +26,14 @@ io.on("connection", (socket) => {
         const{name, key, host} = data;
         const user = newUser(name, host, key, socket.id);
         console.log(name + " is ready to play");
-        if (getUsers(user.key).length===2) {
+        if (getUsers(user.key).length===2 && getUsers(user.key)[0].mode!=null) {
             socket.to(user.key).emit("ready_two");
             updateMode(getUsers(user.key)[0].mode,user.key);
             socket.to(user.key).emit("player_selection");
             socket.to(user.key).emit("player_mode",getUsers(user.key)[0].mode);
+        }
+        else if (getUsers(user.key).length===2) {
+            socket.to(user.key).emit("ready_two");
         }
     })
     socket.on("mouse", (data) => {

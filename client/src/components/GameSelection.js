@@ -6,13 +6,16 @@ import split from "../assets/modes/topbottom.png"
 import {Link} from "react-router-dom"
 
 
-export default function GameSelection({setSelection,setMode, selection}) {
+export default function GameSelection({setSelection,setMode,selection,twoready}) {
 
     const navigate = useNavigate();
     
     React.useEffect(() => {
-        if (selection) {
-            navigate("/loading");
+        if (selection&&twoready) {
+            navigate("/canvas");
+        }
+        else if (selection) {
+            navigate("/loading")
         }
     }, [selection])
 

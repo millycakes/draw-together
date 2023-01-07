@@ -85,6 +85,7 @@ function App() {
               setSelection = {setSelection}
               setMode = {setMode}
               selection = {selection}
+              twoready = {twoready}
             />
           }/>
           <Route path = "/loading" element = {
