@@ -31,12 +31,10 @@ function App() {
   const[selection, setSelection] = React.useState(false);
   const[mode, setMode] = React.useState("");
 
-<<<<<<< Updated upstream
   socket.on("player_selection", () => {
     setSelection(true);
   });
-=======
->>>>>>> Stashed changes
+
 
   socket.on("ready_two", () => {
     setTwoReady(true);

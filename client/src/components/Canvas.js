@@ -35,7 +35,8 @@ export default function Canvas ({mode, socket}) {
   const [brush, setBrush] = React.useState(
     {
       strokeStyle: "rgb(79, 79, 79)",
-      lineWidth: 5
+      prevStrokeStyle: "rgb(79, 79, 79)",
+      lineWidth: 5,
     }
   )
 
@@ -59,6 +60,7 @@ export default function Canvas ({mode, socket}) {
 
   const startDrawing = ({nativeEvent}) => {
       const {offsetX, offsetY} = nativeEvent;
+
       contextRef.current.beginPath();
       contextRef.current.moveTo(offsetX, offsetY);
       contextRef.current.lineTo(offsetX, offsetY);
@@ -87,7 +89,38 @@ export default function Canvas ({mode, socket}) {
   function updateTool(e){
     let tool = e.target.id;
     tool = tool.slice(7, tool.length);
-    
+
+    if (tool == "clear"){
+      contextRef.current.clearRect(0, 0, 500, 500);
+      return;
+    }
+    //save current color when switching from a pencil to an eraser
+    if (brush.tool == "pencil" && tool == "eraser"){
+      setBrush(prev => ({
+        ...prev,
+        prevStrokeStyle: brush.strokeStyle,
+        strokeStyle: "rgb(255, 255, 255)"
+      }))
+    }
+
+    //go back to previous color when switching from an eraser to a pencil
+    if (brush.tool == "eraser" && tool == "pencil"){
+      setBrush(prev => ({
+        ...prev,
+        strokeStyle: brush.prevStrokeStyle
+      }))
+    }
+
+    if (tool == "eraser"){
+      setBrush(prev => ({
+        ...prev,
+        strokeStyle: "rgb(255, 255, 255)"
+      }))
+    }
+
+    console.log(brush)
+
+
   }
 
   function updateColor(e){
