@@ -4,7 +4,7 @@ import editIcon from "../assets/icons/edit.png"
 import AvatarSelection from './AvatarSelection';
 
 
-export default function HostSettings({user, setUser, setJoined, hostKey, setHostKey, setHostSocket}) {
+export default function HostSettings({user, setUser, setJoined, hostKey, setHostKey, setHostSocket, setRetrieve, setHostAvatar}) {
 
     const [name, setName] = React.useState("");
     const [avatarSelection, setAvatarSelection] = React.useState(false);
@@ -56,7 +56,7 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
                 <p>You</p>
                 <img className = "large-avatar" src = {user.avatar}/>
                 <button onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
-                {avatarSelection && <AvatarSelection setUser = {setUser} setAvatarSelection = {setAvatarSelection}/>}
+                {avatarSelection && <AvatarSelection isHost = {true} setUser = {setUser} setAvatarSelection = {setAvatarSelection} setRetrieve = {setRetrieve} setHostAvatar = {setHostAvatar}/>}
                 <input className = "input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
             </div>
             <div className ="vl"></div>

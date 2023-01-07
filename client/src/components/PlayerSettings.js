@@ -3,7 +3,7 @@ import editIcon from "../assets/icons/edit.png"
 import AvatarSelection from './AvatarSelection';
 import {Link} from "react-router-dom"
 
-export default function PlayerSettings({user, setUser, setJoined, playerKey, avatar}) {
+export default function PlayerSettings({user, setUser, setJoined, playerKey, hostAvatar, setRetrieve, setHostAvatar}) {
 
     const[name, setName] = React.useState("");
     const [avatarSelection, setAvatarSelection] = React.useState(false);
@@ -31,7 +31,7 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, ava
             <Link to = "/" className = "logo">DRAW TOGETHER</Link>
             <div className = "avatar">
                 <p>Playing With</p>
-                <img className = "large-avatar" src = {user.avatar}/>
+                <img className = "large-avatar" src = {hostAvatar}/>
                 <p>Host</p>
             </div>
             <div className ="vl"></div>
@@ -39,7 +39,7 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, ava
                 <p>You</p>
                 <img className = "large-avatar" src = {user.avatar}/>
                 <button onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
-                {avatarSelection && <AvatarSelection setUser = {setUser} setAvatarSelection = {setAvatarSelection}/>}
+                {avatarSelection && <AvatarSelection isHost = {false} setUser = {setUser} setAvatarSelection = {setAvatarSelection} setRetrieve = {setRetrieve} setHostAvatar = {setHostAvatar}/>}
                 <input className = "input" type = "text" placeholder = "Enter your name" onChange = {handleChange}/>
             </div>
             <button className = "back-button"><Link to = "/">Return</Link></button>

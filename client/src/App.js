@@ -30,6 +30,8 @@ function App() {
   const[retrieveKeys, setRetrieveKeys] = React.useState(false);
   const[selection, setSelection] = React.useState(false);
   const[mode, setMode] = React.useState("");
+  const[hostAvatar, setHostAvatar] = React.useState(bear);
+  const[retrieve, setRetrieve] = React.useState(false);
 
   socket.on("player_selection", () => {
     setSelection(true);
@@ -46,6 +48,18 @@ function App() {
   socket.on("newKey", (data) => {
     setAllKeys(data);
   })
+
+  socket.on("retrieved", (data) => {
+    setHostAvatar(data);
+    setRetrieve(false);
+  })
+
+  useEffect(() => {
+    if (retrieve) {
+      const data = [hostKey,hostAvatar]
+      socket.emit("retrieve", data);
+    }
+  }, [retrieve]);
 
   useEffect(() => {
     if (retrieveKeys) {
@@ -111,6 +125,9 @@ function App() {
               joined = {joined}
               setJoined = {setJoined}
               playerKey = {playerKey}
+              hostAvatar = {hostAvatar}
+              setRetrieve = {setRetrieve}
+              setHostAvatar = {setHostAvatar}
             />
           }/>
           <Route path = "/host-settings"  element = {
@@ -121,6 +138,8 @@ function App() {
               hostKey = {hostKey}
               setHostKey = {setHostKey}
               setHostSocket = {setHostSocket}
+              setRetrieve = {setRetrieve}
+              setHostAvatar = {setHostAvatar}
             />}
           />
           <Route path = "/canvas"  element = {

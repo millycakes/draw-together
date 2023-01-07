@@ -52,7 +52,11 @@ io.on("connection", (socket) => {
         socket.to(userkey).emit("player_selection");
         socket.to(userkey).emit("player_mode",mode);
     })
-    
+    socket.on("retrieve", (data)=> {
+        const[hostKey, hostAvatar] = data;
+        socket.to(hostKey).emit("retrieved", hostAvatar);
+        console.log("Host has changed their avatar");
+    })
 })
 
 http.listen(4000, () => {
