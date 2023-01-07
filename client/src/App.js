@@ -22,6 +22,20 @@ function App() {
     avatar: bear
   });
 
+  const[host, setHost] = React.useState({
+    name: "player",
+    host: true,
+    key: 0,
+    avatar: bear
+  });
+
+  const[player, setPlayer] = React.useState({
+    name: "player",
+    host: false,
+    key: 0,
+    avatar: bear
+  });
+
   const[joined, setJoined] = React.useState(false);
   const [playerKey, setPlayerKey] = React.useState("");
   const[hostKey, setHostKey] = React.useState("");
@@ -34,6 +48,14 @@ function App() {
   const[mode, setMode] = React.useState("");
   const[hostAvatar, setHostAvatar] = React.useState(bear);
   const[retrieve, setRetrieve] = React.useState(false);
+
+  socket.on("player_data", (data)=> {
+    setPlayer(data);
+  })
+
+  socket.on("host_data", (data)=> {
+    setHost(data);
+  })
 
   socket.on("player_selection", () => {
     setSelection(true);
@@ -130,6 +152,7 @@ function App() {
               hostAvatar = {hostAvatar}
               setRetrieve = {setRetrieve}
               setHostAvatar = {setHostAvatar}
+              host = {host}
             />
           }/>
           <Route path = "/host-settings"  element = {

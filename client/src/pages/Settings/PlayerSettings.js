@@ -6,7 +6,7 @@ import "./settings.css"
 import Logo from '../../components/Logo';
 import Button from '../../components/Button';
 
-export default function PlayerSettings({user, setUser, setJoined, playerKey, hostAvatar, setRetrieve, setHostAvatar}) {
+export default function PlayerSettings({user, setUser, setJoined, playerKey, hostAvatar, setRetrieve, setHostAvatar, host}) {
 
     const[name, setName] = React.useState("");
     const [avatarSelection, setAvatarSelection] = React.useState(false);
@@ -39,7 +39,7 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, hos
                 <div className = "settings--inner-wrapper">
                     <p>Playing With</p>
                     <img className = "avatar---avatar" src = {hostAvatar}/>
-                    <p>Host</p>
+                    <p>{host.name!="player"?host.name:"Host"}</p>
                 </div>
             </div>
             <div className ="settings--vl"></div>
