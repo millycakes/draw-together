@@ -1,15 +1,18 @@
 import React from 'react';
 import editIcon from "../../assets/icons/edit.png"
 import AvatarSelection from './AvatarSelection';
-import {Link} from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 import "./settings.css"
+import Logo from '../../components/Logo';
 
 export default function PlayerSettings({user, setUser, setJoined, playerKey, hostAvatar, setRetrieve, setHostAvatar}) {
 
     const[name, setName] = React.useState("");
     const [avatarSelection, setAvatarSelection] = React.useState(false);
 
-    function handleChange(event) {
+    const navigate = useNavigate();
+
+    function updateName(event) {
         setName(event.target.value);
     }
 
@@ -25,26 +28,33 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, hos
 
         setUser(userData);
         setJoined(true);
+        navigate("/loading")
     }
 
     return(
-        <div className = "avatar-page" style={{height: '100vh'}}>
-            <Link to = "/" className = "logo">DRAW TOGETHER</Link>
-            <div className = "avatar">
-                <p>Playing With</p>
-                <img className = "large-avatar" src = {hostAvatar}/>
-                <p>Host</p>
+        <div className = "settings" style={{height: '100vh'}}>
+            <Logo />
+            <div className = "settings--avatar">
+                <div className = "settings--inner-wrapper">
+                    <p>Playing With</p>
+                    <img className = "avatar---avatar" src = {hostAvatar}/>
+                    <p>Host</p>
+                </div>
             </div>
             <div className ="vl"></div>
-            <div className = "avatar">
-                <p>You</p>
-                <img className = "large-avatar" src = {user.avatar}/>
-                <button onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
-                {avatarSelection && <AvatarSelection isHost = {false} setUser = {setUser} setAvatarSelection = {setAvatarSelection} setRetrieve = {setRetrieve} setHostAvatar = {setHostAvatar}/>}
-                <input className = "input" type = "text" placeholder = "Enter your name" onChange = {handleChange}/>
+            <div className = "settings--avatar">
+                <div className = "settings--outer-wrapper">
+                    <div className = "settings--inner-wrapper">
+                        <p>You</p>
+                        <button className = "settings--edit-icon" onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
+                        <img className = "avatar---avatar" src = {user.avatar}/>
+                        {avatarSelection && <AvatarSelection isHost = {true} setUser = {setUser} setAvatarSelection = {setAvatarSelection} setRetrieve = {setRetrieve} setHostAvatar = {setHostAvatar}/>}
+                        <input className = "input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
+                    </div>
+                </div>
             </div>
-            <button className = "back-button"><Link to = "/">Return</Link></button>
-            <button className = "next-button" onClick = {playerJoin}><Link to = "/loading">Next</Link></button>
+            <button variant = "primary left" className = "back-button" onClick = {() => {navigate("/")}}>Return</button>
+            <button variant = "primary right" className = "next-button" onClick = {playerJoin}>Next</button>
         </div>
     )
 }

@@ -1,55 +1,10 @@
-.vl {
-    border-left: 1px solid rgb(222, 222, 222);
-    height: 80%;
-}
+@import "../../style.css";
 
-.avatar-page{
+.settings{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-}
-
-@media (max-width: 760px) {
-    .avatar-page{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-    .vl{
-        display: none;
-    }
-  }
-
-
-
-.back-button{
-    position: absolute;
-    padding: 10px 20px;
-    left: 64px;
-    bottom: 40px;
-
-    background: #FEEAEA;
-    border-radius: 4px;
-    border: none;
-}
-
-.avatar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.next-button{
-    position: absolute;
-    padding: 10px 20px;
-    right: 64px;
-    bottom: 40px;
-
-    background: #FEEAEA;
-    border-radius: 4px;
-    border: none;
 }
 
 .input{
@@ -62,13 +17,94 @@
     border-bottom: 1px solid #9A9A9A;
 }
 
-.copy-button{
-    padding: 10px 20px;
-    background-color: #FEEAEA;
-    border-radius: 4px;
-    border: none;
+
+.settings--edit-icon{
+    position: absolute;
+    background-color: var(--background-white);
+    border: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
 }
 
-.copy-button:hover{
-    cursor: pointer;
+.settings--key{
+    width: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
 }
+
+.settings--avatar{
+    width: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings--outer-wrapper{
+    position: relative;
+    width: 112px;
+    height: 112px;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings--inner-wrapper{
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+/* || avatar */
+
+.avatar{
+    display: flex;
+    flex-direction: row;
+    padding: 8px 16px;
+    border: 1px solid black;
+    border-radius: 4px;
+    gap: 8px;
+    background-color: var(--background-white);
+}
+
+.avatar--selector{
+    background-color: var(--background-white);
+    border: 0;
+}
+
+.avatar---avatar{
+    width: 80px;
+    height: 80px;
+    margin: 16px;
+}
+
+/* || selection */
+
+.selection{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.selection--options{
+    display: flex;
+    flex-direction: row;
+}
+
+.selection--option{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+

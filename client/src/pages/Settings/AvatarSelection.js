@@ -22,12 +22,12 @@ export default function AvatarSelection ({isHost, setUser, setAvatarSelection, s
     }
 
     return(
-       <div>
-           <button onClick={() => updateAvatar(bear)}><img className = "small-avatar" src = {bear}/></button>
-           <button onClick={() => updateAvatar(duck)}><img className = "small-avatar" src = {duck}/></button>
-           <button onClick={() => updateAvatar(dog)}><img className = "small-avatar" src = {dog}/></button>
-           <button onClick={() => updateAvatar(sheep)}><img className = "small-avatar" src = {sheep}/></button>
-           <button onClick={() => updateAvatar(cat)}><img className = "small-avatar" src = {cat}/></button>
+       <div className = "avatar">
+           <button className = "avatar--selector" onClick={() => updateAvatar(bear)}><img className = "avatar-small" src = {bear}/></button>
+           <button className = "avatar--selector" onClick={() => updateAvatar(duck)}><img className = "avatar-small" src = {duck}/></button>
+           <button className = "avatar--selector" onClick={() => updateAvatar(dog)}><img className = "avatar-small" src = {dog}/></button>
+           <button className = "avatar--selector" onClick={() => updateAvatar(sheep)}><img className = "avatar-small" src = {sheep}/></button>
+           <button className = "avatar--selector" onClick={() => updateAvatar(cat)}><img className = "avatar-small" src = {cat}/></button>
        </div>
     )
 }

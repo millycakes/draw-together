@@ -3,9 +3,10 @@ import "./game.css"
 
 export default function ExitConfirmation({setOpenModal}){
     const navigate = useNavigate();
-function navigateHome(){
-    navigate("/")
-  }
+    function navigateHome(){
+        navigate("/")
+    }
+    
     return(
         <div>
             <p>Are you sure you want to quit?</p>

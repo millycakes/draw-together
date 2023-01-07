@@ -5,6 +5,17 @@
     padding: 0;
 }
 
+.input{
+  width: 100%;
+  box-sizing:border-box;
+  margin: 0 !important;
+}
+
+.vl {
+  border-left: 1px solid rgb(222, 222, 222);
+  height: 80%;
+}
+
 :root{
     --text: #2C2C2C;
     --stroke-light: #E3E3E3;
@@ -41,25 +52,6 @@ a:active {
   color: black;
 }
 
-button {
-    font-family: 'Roboto Mono', monospace;
-}
-
-button:hover{
-    background-color: var(--accent-hover);
-}
-
-.large-button{
-    width: 100%;
-    background-color: var(--accent);
-    border: 0;
-    border-radius: 4px;
-    font-size: 14px;
-    padding: 12px;
-    margin-bottom: 20px;
-    font-family: 'Roboto Mono', monospace;
-}
-
 .logo{
     font-family: 'Patrick Hand';
     font-style: normal;
@@ -71,4 +63,9 @@ button:hover{
     position: absolute;
     left: 64px;
     top: 24px;
+}
+
+.avatar-small{
+  width: 36px;
+  height: 36px;
 }

@@ -1,6 +1,9 @@
 import React from 'react';
-import {Link} from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
+
 import editIcon from "../../assets/icons/edit.png"
+import Button from '../../components/Button';
+import Logo from '../../components/Logo';
 import AvatarSelection from './AvatarSelection';
 import "./settings.css"
 
@@ -8,6 +11,8 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
 
     const [name, setName] = React.useState("");
     const [avatarSelection, setAvatarSelection] = React.useState(false);
+
+    const navigate = useNavigate();
 
     const uuid = () => {
         let fin = '';
@@ -27,18 +32,20 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
     function hostJoin(event)  {
         event.preventDefault();
 
-        console.log("host joining");
         if (name==="") {
             setName("Player 1");
         }
+
         const userData = {
             name: name,
             key: hostKey,
             host: true,
             avatar: user.avatar
         };
+
         setUser(userData);
         setJoined(true);
+        navigate("/mode-selection")
     }
 
     function updateName(event) {
@@ -50,23 +57,27 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
     }
 
     return(
-        <div className = "avatar-page" style={{height: '100vh'}}>
-            <Link to = "/" className = "logo">DRAW TOGETHER</Link>
-            <div className = "avatar">
-                <p>You</p>
-                <img className = "large-avatar" src = {user.avatar}/>
-                <button onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
-                {avatarSelection && <AvatarSelection isHost = {true} setUser = {setUser} setAvatarSelection = {setAvatarSelection} setRetrieve = {setRetrieve} setHostAvatar = {setHostAvatar}/>}
-                <input className = "input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
+        <div className = "settings" style={{height: '100vh'}}>
+            <Logo />
+            <div className = "settings--avatar">
+                <div className = "settings--outer-wrapper">
+                    <div className = "settings--inner-wrapper">
+                        <p>You</p>
+                        <button className = "settings--edit-icon" onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
+                        <img className = "avatar---avatar" src = {user.avatar}/>
+                        {avatarSelection && <AvatarSelection isHost = {true} setUser = {setUser} setAvatarSelection = {setAvatarSelection} setRetrieve = {setRetrieve} setHostAvatar = {setHostAvatar}/>}
+                        <input className = "input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
+                    </div>
+                </div>
             </div>
             <div className ="vl"></div>
-            <div className = "avatar">
+            <div className = "settings--key">
                 <p>Copy the following key to invite your friend!</p>
                 <p className = "input">{hostKey}</p>
-                <button className = "copy-button" onClick = {copyKey}>Copy Room Key</button>
+                <Button text = "Copy Room Key" variant = "round" onClick = {copyKey}/>
             </div>
-            <button className = "back-button"><Link to = "/">Return</Link></button>
-            <button className = "next-button" onClick = {hostJoin}><Link to = "/mode-selection">Next</Link></button>
+            <Button variant = "primary left" text = "Return" onClick = {() => navigate("/")}/>
+            <Button variant = "primary right" text = "Next" onClick = {hostJoin}/>
         </div>
     )
 }

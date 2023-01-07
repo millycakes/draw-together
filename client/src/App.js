@@ -6,11 +6,10 @@ import bear from "./assets/avatar/bear.png"
 
 import Home from './pages/Home/Home';
 import Loading from "./pages/Loading/Loading";
-import AvatarSelection from "./pages/Settings/AvatarSelection";
 import GameSelection from "./pages/Settings/GameSelection";
 import HostSettings from "./pages/Settings/HostSettings";
 import PlayerSettings from "./pages/Settings/PlayerSettings";
-import Game from "./pages/Game/Game";
+import Canvas from "./pages/Canvas/Canvas";
 
 function App() {
   const socket = io.connect("http://localhost:4000");
@@ -145,7 +144,7 @@ function App() {
             />}
           />
           <Route path = "/canvas"  element = {
-            <Game
+            <Canvas
               socket = {socket}
               mode = {mode}
             />}

@@ -1,0 +1,50 @@
+
+button {
+    font-family: 'Roboto Mono', monospace;
+}
+
+button:hover{
+    background-color: var(--accent-hover);
+}
+
+.button--primary{
+    padding: 10px 20px;
+    background: #FEEAEA;
+    border-radius: 4px;
+    border: none;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.button--round{
+    padding: 10px 20px;
+    gap: 10px;
+    background: #FEEAEA;
+    border-radius: 100px;
+    border: none;
+}
+
+.button--large{
+    width: 100%;
+    background-color: var(--accent);
+    border: 0;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.left{
+    position: fixed;
+    left: 32px;
+    bottom: 32px;
+}
+
+.right{
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+}

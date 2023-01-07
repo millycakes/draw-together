@@ -16,7 +16,6 @@ export default function Countdown({seconds, setCountdownComplete}){
     React.useEffect(() => {
         if (countdown <= 0){
             clearInterval(timerId.current)
-            alert("end")
             setCountdownComplete(true)
         }
     }, [countdown])
