@@ -36,6 +36,7 @@ export default function Canvas ({mode, socket}) {
       strokeStyle: "rgb(79, 79, 79)",
       prevStrokeStyle: "rgb(79, 79, 79)",
       lineWidth: 5,
+      tool: "pencil"
     }
   )
 
@@ -93,6 +94,15 @@ export default function Canvas ({mode, socket}) {
       contextRef.current.clearRect(0, 0, 500, 500);
       return;
     }
+
+    console.log("running two -> prev" + brush.tool + tool)
+
+    setBrush(prev => ({
+      ...prev,
+      tool: tool
+    }))
+
+
     //save current color when switching from a pencil to an eraser
     if (brush.tool == "pencil" && tool == "eraser"){
       setBrush(prev => ({
