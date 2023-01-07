@@ -16,6 +16,7 @@ import Tutorial from "./Tutorial"
 import "./game.css"
 import Palette from "./Palette"
 import Logo from "../../components/Logo"
+import Button from "../../components/Button"
 
 export default function Game ({mode, socket}) {  
 
@@ -117,22 +118,23 @@ export default function Game ({mode, socket}) {
     <div className = "canvas"  style={{height: '100vh' }}>
       {(mode != "Draw Together" && !countdownComplete) && <Countdown seconds = {3} setCountdownComplete = {setCountdownComplete}/>}
       <div className = "canvas--section-1">
-        <Logo variant = "canvas"/>
-        <div className = "vl"/>
+        <Logo variant = "canvas vl"/>
         <p>{mode}</p>
         <p>{displayGameInfo()}</p>
       </div>
       <div className = "canvas--section-2">
-        <img src = {bear} className = "small-avatar" alt = "avatar"/>
-        <img src = {cat} className = "small-avatar" alt = "avatar"/>
-        <div className = "vl"/>
-        <button onClick={downloadDrawing}><img  src = {downloadIcon} className = "canvas--icon" />Download</button>
-        {tutOpen && <Tutorial mode = {mode}/>}
-        {(mode != "Draw Together") && 
-        <button onClick = {() => {setTutOpen(prev => !prev)}}><img src = {helpIcon} className = "canvas--icon" />Tutorial</button>}
+        <div className = "canvas--avatars">
+          <img src = {bear} className = "small-avatar" alt = "avatar"/>
+          <img src = {cat} className = "small-avatar vl" alt = "avatar"/>
+        </div>
+        <div className = "canvas--buttons">
+          {(mode != "Draw Together") && <Button variant = "icon" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}
+          {tutOpen && <Tutorial mode = {mode}/>}
+          <Button variant = "icon pink" text = "Download" onClick = {downloadDrawing} src = {downloadIcon}/>
+        </div>
       </div>
       <div className = "canvas--canvas">
-        <canvas className = "drawing-canvas"
+        <canvas className = "drawing--canvas"
           ref = {canvasRef}
           onMouseDown = {startDrawing}
           onMouseMove = {draw}

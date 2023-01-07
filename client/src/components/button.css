@@ -47,3 +47,19 @@ button:hover{
     right: 32px;
     bottom: 32px;
 }
+
+.button--icon{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    background: #F5F5F5;
+    border: none;
+    border-radius: 8px;
+}
+
+.pink{
+    background-color: var(--accent);
+}

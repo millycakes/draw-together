@@ -70,7 +70,7 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
                     </div>
                 </div>
             </div>
-            <div className ="vl"></div>
+            <div className ="settings--vl"></div>
             <div className = "settings--key">
                 <p>Copy the following key to invite your friend!</p>
                 <p className = "input">{hostKey}</p>

@@ -6,7 +6,7 @@ export default function ExitConfirmation({setOpenModal}){
     function navigateHome(){
         navigate("/")
     }
-    
+
     return(
         <div>
             <p>Are you sure you want to quit?</p>

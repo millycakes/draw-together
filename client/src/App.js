@@ -10,6 +10,7 @@ import GameSelection from "./pages/Settings/GameSelection";
 import HostSettings from "./pages/Settings/HostSettings";
 import PlayerSettings from "./pages/Settings/PlayerSettings";
 import Canvas from "./pages/Canvas/Canvas";
+import "./style.css"
 
 function App() {
   const socket = io.connect("http://localhost:4000");

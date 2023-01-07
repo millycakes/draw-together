@@ -3,7 +3,6 @@ import logo from "../../assets/logo.png"
 import { useNavigate } from 'react-router-dom';
 import "./home.css"
 import Button from "../../components/Button";
-import "../../style.css"
 
 export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket, setRetrieveKeys}) {
 

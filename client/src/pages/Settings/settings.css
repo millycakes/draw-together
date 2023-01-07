@@ -1,4 +1,3 @@
-@import "../../style.css";
 
 .settings{
     display: flex;
@@ -17,6 +16,10 @@
     border-bottom: 1px solid #9A9A9A;
 }
 
+.settings--vl{
+    border-left: 1px solid rgb(222, 222, 222);
+    height: 80%;
+}
 
 .settings--edit-icon{
     position: absolute;

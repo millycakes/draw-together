@@ -42,7 +42,7 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, hos
                     <p>Host</p>
                 </div>
             </div>
-            <div className ="vl"></div>
+            <div className ="settings--vl"></div>
             <div className = "settings--avatar">
                 <div className = "settings--outer-wrapper">
                     <div className = "settings--inner-wrapper">

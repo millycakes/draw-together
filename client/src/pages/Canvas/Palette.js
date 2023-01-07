@@ -69,30 +69,29 @@ export default function Palette({brush, setBrush, ctxRef}){
     return(
         <div className = "toolbox">
             <ul className = "tools" onClick = {updateTool}>
-            <li><img id = "tools--pencil" alt = "pencil icon" src = {pencil}/></li>
-            <li><img id = "tools--eraser" alt = "eraser icon" src = {eraser}/></li>
-            <li><img id = "tools--eyedropper" alt = "eyedropper icon" src = {eyedropper}/></li>
-            <li><img id = "tools--clear" alt = "clear icon" src = {clear}/></li>
+                <li><img id = "tools--pencil" alt = "pencil icon" src = {pencil}/></li>
+                <li><img id = "tools--eraser" alt = "eraser icon" src = {eraser}/></li>
+                <li><img id = "tools--eyedropper" alt = "eyedropper icon" src = {eyedropper}/></li>
+                <li><img id = "tools--clear" alt = "clear icon" src = {clear}/></li>
             </ul>
             <hr className = "vertical"/>
             <div className = "stroke" onClick = {updateStroke}>
-            <label htmlFor="stroke">Thickness</label>
-            <input type="range" id="stroke" name="stroke" min="1" max="100"
-            onChange={updateStroke}
-            defaultValue = "5"
-            />
+                <label htmlFor="stroke">Thickness</label>
+                <input type="range" id="stroke" name="stroke" min="1" max="100"
+                onChange={updateStroke}
+                defaultValue = "5"/>
             </div>
             <hr className = "vertical"/>
             <ul className = "palette" onClick = {updateColor}>
-            <li id = "palette--pink"></li>
-            <li id = "palette--red"></li>
-            <li id = "palette--orange"></li>
-            <li id = "palette--yellow"></li>
-            <li id = "palette--green"></li>
-            <li id = "palette--blue"></li>
-            <li id = "palette--purple"></li>
-            <li id = "palette--black"></li>
-            <li id = "palette--white"></li>
+                <li id = "palette--pink"></li>
+                <li id = "palette--red"></li>
+                <li id = "palette--orange"></li>
+                <li id = "palette--yellow"></li>
+                <li id = "palette--green"></li>
+                <li id = "palette--blue"></li>
+                <li id = "palette--purple"></li>
+                <li id = "palette--black"></li>
+                <li id = "palette--white"></li>
             </ul>
         </div>
     )
