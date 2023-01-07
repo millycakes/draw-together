@@ -10,7 +10,7 @@ import backIcon from "../assets/icons/back.png"
 import helpIcon from "../assets/icons/help.png"
 import zoomIn from "../assets/icons/zoom-in.png"
 import zoomOut from "../assets/icons/zoom-out.png"
-
+import Countdown from "./Countdown"
 import pencilCursor from "../assets/cursors/pencil.png"
 import eraserCursor from "../assets/cursors/eraser.png"
 import eyedropperCursor from "../assets/cursors/eyedropper.png"
@@ -24,12 +24,11 @@ import Tutorial from "./Tutorial"
 export default function Canvas ({mode, socket}) {  
 
   const canvasRef = useRef(null);
-  const contextRef = useRef(null);
+  const ctxRef = useRef(null);
   
   const [isDrawing, setIsDrawing] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
   const [tutOpen, setTutOpen] = React.useState(false);
-
 
   const [brush, setBrush] = React.useState(
     {
@@ -44,27 +43,30 @@ export default function Canvas ({mode, socket}) {
       const canvas = canvasRef.current;
       canvas.width = 500;
       canvas.height = 500;
-      const context = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d");
   
-      context.lineCap = "round";
-      context.strokeStyle = brush.strokeStyle;
-      context.lineWidth = brush.lineWidth;
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, 500, 500);
 
-      contextRef.current = context;
+      ctx.lineCap = "round";
+      ctx.strokeStyle = brush.strokeStyle;
+      ctx.lineWidth = brush.lineWidth;
+
+      ctxRef.current = ctx;
   },[])
 
   React.useEffect(() => {
-    contextRef.current.strokeStyle = brush.strokeStyle;
-    contextRef.current.lineWidth = brush.lineWidth;
+    ctxRef.current.strokeStyle = brush.strokeStyle;
+    ctxRef.current.lineWidth = brush.lineWidth;
   }, [brush])
 
   const startDrawing = ({nativeEvent}) => {
       const {offsetX, offsetY} = nativeEvent;
 
-      contextRef.current.beginPath();
-      contextRef.current.moveTo(offsetX, offsetY);
-      contextRef.current.lineTo(offsetX, offsetY);
-      contextRef.current.stroke();
+      ctxRef.current.beginPath();
+      ctxRef.current.moveTo(offsetX, offsetY);
+      ctxRef.current.lineTo(offsetX, offsetY);
+      ctxRef.current.stroke();
       setIsDrawing(true);
       nativeEvent.preventDefault();
   };
@@ -74,13 +76,13 @@ export default function Canvas ({mode, socket}) {
           return
       }
       const {offsetX, offsetY} = nativeEvent;
-      contextRef.current.lineTo(offsetX, offsetY);
-      contextRef.current.stroke();
+      ctxRef.current.lineTo(offsetX, offsetY);
+      ctxRef.current.stroke();
       nativeEvent.preventDefault();
   }
 
   const stopDrawing = () => {
-      contextRef.current.closePath();
+      ctxRef.current.closePath();
       setIsDrawing(false);
   }
 
@@ -91,7 +93,8 @@ export default function Canvas ({mode, socket}) {
     tool = tool.slice(7, tool.length);
 
     if (tool == "clear"){
-      contextRef.current.clearRect(0, 0, 500, 500);
+      ctxRef.current.fillStyle = "white";
+      ctxRef.current.fillRect(0, 0, 500, 500);
       return;
     }
 
@@ -149,28 +152,55 @@ export default function Canvas ({mode, socket}) {
   }
 
   function downloadDrawing(){
-
+    let downloadLink = document.createElement('a');
+    downloadLink.setAttribute('download', 'CanvasAsImage.png');
+    const canvasImage = canvasRef.current.toDataURL('image/png');
+    let url = canvasImage.replace(/^data:image\/png/,'data:application/octet-stream');
+    downloadLink.setAttribute('href', url);
+    downloadLink.click();
   }
 
+  function displayGameInfo(){
+    console.log("mode" + mode)
+    switch (mode){
+      case "Draw Together":
+        return null;
+      case "Canvas Swap":
+        return (
+          <div>
+            <p>Round 1/5</p>
+            <p>/</p>
+            <p>Swapping in: 01:22</p>
+          </div>
+        )
+      case "Top Bottom":
+        return (
+          <p>Reveal in 01:23</p>
+        )
+    }
+  }
+
+  const [countdownComplete, setCountdownComplete] = React.useState(false);
+  
 	return (
     <div className = "canvas"  style={{height: '100vh' }}>
+      {(mode != "Draw Together" && !countdownComplete) && <Countdown seconds = {3} setCountdownComplete = {setCountdownComplete}/>}
       <div className = "canvas--section">
         <Link to = "/">DRAW TOGETHER</Link>
         <div className="vl"/>
         <p>{mode}</p>
+        <p>/</p>
+        <p>{displayGameInfo()}</p>
       </div>
       <div className = "canvas--section">
         <img src = {bear} className = "small-avatar" alt = "avatar"/>
         <img src = {cat} className = "small-avatar" alt = "avatar"/>
         <div className = "vl"/>
         <button onClick={downloadDrawing}>Download<input type = "image"  src = {downloadIcon} className = "canvas--icon" /></button>
-        {tutOpen && <Tutorial />}
-        <button
-            onClick = {() => {
-              setTutOpen(prev => !prev)
-            }}
-        >Tutorial<input type = "image"  src = {helpIcon} 
-        className = "canvas--icon" /></button>
+        {tutOpen && <Tutorial mode = {mode}/>}
+        {(mode != "Draw Together") && <button onClick = {() => {setTutOpen(prev => !prev)}}>Tutorial
+          <input type = "image"  src = {helpIcon} className = "canvas--icon" />
+        </button>}
       </div>
       <div>
         <canvas className = "drawing-canvas"
@@ -181,16 +211,13 @@ export default function Canvas ({mode, socket}) {
           onMouseLeave = {stopDrawing}
         >
         </canvas>
-        <div id = "cover">
-
-        </div>
+        {(mode == "Canvas Swap") && <div id = "cover"><p>Player's Drawing</p></div>}
       </div>
       <div className = "canvas--section">
         <input type = "image" src = {backIcon} onClick = {() => {
           setModalOpen(true);
         }} />
         {modalOpen && <ExitConfirmation setOpenModal={setModalOpen} />}
-
       </div>
       <div className = "toolbox">
         <ul className = "tools" onClick = {updateTool}>

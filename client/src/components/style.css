@@ -501,7 +501,7 @@ hr.vertical {
 }
 
 #cover{
-    display: none;
+    display: block;
     position: relative;
     border: #000 1px solid;
     top: -250px;
