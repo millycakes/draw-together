@@ -1,6 +1,7 @@
 import React from "react"
 import logo from "../../assets/logo.png"
 import { useNavigate } from 'react-router-dom';
+import "../../style.css"
 import "./home.css"
 import Button from "../../components/Button";
 

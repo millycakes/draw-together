@@ -20,9 +20,11 @@ export default function Countdown({seconds, setCountdownComplete}){
         }
     }, [countdown])
 
+
+    //div should be opacity 20 black
     return(
-        <div className = "countdown">
-            <h1 className="countdown--value">{countdown}</h1>
+        <div>
+            <h1>Countdown : {countdown}</h1>
         </div>
     )
 }

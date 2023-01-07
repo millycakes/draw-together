@@ -1,6 +1,5 @@
-@import "../../style.css";
 
-.canvas--section-1{
+.canvas--section{
     display: flex;
     flex-direction: row;
     background-color: var(--background-white);
@@ -9,63 +8,9 @@
     gap: 8px;
     padding: 8px;
     border: 1px solid #E3E3E3;
-    position: absolute;
-    top: 16px;
-    left: 16px;
+
+
 }
-
-.canvas--section-2{
-    display: flex;
-    flex-direction: row;
-    background-color: var(--background-white);
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
-    border: 1px solid #E3E3E3;
-    position: absolute;
-    top: 16px;
-    right: 16px;
-}
-
-.canvas--section-3{
-    display: flex;
-    flex-direction: row;
-    background-color: var(--background-white);
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
-    border: 1px solid #E3E3E3;
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-}
-
-.canvas--section-4{
-    display: flex;
-    flex-direction: row;
-    background-color: var(--background-white);
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
-    border: 1px solid #E3E3E3;
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-}
-
-
-.canvas--canvas{
-    position: absolute;
-}
-
-.canvas--palette{
-    position: absolute;
-    bottom: 16px;
-}
-
 .canvas--icon-wrapper{
     padding: 8px;
 }
@@ -315,23 +260,4 @@ hr.vertical {
     background-color: var(--accent);
     width: 500px;
     height: 250px;
-}
-
-/* || countdown */
-.countdown{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 40%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-
-.countdown--value{
-    position: relative;
-    color: white;
-    opacity: 100%;
 }
