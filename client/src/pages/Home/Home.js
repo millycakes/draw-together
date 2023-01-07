@@ -3,6 +3,7 @@ import logo from "../../assets/logo.png"
 import { useNavigate } from 'react-router-dom';
 import "./home.css"
 import Button from "../../components/Button";
+import "../../style.css"
 
 export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket, setRetrieveKeys}) {
 
@@ -43,7 +44,7 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
             <div className = "home--background">
                 <div className = "home--form">
                     <img className = "home--logo" alt = "logo" src = {logo}/>
-                    <form onSubmit = {handleCreateSubmit}>
+                    <form onSubmit = {handleCreateSubmit} style = {{margin: "20px 0"}}>
                         <p>Create your room to begin</p>
                         <Button text = "Create Room" variant = "large" onClick = {handleCreateSubmit} />
                     </form>

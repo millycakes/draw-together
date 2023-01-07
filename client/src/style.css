@@ -28,7 +28,7 @@
     --accent-hover: #fee4e4;
 }
 
-h1, h2, h3, h4, h5, h6, p{
+p{
   font-family: 'Patrick Hand', cursive;
 }
 
@@ -51,7 +51,6 @@ a:active {
   text-decoration: none; 
   color: black;
 }
-
 
 .avatar-small{
   width: 36px;

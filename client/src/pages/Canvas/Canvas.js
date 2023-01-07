@@ -1,5 +1,4 @@
 import React, { useRef } from "react"
-import {Link} from "react-router-dom"
 
 import downloadIcon from "../../assets/icons/download.png"
 import backIcon from "../../assets/icons/back.png"
@@ -127,11 +126,10 @@ export default function Game ({mode, socket}) {
         <img src = {bear} className = "small-avatar" alt = "avatar"/>
         <img src = {cat} className = "small-avatar" alt = "avatar"/>
         <div className = "vl"/>
-        <button onClick={downloadDrawing}>Download<input type = "image"  src = {downloadIcon} className = "canvas--icon" /></button>
+        <button onClick={downloadDrawing}><img  src = {downloadIcon} className = "canvas--icon" />Download</button>
         {tutOpen && <Tutorial mode = {mode}/>}
-        {(mode != "Draw Together") && <button onClick = {() => {setTutOpen(prev => !prev)}}>Tutorial
-          <input type = "image"  src = {helpIcon} className = "canvas--icon" />
-        </button>}
+        {(mode != "Draw Together") && 
+        <button onClick = {() => {setTutOpen(prev => !prev)}}><img src = {helpIcon} className = "canvas--icon" />Tutorial</button>}
       </div>
       <div className = "canvas--canvas">
         <canvas className = "drawing-canvas"
