@@ -4,6 +4,7 @@ import AvatarSelection from './AvatarSelection';
 import { useNavigate } from 'react-router-dom';
 import "./settings.css"
 import Logo from '../../components/Logo';
+import Button from '../../components/Button';
 
 export default function PlayerSettings({user, setUser, setJoined, playerKey, hostAvatar, setRetrieve, setHostAvatar}) {
 
@@ -53,8 +54,8 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, hos
                     </div>
                 </div>
             </div>
-            <button variant = "primary left" className = "back-button" onClick = {() => {navigate("/")}}>Return</button>
-            <button variant = "primary right" className = "next-button" onClick = {playerJoin}>Next</button>
+            <Button variant = "primary left" text = "Return" onClick = {() => navigate("/")}/>
+            <Button variant = "primary right" text = "Next" onClick = {playerJoin}/>
         </div>
     )
 }
