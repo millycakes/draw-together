@@ -21,8 +21,7 @@ import cat from "../assets/avatar/cat.png"
 import ExitConfirmation from "./ExitConfirmation"
 import Tutorial from "./Tutorial"
 
-export default function Canvas ({mode, socket}) {
-  
+export default function Canvas ({mode, socket}) {  
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
