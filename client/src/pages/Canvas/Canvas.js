@@ -39,6 +39,20 @@ export default function Game ({mode, socket, player, host}) {
     }
   )
 
+  React.useEffect(()=> {
+    if (mode==="Top Bottom") {
+      let random = Math.random()*2;
+      if (random<1) {
+        player.half = "top";
+        host.half = "bottom";
+      }
+      else {
+        player.half = "bottom";
+        host.half = "top";
+      }
+    }
+  })
+
   React.useEffect(() => {
       const canvas = canvasRef.current;
       canvas.width = 500;
@@ -119,7 +133,7 @@ export default function Game ({mode, socket, player, host}) {
   
 	return (
     <div className = "canvas"  style={{height: '100vh' }}>
-      {(mode != "Draw Together" && !countdownComplete) && <Countdown seconds = {3} setCountdownComplete = {setCountdownComplete}/>}
+      {(mode !== "Draw Together" && !countdownComplete) && <Countdown seconds = {3} setCountdownComplete = {setCountdownComplete}/>}
       <div className = "canvas--section-1">
         <Logo variant = "canvas vl"/>
         <p>{mode}</p>
@@ -131,7 +145,7 @@ export default function Game ({mode, socket, player, host}) {
           <img src = {player.avatar} className = "avatar-small vl" alt = "avatar"/>
         </div>
         <div className = "canvas--buttons">
-          {(mode != "Draw Together") && <Button variant = "icon" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}
+          {(mode !== "Draw Together") && <Button variant = "icon" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}
           {tutOpen && <Tutorial mode = {mode} setTutOpen = {setTutOpen}/>}
           <Button variant = "icon" text = "FInal drawing" onClick = {() => {setFinalOpen(prev => !prev)}} src = {helpIcon}/>
           {finalOpen && <FinalDrawing  mode = {mode} setFinalOpen = {setFinalOpen}/>}
@@ -146,9 +160,9 @@ export default function Game ({mode, socket, player, host}) {
           onMouseUp = {stopDrawing}
           onMouseLeave = {stopDrawing}>
         </canvas>
-        {(mode == "Canvas Swap") && 
+        {(mode === "Canvas Swap") && 
         <div className = "canvas--cover"><p>Player's Drawing</p></div>}
-        {(mode == "Canvas Swap") &&
+        {(mode === "Canvas Swap") &&
         <div className = "canvas--swap-avatars">
           <img src = {host.avatar} className = "avatar-small" alt = "avatar"/>
           <img src = {player.avatar} className = "avatar-small" alt = "avatar"/>
