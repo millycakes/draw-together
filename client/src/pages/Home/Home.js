@@ -3,32 +3,8 @@ import logo from "../../assets/logo.png"
 import { useNavigate } from 'react-router-dom';
 import "./home.css"
 import Button from "../../components/Button";
-import bear from "../../assets/avatar/bear.png"
 
-export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket, setRetrieveKeys, setUser, setPlayer, setHost}) {
-
-    React.useEffect(()=> {
-        setUser({
-            name: "player",
-            host: false,
-            key: 0,
-            avatar: bear
-        })
-
-        setPlayer({
-            name: "player",
-            host: false,
-            key: 0,
-            avatar: bear 
-        })
-
-        setHost({
-            name: "player",
-            host: true,
-            key: 0,
-            avatar: bear
-        })
-    })
+export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket, setRetrieveKeys}) {
 
     const navigate = useNavigate();
 

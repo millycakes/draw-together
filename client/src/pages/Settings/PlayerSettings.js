@@ -39,7 +39,7 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, hos
                 <div className = "settings--inner-wrapper">
                     <p>Playing With</p>
                     <img className = "avatar---avatar" src = {hostAvatar}/>
-                    <p>{host.name!=="player"?host.name:"Host"}</p>
+                    <p>{host.name!="player"?host.name:"Host"}</p>
                 </div>
             </div>
             <div className ="settings--vl"></div>
