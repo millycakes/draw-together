@@ -34,13 +34,15 @@ io.on("connection", (socket) => {
         }
         console.log(name + " is ready to play");
         if (getUsers(user.key).length===2) {
-            for (let i = 0; i<getUsers(user.key); i++) {
+            let i = 0;
+            while (i<getUsers(user.key).length) {
                 if (getUsers(user.key)[i].host) {
                     socket.to(user.key).emit("host_data",getUsers(user.key)[i]);
                 }
                 else {
                     socket.to(user.key).emit("player_data",getUsers(user.key)[i]);
                 }
+                i++;
             }
         }
         if (getUsers(user.key).length===2 && getUsers(user.key)[0].mode!=null) {
