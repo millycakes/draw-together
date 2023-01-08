@@ -140,6 +140,9 @@ function App() {
               setPlayerKey = {setPlayerKey}
               setPlayerSocket = {setPlayerSocket}
               setRetrieveKeys = {setRetrieveKeys}
+              setUser = {setUser}
+              setPlayer = {setPlayer}
+              setHost = {setHost}
             />
           }/>
           <Route path = "/player-settings"  element = {
