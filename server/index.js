@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
                 }
             }
         }
-    })
+        })
     socket.on("mouse", (data) => {
         // console.log("received mouse data");
         socket.broadcast.emit('mouse', data);
