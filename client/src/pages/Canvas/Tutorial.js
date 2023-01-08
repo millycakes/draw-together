@@ -1,7 +1,7 @@
 import React from "react";
-import "./game.css"
+import closeIcon from "../../assets/icons/close.png"
 
-export default function Tutorial ({mode}) {
+export default function Tutorial ({mode, setTutOpen}) {
 
     function getInstructions(){
         if (mode == "Canvas Swap"){
@@ -24,11 +24,20 @@ export default function Tutorial ({mode}) {
         }
     }
 
+    function closeDiv(){
+        setTutOpen(false);
+        console.log("Closed")
+
+    }
+
     return(
-        <div>
-            <p>TUTORIAL</p>
-            <p>{mode}</p>
-            {getInstructions()}
+        <div className = "modal" onclick = {closeDiv}>
+            <div className = "tutorial">
+                <button className = "tutorial--close" onClick = {closeDiv}><img src = {closeIcon}/></button>
+                <p>TUTORIAL</p>
+                <p>{mode}</p>
+                {getInstructions()}
+            </div>
         </div>
     )
 }

@@ -1,6 +1,5 @@
 import {useEffect, useRef, useState} from "react"
 import React from "react"
-import "./game.css"
 
 export default function Countdown({seconds, setCountdownComplete}){
     const [countdown, setCountdown] = React.useState(seconds);
@@ -21,7 +20,7 @@ export default function Countdown({seconds, setCountdownComplete}){
     }, [countdown])
 
     return(
-        <div className = "countdown">
+        <div className = "countdown modal">
             <h1 className="countdown--value">{countdown}</h1>
         </div>
     )

@@ -2,6 +2,7 @@ import pencil from "../../assets/tools/pencil.png"
 import eraser from "../../assets/tools/eraser.png"
 import eyedropper from "../../assets/tools/eyedropper.png"
 import clear from "../../assets/tools/clear.png"
+import "./palette.css"
 
 export default function Palette({brush, setBrush, ctxRef}){
     
