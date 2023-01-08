@@ -9,9 +9,9 @@ export default function FinalDrawing({player,host, setFinalOpen}){
                 <button onClick = {() => setFinalOpen(false)} className = "tutorial--close"><img src = {closeIcon}/></button>
                 <p>DRAW TOGETHER</p>
                 <p>drawing by</p>
-                <p></p>
-                <img className = "avatar---avatar" />
-                <img className = "avatar---avatar" />
+                <p>{host.name}{player.name}</p>
+                <img className = "avatar---avatar" src = {host.avatar}/>
+                <img className = "avatar---avatar" src = {player.avatar}/>
                 <Button text = "Play Again" variant="large"/>
                 <Button text = "Quit" variant="large"/>
             </div>
