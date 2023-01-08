@@ -55,7 +55,6 @@ function App() {
 
   socket.on("host_data", (data)=> {
     setHost(data);
-    setHostAvatar(data.avatar)
   })
 
   socket.on("player_selection", () => {

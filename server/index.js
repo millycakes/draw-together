@@ -37,13 +37,27 @@ io.on("connection", (socket) => {
             socket.to(user.key).emit("ready_two");
             updateMode(getUsers(user.key)[0].mode,user.key);
             socket.to(user.key).emit("player_selection");
-            socket.to(user.key).emit("player_mode",getUsers(user.key)[0].mode);
+            for (let i = 0; i<getUsers(user.key); i++) {
+                if (getUsers(user.key)[i].host) {
+                    socket.to(user.key).emit("host_data",data);
+                }
+                else {
+                    socket.to(user.key).emit("player_data",data);
+                }
+            }
         }
         else if (getUsers(user.key).length===2) {
             socket.to(user.key).emit("ready_two");
-            socket.to(user.key).emit("host_data",getUsers(user.key)[0]);
+            for (let i = 0; i<getUsers(user.key); i++) {
+                if (getUsers(user.key)[i].host) {
+                    socket.to(user.key).emit("host_data",data);
+                }
+                else {
+                    socket.to(user.key).emit("player_data",data);
+                }
             }
-        })
+        }
+    })
     socket.on("mouse", (data) => {
         // console.log("received mouse data");
         socket.broadcast.emit('mouse', data);
