@@ -7,15 +7,14 @@ import helpIcon from "../../assets/icons/help.png"
 import zoomIn from "../../assets/icons/zoom-in.png"
 import zoomOut from "../../assets/icons/zoom-out.png"
 import Countdown from "./Countdown"
-
-import ExitConfirmation from "./ExitConfirmation"
-import Tutorial from "./Tutorial"
+import Button from '../../components/Button';
 
 import "./canvas.css"
 import Palette from "./Palette"
 import Logo from "../../components/Logo"
-import Button from "../../components/Button"
 import FinalDrawing from "./FinalDrawing"
+import ExitConfirmation from "./ExitConfirmation"
+import Tutorial from "./Tutorial"
 
 export default function Game ({mode, socket, player, host, user}) {  
 
@@ -86,10 +85,12 @@ export default function Game ({mode, socket, player, host, user}) {
       if (!isDrawing){
           return
       }
+
       const {offsetX, offsetY} = nativeEvent;
       ctxRef.current.lineTo(offsetX, offsetY);
       ctxRef.current.stroke();
       nativeEvent.preventDefault();
+      
   }
 
   const stopDrawing = () => {
@@ -144,7 +145,7 @@ export default function Game ({mode, socket, player, host, user}) {
         <div className = "canvas--buttons">
           {(mode !== "Draw Together") && <Button variant = "icon" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}
           {tutOpen && <Tutorial mode = {mode} setTutOpen = {setTutOpen}/>}
-          <Button variant = "icon" text = "Preview" onClick = {() => {setFinalOpen(prev => !prev)}} src = {eyeIcon}/>
+          {mode == "Draw Together" && <Button variant = "icon" text = "Preview" onClick = {() => {setFinalOpen(prev => !prev)}} src = {eyeIcon}/>}
           {finalOpen && <FinalDrawing  player = {player} host = {host} mode = {mode} setFinalOpen = {setFinalOpen}/>}
           <Button variant = "icon pink" text = "Download" onClick = {downloadDrawing} src = {downloadIcon}/>
         </div>
@@ -158,7 +159,7 @@ export default function Game ({mode, socket, player, host, user}) {
           onMouseLeave = {stopDrawing}>
         </canvas>
         {(mode === "Top Bottom") && 
-        <div className = {`canvas--cover ${user.host ? host.half : player.half}`}><p>Player's Drawing</p></div>}
+        <div className = {`canvas--cover ${user.host ? "top" : "bottom"}`}><p>Player's Drawing</p></div>}
         {(mode === "Top Bottom") &&
         <div className = "canvas--swap-avatars">
           <img src = {host.avatar} className = "avatar-small" alt = "avatar"/>

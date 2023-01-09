@@ -1,5 +1,6 @@
 import closeIcon from "../../assets/icons/close.png"
 import Button from "../../components/Button"
+import downloadIcon from "../../assets/icons/download.png"
 
 export default function FinalDrawing({player, host, setFinalOpen}){
 
