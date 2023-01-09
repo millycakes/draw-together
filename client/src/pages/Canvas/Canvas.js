@@ -31,7 +31,9 @@ export default function Game ({mode, socket, player, host, user}) {
       strokeStyle: "rgb(79, 79, 79)",
       prevStrokeStyle: "rgb(79, 79, 79)",
       lineWidth: 5,
-      tool: "pencil"
+      tool: "pencil",
+      x: 0,
+      y: 0
     }
   )
 
@@ -73,10 +75,12 @@ export default function Game ({mode, socket, player, host, user}) {
   const startDrawing = ({nativeEvent}) => {
       const {offsetX, offsetY} = nativeEvent;
 
-      ctxRef.current.beginPath();
-      ctxRef.current.moveTo(offsetX, offsetY);
-      ctxRef.current.lineTo(offsetX, offsetY);
-      ctxRef.current.stroke();
+      setBrush(prev => ({
+        ...prev,
+        x: offsetX,
+        y: offsetY
+      }))
+
       setIsDrawing(true);
       nativeEvent.preventDefault();
   };
@@ -87,15 +91,43 @@ export default function Game ({mode, socket, player, host, user}) {
       }
 
       const {offsetX, offsetY} = nativeEvent;
-      ctxRef.current.lineTo(offsetX, offsetY);
-      ctxRef.current.stroke();
+
+      drawLine(brush.x, brush.y, offsetX, offsetY)
+
+      setBrush(prev => ({
+        ...prev,
+        x: offsetX,
+        y: offsetY
+      }))
+
       nativeEvent.preventDefault();
-      
   }
 
   const stopDrawing = () => {
       ctxRef.current.closePath();
       setIsDrawing(false);
+  }
+
+  socket.on('drawing', function(data){
+    console.log("bruh")
+    let {x1, y1, x2, y2, color, stroke} = JSON.parse(data);
+    drawLine(x1, y1, x2, y2, color, stroke, true)
+  });
+
+  function drawLine(x1, y1, x2, y2, color = brush.strokeStyle, stroke = brush.lineWidth, server = false){
+  
+    if (!server){
+      socket.emit("drawing", JSON.stringify({x1, y1, x2, y2, color, stroke}));
+    }
+
+    ctxRef.current.beginPath();
+    ctxRef.current.strokeStyle = color;
+    ctxRef.current.lineCap = "round";
+    ctxRef.current.lineWidth =  stroke;
+    ctxRef.current.moveTo(x1, y1);
+    ctxRef.current.lineTo(x2, y2);
+    ctxRef.current.stroke();
+    ctxRef.current.closePath()
   }
 
   function downloadDrawing(){
@@ -108,7 +140,6 @@ export default function Game ({mode, socket, player, host, user}) {
   }
 
   function displayGameInfo(){
-    console.log("mode" + mode)
     switch (mode){
       case "Draw Together":
         return null;

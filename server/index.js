@@ -54,10 +54,12 @@ io.on("connection", (socket) => {
             socket.to(user.key).emit("ready_two");
         }
     })
-    socket.on("mouse", (data) => {
-        // console.log("received mouse data");
-        socket.broadcast.emit('mouse', data);
+    socket.on("drawing", (data) => {
+        console.log("received drawing data")
+        console.log(data)
+        socket.broadcast.emit("drawing", data);
     })
+
     socket.on("newKey", (data) => {
         keys.push(data);
         let temp = keys;

@@ -16,8 +16,6 @@ export default function Palette({brush, setBrush, ctxRef}){
       return;
     }
 
-    console.log("running two -> prev" + brush.tool + tool)
-
     setBrush(prev => ({
       ...prev,
       tool: tool
@@ -44,8 +42,6 @@ export default function Palette({brush, setBrush, ctxRef}){
         strokeStyle: "rgb(255, 255, 255)"
       }))
     }
-
-    console.log(brush)
   }
 
   function updateColor(e){
