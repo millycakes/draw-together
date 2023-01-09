@@ -37,13 +37,64 @@ export default function Game ({mode, socket, player, host, user}) {
       y: 0
     }
   )
+
+  /*TRIAL */
+  
+
+  const [countdown, setCountdown] = React.useState(5);
+  const [countdownDisplay, setCountdownDisplay] = React.useState("");
+  const [round, setRound] = React.useState(1);
+
+  const timerId = useRef();
+
+  React.useEffect(() => {
+      timerId.current = setInterval(() => {
+          setCountdown(prev => prev-1);
+      }, 1000)
+      return () => clearInterval(timerId.current)
+  }, [])
   
   React.useEffect(() => {
-    if (clear){
-      ctxRef.current.fillStyle = "white";
-      ctxRef.current.fillRect(0, 0, 500, 500);
-      setClear(false);
+    if (mode == "Top Bottom"){
+      if (countdown <= 0){
+          clearInterval(timerId.current)
+          setFinalOpen(true);
+      }
+    }
+    else if (mode == "Canvas Swap"){
+      if (round == 25 && countdown == 0){
+        clearInterval(timerId.current)
+        setFinalOpen(true);
+      }
+      //CHANGE HERE
+      if (countdown <= 0 && round < 25){
+        setCountdown(10)
+        setRound(prev => prev+1)
+        swapCanvas();
+      }
+    }
+  }, [countdown])
+  
 
+  function swapCanvas(){
+    const canvasImage = canvasRef.current.toDataURL();
+    socket.emit("swap", canvasImage);
+  }
+  
+
+  socket.on("swap", function(data){
+    console.log("kofskfoskdofk")
+    var imageObj = new Image();
+    imageObj.src = data;
+
+    imageObj.onload = function(){
+        ctxRef.current.drawImage(this, 0, 0); 
+     };
+  })
+
+  React.useEffect(() => {
+    if (clear){
+      clearCanvas();
       socket.emit("clear", true);
     }
   }, [clear])
@@ -82,6 +133,18 @@ export default function Game ({mode, socket, player, host, user}) {
     ctxRef.current.strokeStyle = brush.strokeStyle;
     ctxRef.current.lineWidth = brush.lineWidth;
   }, [brush])
+
+
+  React.useEffect(() => {
+    let minutes = Math.floor(countdown / 60);
+    let extraSeconds = countdown % 60;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    extraSeconds = extraSeconds < 10 ? "0" + extraSeconds : extraSeconds;
+
+    setCountdownDisplay( minutes + ":" + extraSeconds);
+    
+  }, [countdown])
+
 
   const startDrawing = ({nativeEvent}) => {
       const {offsetX, offsetY} = nativeEvent;
@@ -124,15 +187,28 @@ export default function Game ({mode, socket, player, host, user}) {
     drawLine(x1, y1, x2, y2, color, stroke, true)
   });
 
-  socket.on("clear", function(data){
+  socket.on("clear", function(){
+    setClear(false);
+    clearCanvas();
+  })
+
+  function clearCanvas(){
     setClear(false);
     ctxRef.current.fillStyle = "white";
-    ctxRef.current.fillRect(0, 0, 500, 500);
-  })
+
+    if (mode != "Top Bottom"){
+      ctxRef.current.fillRect(0, 0, 500, 500);
+      return;
+    }
+    
+    user.host ? ctxRef.current.fillRect(0, 250, 500, 250) : ctxRef.current.fillRect(0, 0, 500, 250);
+  }
+
+  
 
   function drawLine(x1, y1, x2, y2, color = brush.strokeStyle, stroke = brush.lineWidth, server = false){
   
-    if (!server){
+    if (!server && (mode != "Canvas Swap")){
       socket.emit("drawing", JSON.stringify({x1, y1, x2, y2, color, stroke}));
     }
 
@@ -158,18 +234,24 @@ export default function Game ({mode, socket, player, host, user}) {
   function displayGameInfo(){
     switch (mode){
       case "Draw Together":
-        return null;
+        return <p>{mode}</p>;
       case "Canvas Swap":
         return (
           <div>
-            <p>Round 1/5</p>
+            <p>{mode}</p>
             <p>/</p>
-            <p>Swapping in: 01:22</p>
+            <p>Round {round}/4</p>
+            <p>/</p>
+            <p>Swapping in: {countdownDisplay}</p>
           </div>
         )
       case "Top Bottom":
         return (
-          <p>Reveal in 01:23</p>
+          <div>
+            <p>{mode}</p>
+            <p>/</p>
+            <p>Reveal in: {countdownDisplay}</p>
+          </div>
         )
     }
   }
@@ -183,8 +265,7 @@ export default function Game ({mode, socket, player, host, user}) {
       {(mode !== "Draw Together" && !countdownComplete) && <Countdown seconds = {3} setCountdownComplete = {setCountdownComplete}/>}
       <div className = "canvas--section-1">
         <Logo variant = "canvas canvas--vl"/>
-        <p>{mode}</p>
-        <p>{displayGameInfo()}</p>
+        {displayGameInfo()}
       </div>
       <div className = "canvas--section-2">
         <div className = "canvas--avatars">
@@ -195,7 +276,13 @@ export default function Game ({mode, socket, player, host, user}) {
           {(mode !== "Draw Together") && <Button variant = "icon" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}
           {tutOpen && <Tutorial mode = {mode} setTutOpen = {setTutOpen}/>}
           {mode == "Draw Together" && <Button variant = "icon" text = "Preview" onClick = {() => {setFinalOpen(prev => !prev)}} src = {eyeIcon}/>}
-          {finalOpen && <FinalDrawing  player = {player} host = {host} mode = {mode} setFinalOpen = {setFinalOpen}/>}
+          {finalOpen && 
+          <FinalDrawing  
+            player = {player} 
+            host = {host} 
+            setFinalOpen = {setFinalOpen}
+            drawing = {canvasRef.current.toDataURL('image/png')}
+          />}
           <Button variant = "icon pink" text = "Download" onClick = {downloadDrawing} src = {downloadIcon}/>
         </div>
       </div>

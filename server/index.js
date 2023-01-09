@@ -81,6 +81,10 @@ io.on("connection", (socket) => {
         console.log("request to clear canvas")
         socket.broadcast.emit("clear", data);
     })
+    socket.on("swap", (data) => {
+        console.log("swapping canvas")
+        socket.broadcast.emit("swap", data)
+    })
 })
 
 http.listen(4000, () => {

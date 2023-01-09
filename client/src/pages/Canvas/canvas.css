@@ -184,11 +184,32 @@
     opacity: 100%;
 }
 
-.final{
+.final-drawing{
     position: relative;
     background-color: var(--background-white);
     padding: 36px 32px 42px 32px;
     z-index: 3;
     min-width: 320px;
     opacity: 100%;
+}
+
+.final-drawing--creators{
+    display: flex;
+    flex-direction: column;
+}
+
+.final-drawing--avatars{
+    display: flex;
+    flex-direction: row;
+}
+
+.final-drawing--image{
+    width: 400px;
+    height: 400px;
+    border: 1px solid var(--stroke-light)
+}
+.final-drawing--buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
 }
