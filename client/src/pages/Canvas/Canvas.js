@@ -2,13 +2,11 @@ import React, { useRef } from "react"
 
 import downloadIcon from "../../assets/icons/download.png"
 import backIcon from "../../assets/icons/back.png"
+import eyeIcon from "../../assets/icons/eye.png"
 import helpIcon from "../../assets/icons/help.png"
 import zoomIn from "../../assets/icons/zoom-in.png"
 import zoomOut from "../../assets/icons/zoom-out.png"
 import Countdown from "./Countdown"
-
-import bear from "../../assets/avatar/bear.png"
-import cat from "../../assets/avatar/cat.png"
 
 import ExitConfirmation from "./ExitConfirmation"
 import Tutorial from "./Tutorial"
@@ -19,7 +17,7 @@ import Logo from "../../components/Logo"
 import Button from "../../components/Button"
 import FinalDrawing from "./FinalDrawing"
 
-export default function Game ({mode, socket, player, host}) {  
+export default function Game ({mode, socket, player, host, user}) {  
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -28,7 +26,6 @@ export default function Game ({mode, socket, player, host}) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [tutOpen, setTutOpen] = React.useState(false);
   const [finalOpen, setFinalOpen] = React.useState(false);
-
 
   const [brush, setBrush] = React.useState(
     {
@@ -135,20 +132,20 @@ export default function Game ({mode, socket, player, host}) {
     <div className = "canvas"  style={{height: '100vh' }}>
       {(mode !== "Draw Together" && !countdownComplete) && <Countdown seconds = {3} setCountdownComplete = {setCountdownComplete}/>}
       <div className = "canvas--section-1">
-        <Logo variant = "canvas vl"/>
+        <Logo variant = "canvas canvas--vl"/>
         <p>{mode}</p>
         <p>{displayGameInfo()}</p>
       </div>
       <div className = "canvas--section-2">
         <div className = "canvas--avatars">
           <img src = {host.avatar} className = "avatar-small" alt = "avatar"/>
-          <img src = {player.avatar} className = "avatar-small vl" alt = "avatar"/>
+          <img src = {player.avatar} className = "avatar-small canvas--vl" alt = "avatar"/>
         </div>
         <div className = "canvas--buttons">
           {(mode !== "Draw Together") && <Button variant = "icon" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}
           {tutOpen && <Tutorial mode = {mode} setTutOpen = {setTutOpen}/>}
-          <Button variant = "icon" text = "FInal drawing" onClick = {() => {setFinalOpen(prev => !prev)}} src = {helpIcon}/>
-          {finalOpen && <FinalDrawing  mode = {mode} setFinalOpen = {setFinalOpen}/>}
+          <Button variant = "icon" text = "Preview" onClick = {() => {setFinalOpen(prev => !prev)}} src = {eyeIcon}/>
+          {finalOpen && <FinalDrawing  player = {player} host = {host} mode = {mode} setFinalOpen = {setFinalOpen}/>}
           <Button variant = "icon pink" text = "Download" onClick = {downloadDrawing} src = {downloadIcon}/>
         </div>
       </div>
@@ -160,9 +157,9 @@ export default function Game ({mode, socket, player, host}) {
           onMouseUp = {stopDrawing}
           onMouseLeave = {stopDrawing}>
         </canvas>
-        {(mode === "Canvas Swap") && 
-        <div className = "canvas--cover"><p>Player's Drawing</p></div>}
-        {(mode === "Canvas Swap") &&
+        {(mode === "Top Bottom") && 
+        <div className = {`canvas--cover ${user.host ? host.half : player.half}`}><p>Player's Drawing</p></div>}
+        {(mode === "Top Bottom") &&
         <div className = "canvas--swap-avatars">
           <img src = {host.avatar} className = "avatar-small" alt = "avatar"/>
           <img src = {player.avatar} className = "avatar-small" alt = "avatar"/>

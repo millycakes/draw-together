@@ -23,8 +23,6 @@ export default function Palette({brush, setBrush, ctxRef}){
       tool: tool
     }))
 
-
-    //save current color when switching from a pencil to an eraser
     if (brush.tool == "pencil" && tool == "eraser"){
       setBrush(prev => ({
         ...prev,
@@ -33,7 +31,6 @@ export default function Palette({brush, setBrush, ctxRef}){
       }))
     }
 
-    //go back to previous color when switching from an eraser to a pencil
     if (brush.tool == "eraser" && tool == "pencil"){
       setBrush(prev => ({
         ...prev,
@@ -60,7 +57,13 @@ export default function Palette({brush, setBrush, ctxRef}){
   }
 
   function updateStroke(e){
+    let slider = e.target;
     let stroke = e.target.value;
+
+    let valPercent = (stroke / slider.max)*100;
+    slider.style.background = `linear-gradient(to right, var(--stroke-dark) ${valPercent}%, #d5d5d5 ${valPercent}%)`;
+    
+    
     setBrush(prev => ({
       ...prev,
       lineWidth: stroke
@@ -68,22 +71,28 @@ export default function Palette({brush, setBrush, ctxRef}){
   }
     
     return(
-        <div className = "toolbox">
-            <ul className = "tools" onClick = {updateTool}>
+        <div className = "palette">
+            <ul className = "palette--tools" onClick = {updateTool}>
                 <li><img id = "tools--pencil" alt = "pencil icon" src = {pencil}/></li>
                 <li><img id = "tools--eraser" alt = "eraser icon" src = {eraser}/></li>
                 <li><img id = "tools--eyedropper" alt = "eyedropper icon" src = {eyedropper}/></li>
                 <li><img id = "tools--clear" alt = "clear icon" src = {clear}/></li>
             </ul>
-            <hr className = "vertical"/>
-            <div className = "stroke" onClick = {updateStroke}>
+            <div className = "palette--vl"/>
+            <div className = "palette--stroke" onClick = {updateStroke}>
                 <label htmlFor="stroke">Thickness</label>
-                <input type="range" id="stroke" name="stroke" min="1" max="100"
-                onChange={updateStroke}
-                defaultValue = "5"/>
+                <input 
+                  type="range" 
+                  id="stroke" 
+                  name="stroke" 
+                  min="1" 
+                  max="100"
+                  onChange={updateStroke}
+                  defaultValue = "5"
+                />
             </div>
-            <hr className = "vertical"/>
-            <ul className = "palette" onClick = {updateColor}>
+            <div className = "palette--vl"/>
+            <ul className = "palette--colors" onClick = {updateColor}>
                 <li id = "palette--pink"></li>
                 <li id = "palette--red"></li>
                 <li id = "palette--orange"></li>

@@ -36,18 +36,18 @@ function App() {
     avatar: bear
   });
 
-  const[joined, setJoined] = React.useState(false);
+  const [joined, setJoined] = React.useState(false);
   const [playerKey, setPlayerKey] = React.useState("");
-  const[hostKey, setHostKey] = React.useState("");
-  const[playerSocket, setPlayerSocket] = React.useState(false);
-  const[hostSocket, setHostSocket] = React.useState(false);
-  const[twoready, setTwoReady] = React.useState(false);
-  const[allKeys, setAllKeys] = React.useState([]);
-  const[retrieveKeys, setRetrieveKeys] = React.useState(false);
-  const[selection, setSelection] = React.useState(false);
-  const[mode, setMode] = React.useState("");
-  const[hostAvatar, setHostAvatar] = React.useState(bear);
-  const[retrieve, setRetrieve] = React.useState(false);
+  const [hostKey, setHostKey] = React.useState("");
+  const [playerSocket, setPlayerSocket] = React.useState(false);
+  const [hostSocket, setHostSocket] = React.useState(false);
+  const [twoready, setTwoReady] = React.useState(false);
+  const [allKeys, setAllKeys] = React.useState([]);
+  const [retrieveKeys, setRetrieveKeys] = React.useState(false);
+  const [selection, setSelection] = React.useState(false);
+  const [mode, setMode] = React.useState("");
+  const [hostAvatar, setHostAvatar] = React.useState(bear);
+  const [retrieve, setRetrieve] = React.useState(false);
 
   socket.on("player_data", (data)=> {
     setPlayer(data);
@@ -169,6 +169,7 @@ function App() {
           />
           <Route path = "/canvas"  element = {
             <Canvas
+              user = {user}
               socket = {socket}
               mode = {mode}
               player = {player}
