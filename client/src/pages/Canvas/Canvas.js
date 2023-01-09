@@ -25,6 +25,7 @@ export default function Game ({mode, socket, player, host, user}) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [tutOpen, setTutOpen] = React.useState(false);
   const [finalOpen, setFinalOpen] = React.useState(false);
+  const [clear, setClear] = React.useState(false);
 
   const [brush, setBrush] = React.useState(
     {
@@ -36,6 +37,16 @@ export default function Game ({mode, socket, player, host, user}) {
       y: 0
     }
   )
+  
+  React.useEffect(() => {
+    if (clear){
+      ctxRef.current.fillStyle = "white";
+      ctxRef.current.fillRect(0, 0, 500, 500);
+      setClear(false);
+
+      socket.emit("clear", true);
+    }
+  }, [clear])
 
   React.useEffect(()=> {
     if (mode==="Top Bottom") {
@@ -108,11 +119,16 @@ export default function Game ({mode, socket, player, host, user}) {
       setIsDrawing(false);
   }
 
-  socket.on('drawing', function(data){
-    console.log("bruh")
+  socket.on("drawing", function(data){
     let {x1, y1, x2, y2, color, stroke} = JSON.parse(data);
     drawLine(x1, y1, x2, y2, color, stroke, true)
   });
+
+  socket.on("clear", function(data){
+    setClear(false);
+    ctxRef.current.fillStyle = "white";
+    ctxRef.current.fillRect(0, 0, 500, 500);
+  })
 
   function drawLine(x1, y1, x2, y2, color = brush.strokeStyle, stroke = brush.lineWidth, server = false){
   
@@ -157,6 +173,8 @@ export default function Game ({mode, socket, player, host, user}) {
         )
     }
   }
+
+  
 
   const [countdownComplete, setCountdownComplete] = React.useState(false);
   
@@ -205,7 +223,7 @@ export default function Game ({mode, socket, player, host, user}) {
         {modalOpen && <ExitConfirmation setOpenModal={setModalOpen} />}
       </div>
       <div className = "canvas--palette">
-        <Palette brush = {brush}ctxRef={ctxRef} setBrush = {setBrush}/>
+        <Palette brush = {brush} setBrush = {setBrush} setClear = {setClear}/>
       </div>
       <div className = "canvas--section-4">
         <div className = "canvas--icon-wrapper">

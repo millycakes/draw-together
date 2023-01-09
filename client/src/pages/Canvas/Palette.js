@@ -4,15 +4,14 @@ import eyedropper from "../../assets/tools/eyedropper.png"
 import clear from "../../assets/tools/clear.png"
 import "./palette.css"
 
-export default function Palette({brush, setBrush, ctxRef}){
+export default function Palette({brush, setBrush, setClear}){
     
   function updateTool(e){
     let tool = e.target.id;
     tool = tool.slice(7, tool.length);
 
     if (tool == "clear"){
-      ctxRef.current.fillStyle = "white";
-      ctxRef.current.fillRect(0, 0, 500, 500);
+      setClear(true);
       return;
     }
 
