@@ -26,7 +26,7 @@ export default function Game ({mode, socket, player, host, user}) {
    * -----stop players from drawing when the countdown is up
    * -----fix download issue
    * fix top/bottom cover assignment issue
-   * fix clear issue
+   * -----fix clear issue
    * fix swap issue
    * clean up css
    * 
