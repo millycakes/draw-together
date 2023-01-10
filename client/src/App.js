@@ -173,7 +173,9 @@ function App() {
               socket = {socket}
               mode = {mode}
               player = {player}
+              setPlayer = {setPlayer}
               host = {host}
+              setHost = {setHost}
             />}
           />
           

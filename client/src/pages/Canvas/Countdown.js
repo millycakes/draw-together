@@ -1,7 +1,7 @@
 import {useRef} from "react"
 import React from "react"
 
-export default function Countdown({seconds, setCountdownComplete}){
+export default function Countdown({seconds, setInitialCountdown}){
     const [countdown, setCountdown] = React.useState(seconds);
     const timerId = useRef();
 
@@ -15,7 +15,7 @@ export default function Countdown({seconds, setCountdownComplete}){
     React.useEffect(() => {
         if (countdown <= 0){
             clearInterval(timerId.current)
-            setCountdownComplete(true)
+            setInitialCountdown(true)
         }
     }, [countdown])
 

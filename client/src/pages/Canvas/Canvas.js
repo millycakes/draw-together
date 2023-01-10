@@ -6,26 +6,44 @@ import eyeIcon from "../../assets/icons/eye.png"
 import helpIcon from "../../assets/icons/help.png"
 import zoomIn from "../../assets/icons/zoom-in.png"
 import zoomOut from "../../assets/icons/zoom-out.png"
+
 import Countdown from "./Countdown"
 import Button from '../../components/Button';
-
-import "./canvas.css"
 import Palette from "./Palette"
 import Logo from "../../components/Logo"
 import FinalDrawing from "./FinalDrawing"
 import ExitConfirmation from "./ExitConfirmation"
 import Tutorial from "./Tutorial"
 
+import "./canvas.css"
+
 export default function Game ({mode, socket, player, host, user}) {  
 
-  const canvasRef = useRef(null);
-  const ctxRef = useRef(null);
+  /**
+   * todo: 
+   * reset host and player data for play again and quit
+   * countdown not going down at the same time
+   * -----stop players from drawing when the countdown is up
+   * -----fix download issue
+   * fix top/bottom cover assignment issue
+   * fix clear issue
+   * fix swap issue
+   * clean up css
+   * 
+   */
   
   const [isDrawing, setIsDrawing] = React.useState(false);
-  const [modalOpen, setModalOpen] = React.useState(false);
+
+  //open modals
+  const [exitOpen, setExitOpen] = React.useState(false);
   const [tutOpen, setTutOpen] = React.useState(false);
   const [finalOpen, setFinalOpen] = React.useState(false);
-  const [clear, setClear] = React.useState(false);
+  const [initialCountdown, setInitialCountdown] = React.useState(false);
+
+  //game countdown
+  const [countdown, setCountdown] = React.useState(10);
+  const [countdownDisplay, setCountdownDisplay] = React.useState("");
+  const [round, setRound] = React.useState(1);
 
   const [brush, setBrush] = React.useState(
     {
@@ -37,23 +55,84 @@ export default function Game ({mode, socket, player, host, user}) {
       y: 0
     }
   )
+  const [clear, setClear] = React.useState(false);
 
-  /*TRIAL */
-  
-
-  const [countdown, setCountdown] = React.useState(5);
-  const [countdownDisplay, setCountdownDisplay] = React.useState("");
-  const [round, setRound] = React.useState(1);
-
+  const canvasRef = useRef(null);
+  const ctxRef = useRef(null);
   const timerId = useRef();
 
+  //initialize game settings
+  React.useEffect(()=> {
+    if (mode==="Top Bottom") {
+      let random = Math.random()*2;
+
+      if (random<1) {
+        player.half = "top";
+        host.half = "bottom";
+      }
+      else {
+        player.half = "bottom";
+        host.half = "top";
+      }
+    }
+  })
+
+  //initialize canvas
   React.useEffect(() => {
-      timerId.current = setInterval(() => {
-          setCountdown(prev => prev-1);
-      }, 1000)
-      return () => clearInterval(timerId.current)
-  }, [])
+      const canvas = canvasRef.current;
+      canvas.width = 500;
+      canvas.height = 500;
+      const ctx = canvas.getContext("2d");
   
+      ctx.fillStyle = "white";
+
+      ctx.fillRect(0, 0, 500, 500);
+
+      ctx.lineCap = "round";
+      ctx.strokeStyle = brush.strokeStyle;
+      ctx.lineWidth = brush.lineWidth;
+
+      ctxRef.current = ctx;
+  },[])
+
+  //update brush
+  React.useEffect(() => {
+    ctxRef.current.strokeStyle = brush.strokeStyle;
+    ctxRef.current.lineWidth = brush.lineWidth;
+  }, [brush])
+
+  //display countdown
+  React.useEffect(() => {
+    let minutes = Math.floor(countdown / 60);
+    let extraSeconds = countdown % 60;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    extraSeconds = extraSeconds < 10 ? "0" + extraSeconds : extraSeconds;
+
+    setCountdownDisplay( minutes + ":" + extraSeconds);
+    
+  }, [countdown])
+
+
+  //countdown
+  React.useEffect(() => {
+    if (!initialCountdown){
+      return;
+    }
+    
+    if (mode == "Top Bottom"){
+      setCountdown(90)
+    }
+    else if (mode == "Canvas Swap"){
+      setCountdown(30)
+    }
+
+    timerId.current = setInterval(() => {
+        setCountdown(prev => prev-1);
+    }, 1000)
+    return () => clearInterval(timerId.current)
+  }, [initialCountdown])
+  
+  //handle countdown
   React.useEffect(() => {
     if (mode == "Top Bottom"){
       if (countdown <= 0){
@@ -62,12 +141,14 @@ export default function Game ({mode, socket, player, host, user}) {
       }
     }
     else if (mode == "Canvas Swap"){
-      if (round == 25 && countdown == 0){
+      if (round > 4){
+        return;
+      }
+      if (round == 4 && countdown == 0){
         clearInterval(timerId.current)
         setFinalOpen(true);
       }
-      //CHANGE HERE
-      if (countdown <= 0 && round < 25){
+      if (countdown <= 0 && round < 4){
         setCountdown(10)
         setRound(prev => prev+1)
         swapCanvas();
@@ -81,9 +162,8 @@ export default function Game ({mode, socket, player, host, user}) {
     socket.emit("swap", canvasImage);
   }
   
-
   socket.on("swap", function(data){
-    console.log("kofskfoskdofk")
+    clearCanvas();
     var imageObj = new Image();
     imageObj.src = data;
 
@@ -92,76 +172,36 @@ export default function Game ({mode, socket, player, host, user}) {
      };
   })
 
-  React.useEffect(() => {
-    if (clear){
-      clearCanvas();
-      socket.emit("clear", true);
-    }
-  }, [clear])
-
-  React.useEffect(()=> {
-    if (mode==="Top Bottom") {
-      let random = Math.random()*2;
-      if (random<1) {
-        player.half = "top";
-        host.half = "bottom";
-      }
-      else {
-        player.half = "bottom";
-        host.half = "top";
-      }
-    }
-  })
-
-  React.useEffect(() => {
-      const canvas = canvasRef.current;
-      canvas.width = 500;
-      canvas.height = 500;
-      const ctx = canvas.getContext("2d");
-  
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, 500, 500);
-
-      ctx.lineCap = "round";
-      ctx.strokeStyle = brush.strokeStyle;
-      ctx.lineWidth = brush.lineWidth;
-
-      ctxRef.current = ctx;
-  },[])
-
-  React.useEffect(() => {
-    ctxRef.current.strokeStyle = brush.strokeStyle;
-    ctxRef.current.lineWidth = brush.lineWidth;
-  }, [brush])
-
-
-  React.useEffect(() => {
-    let minutes = Math.floor(countdown / 60);
-    let extraSeconds = countdown % 60;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    extraSeconds = extraSeconds < 10 ? "0" + extraSeconds : extraSeconds;
-
-    setCountdownDisplay( minutes + ":" + extraSeconds);
-    
-  }, [countdown])
-
+  socket.on("drawing", function(data){
+    let {x1, y1, x2, y2, color, stroke} = JSON.parse(data);
+    drawLine(x1, y1, x2, y2, color, stroke, true)
+  });
 
   const startDrawing = ({nativeEvent}) => {
-      const {offsetX, offsetY} = nativeEvent;
 
-      setBrush(prev => ({
-        ...prev,
-        x: offsetX,
-        y: offsetY
-      }))
+    if (mode != "Draw Together" && countdown <= 0){
+      return;
+    }
 
-      setIsDrawing(true);
-      nativeEvent.preventDefault();
+    const {offsetX, offsetY} = nativeEvent;
+
+    setBrush(prev => ({
+      ...prev,
+      x: offsetX,
+      y: offsetY
+    }))
+
+    setIsDrawing(true);
+    nativeEvent.preventDefault();
   };
 
   const draw = ({nativeEvent}) => {
       if (!isDrawing){
           return
+      }
+
+      if (mode != "Draw Together" && countdown <= 0){
+        return;
       }
 
       const {offsetX, offsetY} = nativeEvent;
@@ -178,33 +218,47 @@ export default function Game ({mode, socket, player, host, user}) {
   }
 
   const stopDrawing = () => {
+    if (isDrawing){
       ctxRef.current.closePath();
       setIsDrawing(false);
+    }
   }
 
-  socket.on("drawing", function(data){
-    let {x1, y1, x2, y2, color, stroke} = JSON.parse(data);
-    drawLine(x1, y1, x2, y2, color, stroke, true)
-  });
+  React.useEffect(() => {
+    if (clear && countdown != 0){
+      clearCanvas();
+      socket.emit("clear", true);
+    }
+  }, [clear])
 
-  socket.on("clear", function(){
+  function clearCanvas(server = false){
     setClear(false);
-    clearCanvas();
-  })
 
-  function clearCanvas(){
-    setClear(false);
-    ctxRef.current.fillStyle = "white";
+    console.log(server)
+    //not sure why but this logs both true and false on the players side
 
     if (mode != "Top Bottom"){
+      ctxRef.current.fillStyle = "white";
       ctxRef.current.fillRect(0, 0, 500, 500);
       return;
     }
-    
-    user.host ? ctxRef.current.fillRect(0, 250, 500, 250) : ctxRef.current.fillRect(0, 0, 500, 250);
+
+    ctxRef.current.fillStyle = "pink";
+
+
+    if (!server){
+      user.host ? ctxRef.current.fillRect(0, 250, 500, 250) : ctxRef.current.fillRect(0, 0, 500, 250)
+      return;
+    }
+    if (server){
+      user.host ? ctxRef.current.fillRect(0, 0, 500, 250) : ctxRef.current.fillRect(0, 250, 500, 250)
+      return;
+    }
   }
 
-  
+  socket.on("clear", function(data){
+    clearCanvas(data);
+  })
 
   function drawLine(x1, y1, x2, y2, color = brush.strokeStyle, stroke = brush.lineWidth, server = false){
   
@@ -222,10 +276,10 @@ export default function Game ({mode, socket, player, host, user}) {
     ctxRef.current.closePath()
   }
 
-  function downloadDrawing(){
+  function downloadDrawing(canvasRef){
     let downloadLink = document.createElement('a');
     downloadLink.setAttribute('download', 'CanvasAsImage.png');
-    const canvasImage = canvasRef.current.toDataURL('image/png');
+    const canvasImage = canvasRef.toDataURL('image/png');
     let url = canvasImage.replace(/^data:image\/png/,'data:application/octet-stream');
     downloadLink.setAttribute('href', url);
     downloadLink.click();
@@ -242,7 +296,8 @@ export default function Game ({mode, socket, player, host, user}) {
             <p>/</p>
             <p>Round {round}/4</p>
             <p>/</p>
-            <p>Swapping in: {countdownDisplay}</p>
+            {(!initialCountdown) && <p>Starting soon</p>}
+            {(initialCountdown) && <p>Swapping in: {countdownDisplay}</p>}
           </div>
         )
       case "Top Bottom":
@@ -250,7 +305,8 @@ export default function Game ({mode, socket, player, host, user}) {
           <div>
             <p>{mode}</p>
             <p>/</p>
-            <p>Reveal in: {countdownDisplay}</p>
+            {(!initialCountdown) && <p>Starting soon</p>}
+            {(initialCountdown) && <p>Reveal in: {countdownDisplay}</p>}
           </div>
         )
     }
@@ -258,11 +314,10 @@ export default function Game ({mode, socket, player, host, user}) {
 
   
 
-  const [countdownComplete, setCountdownComplete] = React.useState(false);
   
 	return (
     <div className = "canvas"  style={{height: '100vh' }}>
-      {(mode !== "Draw Together" && !countdownComplete) && <Countdown seconds = {3} setCountdownComplete = {setCountdownComplete}/>}
+      {(mode !== "Draw Together" && !initialCountdown) && <Countdown seconds = {3} setInitialCountdown = {setInitialCountdown}/>}
       <div className = "canvas--section-1">
         <Logo variant = "canvas canvas--vl"/>
         {displayGameInfo()}
@@ -280,10 +335,11 @@ export default function Game ({mode, socket, player, host, user}) {
           <FinalDrawing  
             player = {player} 
             host = {host} 
+            user = {user}
+            canvas = {canvasRef.current}
             setFinalOpen = {setFinalOpen}
-            drawing = {canvasRef.current.toDataURL('image/png')}
           />}
-          <Button variant = "icon pink" text = "Download" onClick = {downloadDrawing} src = {downloadIcon}/>
+          <Button variant = "icon pink" text = "Download" onClick = {() => downloadDrawing(canvasRef.current)} src = {downloadIcon}/>
         </div>
       </div>
       <div className = "canvas--wrapper">
@@ -305,9 +361,9 @@ export default function Game ({mode, socket, player, host, user}) {
       </div>
       <div className = "canvas--section-3">
         <input type = "image" src = {backIcon} onClick = {() => {
-          setModalOpen(true);
+          setExitOpen(true);
         }} />
-        {modalOpen && <ExitConfirmation setOpenModal={setModalOpen} />}
+        {exitOpen && <ExitConfirmation setExitOpen = {setExitOpen} />}
       </div>
       <div className = "canvas--palette">
         <Palette brush = {brush} setBrush = {setBrush} setClear = {setClear}/>
