@@ -16,6 +16,7 @@ import ExitConfirmation from "./ExitConfirmation"
 import Tutorial from "./Tutorial"
 
 import "./canvas.css"
+import "./modal.css"
 
 export default function Game ({mode, socket, player, host, user}) {  
 

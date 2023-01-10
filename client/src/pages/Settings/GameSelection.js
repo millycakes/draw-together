@@ -50,16 +50,19 @@ export default function GameSelection({setSelection,setMode,selection,twoready})
                 <div className = "selection--option">
                     <p>Draw Together</p>
                     <img src = {together} alt = "Draw Together"/>
+                    <p>Draw with your friend in real-time</p>
                     <Button text = "Select" variant = "round" onClick = {togetherSelection} />
                 </div>
                 <div className = "selection--option">
                     <p>Top Bottom</p>
                     <img src = {split} alt = "Top Bottom"/>
+                    <p>Draw face and body separately to create a unique creature</p>
                     <Button text = "Select" variant = "round" onClick = {splitSelection}/>
                 </div>
                 <div className = "selection--option">
                     <p>Canvas Swap</p>
                     <img src ={ swap} alt = "Canvas Swap"/>
+                    <p>Draw on a canvas and swap every 2 minutes</p>
                     <Button text = "Select" variant = "round" onClick = {swapSelection} />
                 </div>  
             </div>

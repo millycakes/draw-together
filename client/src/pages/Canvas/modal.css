@@ -1,0 +1,78 @@
+/* || modal */
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.countdown--value{
+    position: relative;
+    color: white;
+    opacity: 100%;
+}
+
+/* || tutorial */
+
+.tutorial{
+    position: relative;
+    background-color: var(--background-white);
+    padding: 36px 32px 42px 32px;
+    z-index: 3;
+    min-width: 320px;
+}
+
+.tutorial--close{
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    border: none;
+    background-color: none;
+}
+
+/* || exit confirmation */
+
+.exit{
+    position: relative;
+    background-color: var(--background-white);
+    padding: 36px 32px 42px 32px;
+    z-index: 3;
+    min-width: 320px;
+    opacity: 100%;
+}
+
+.final-drawing{
+    position: relative;
+    background-color: var(--background-white);
+    padding: 36px 32px 42px 32px;
+    z-index: 3;
+    min-width: 320px;
+    opacity: 100%;
+}
+
+.final-drawing--creators{
+    display: flex;
+    flex-direction: column;
+}
+
+.final-drawing--avatars{
+    display: flex;
+    flex-direction: row;
+}
+
+.final-drawing--image{
+    width: 400px;
+    height: 400px;
+    border: 1px solid var(--stroke-light)
+}
+.final-drawing--buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}

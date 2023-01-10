@@ -4,7 +4,7 @@ import closeIcon from "../../assets/icons/close.png"
 export default function Tutorial ({mode, setTutOpen}) {
 
     function getInstructions(){
-        if (mode == "Canvas Swap"){
+        if (mode === "Canvas Swap"){
             return(
                 <ol>
                     <li>You and your friend will begin drawing on different canvases</li>
@@ -13,7 +13,7 @@ export default function Tutorial ({mode, setTutOpen}) {
                 </ol>
             )
         }
-        else if (mode == "Top Bottom"){
+        else if (mode === "Top Bottom"){
             return(
                 <ol>
                     <li>You and your friend will each draw on either the top half of the canvas or the bottom half</li>
@@ -33,7 +33,9 @@ export default function Tutorial ({mode, setTutOpen}) {
     return(
         <div className = "modal" onclick = {closeDiv}>
             <div className = "tutorial">
-                <button className = "tutorial--close" onClick = {closeDiv}><img src = {closeIcon}/></button>
+                <button className = "tutorial--close" onClick = {closeDiv}>
+                    <img alt = "close icon" src = {closeIcon}/>
+                </button>
                 <p>TUTORIAL</p>
                 <p>{mode}</p>
                 {getInstructions()}

@@ -70,11 +70,13 @@
 .avatar{
     display: flex;
     flex-direction: row;
+    margin: -16px 0 0 0;
     padding: 8px 16px;
     border: 1px solid black;
     border-radius: 4px;
     gap: 8px;
     background-color: var(--background-white);
+    z-index: 2;
 }
 
 .avatar--selector{
@@ -110,4 +112,3 @@
     justify-content: center;
     align-items: center;
 }
-

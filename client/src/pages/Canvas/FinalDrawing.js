@@ -36,17 +36,21 @@ export default function FinalDrawing({player, host, canvas, user, setFinalOpen})
     return(
         <div className="modal">
             <div className="final-drawing">
-                <button className = "tutorial--close" onClick = {() => setFinalOpen(false)}><img src = {closeIcon}/></button>
+                <button className = "tutorial--close" onClick = {() => setFinalOpen(false)}>
+                    <img alt = "close icon" src = {closeIcon}/>
+                </button>
                 <div className= "final-drawing--creators">
                     <p>Drawing by:</p>
                     <p>{`${host.name} & ${player.name}`}</p>
                 </div>
                 <div className = "final-drawing--avatars">
-                    <img className = "avatar-small" src = {host.avatar}/>
-                    <img className = "avatar-small" src = {player.avatar}/>
-                    <button onClick={() => {downloadDrawing(canvas)}}><img src = {downloadIcon}/></button>
+                    <img alt = "host avatar" className = "avatar-small" src = {host.avatar}/>
+                    <img alt = "player avatar" className = "avatar-small" src = {player.avatar}/>
+                    <button onClick={() => {downloadDrawing(canvas)}}>
+                        <img alt = "download icon" src = {downloadIcon}/>
+                    </button>
                 </div>
-                <img className = "final-drawing--image" src = {canvas.toDataURL()} />
+                <img alt = "final drawing" className = "final-drawing--image" src = {canvas.toDataURL()} />
                 <div className="final-drawing--buttons">
                     <Button text = "Play Again" variant="large" onClick={playAgain}/>
                     <Button text = "Quit" variant = "large" onClick={quit}/>
