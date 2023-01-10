@@ -4,14 +4,14 @@ import eyedropper from "../../assets/tools/eyedropper.png"
 import clear from "../../assets/tools/clear.png"
 import "./palette.css"
 
-export default function Palette({brush, setBrush, setClear}){
+export default function Palette({brush, setBrush, clearCanvas}){
     
   function updateTool(e){
     let tool = e.target.id;
     tool = tool.slice(7, tool.length);
 
-    if (tool == "clear"){
-      setClear(true);
+    if (tool === "clear"){
+      clearCanvas();
       return;
     }
 
@@ -20,7 +20,7 @@ export default function Palette({brush, setBrush, setClear}){
       tool: tool
     }))
 
-    if (brush.tool == "pencil" && tool == "eraser"){
+    if (brush.tool === "pencil" && tool === "eraser"){
       setBrush(prev => ({
         ...prev,
         prevStrokeStyle: brush.strokeStyle,
@@ -28,14 +28,14 @@ export default function Palette({brush, setBrush, setClear}){
       }))
     }
 
-    if (brush.tool == "eraser" && tool == "pencil"){
+    if (brush.tool === "eraser" && tool === "pencil"){
       setBrush(prev => ({
         ...prev,
         strokeStyle: brush.prevStrokeStyle
       }))
     }
 
-    if (tool == "eraser"){
+    if (tool === "eraser"){
       setBrush(prev => ({
         ...prev,
         strokeStyle: "rgb(255, 255, 255)"

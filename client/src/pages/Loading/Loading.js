@@ -7,9 +7,12 @@ import "./loading.css"
 export default function Loading ({user, twoready, selection}) {
 
     const navigate = useNavigate();
+
+    React.useEffect(() => {
         if (twoready && selection) {
             navigate("/canvas");
         }
+    }, [twoready, selection])
 
     return(
         <div className = "loading" style={{height: '100vh' }}>

@@ -55,7 +55,6 @@ export default function Game ({mode, socket, player, host, user}) {
       y: 0
     }
   )
-  const [clear, setClear] = React.useState(false);
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -83,7 +82,6 @@ export default function Game ({mode, socket, player, host, user}) {
       canvas.width = 500;
       canvas.height = 500;
       const ctx = canvas.getContext("2d");
-  
       ctx.fillStyle = "white";
 
       ctx.fillRect(0, 0, 500, 500);
@@ -119,10 +117,10 @@ export default function Game ({mode, socket, player, host, user}) {
       return;
     }
     
-    if (mode == "Top Bottom"){
+    if (mode === "Top Bottom"){
       setCountdown(90)
     }
-    else if (mode == "Canvas Swap"){
+    else if (mode === "Canvas Swap"){
       setCountdown(10);
     }
 
@@ -134,7 +132,7 @@ export default function Game ({mode, socket, player, host, user}) {
   
   //handle countdown
   React.useEffect(() => {
-    if (mode == "Top Bottom"){
+    if (mode === "Top Bottom"){
       if (countdown <= 0){
           clearInterval(timerId.current)
           setFinalOpen(true);
@@ -144,7 +142,7 @@ export default function Game ({mode, socket, player, host, user}) {
       if (round > 4){
         return;
       }
-      if (round == 4 && countdown == 0){
+      if (round === 4 && countdown === 0){
         clearInterval(timerId.current)
         setFinalOpen(true);
       }
@@ -160,30 +158,9 @@ export default function Game ({mode, socket, player, host, user}) {
     socket.emit("swap", [user.key, user.host]);
   }
   
-  socket.on("ready_swap", ()=> {
-    const canvasImage = canvasRef.current.toDataURL();
-    socket.emit("swap_fin", [canvasImage, user.key]);
-  })
-  
-  socket.on("swap", function(data){
-    clearCanvas();
-    var imageObj = new Image();
-    imageObj.src = data;
-
-    imageObj.onload = function(){
-        ctxRef.current.drawImage(this, 0, 0); 
-     };
-     setCountdown(10);
-  })
-
-  socket.on("drawing", function(data){
-    let {x1, y1, x2, y2, color, stroke} = JSON.parse(data);
-    drawLine(x1, y1, x2, y2, color, stroke, true)
-  });
-
   const startDrawing = ({nativeEvent}) => {
 
-    if (mode != "Draw Together" && countdown <= 0){
+    if (mode !== "Draw Together" && countdown <= 0){
       return;
     }
 
@@ -204,7 +181,7 @@ export default function Game ({mode, socket, player, host, user}) {
           return
       }
 
-      if (mode != "Draw Together" && countdown <= 0){
+      if (mode !== "Draw Together" && countdown <= 0){
         return;
       }
 
@@ -228,45 +205,74 @@ export default function Game ({mode, socket, player, host, user}) {
     }
   }
 
-  React.useEffect(() => {
-    if (clear && countdown != 0){
-      clearCanvas();
-      socket.emit("clear", true);
+  function clearCanvas(gamemode, isHost, server = false){
+    if (countdown == 0){return;}
+
+    console.log("game mode " + gamemode)
+    console.log("is host " + isHost)
+
+    if (server){
+      if (user.host == isHost){
+        console.log("invalid clear request -> socket broadcasting back to sender")
+        return;
+      }
     }
-  }, [clear])
 
-  function clearCanvas(server = false){
-    setClear(false);
+    if (!server){
+      socket.emit("clear", [gamemode, user.host]);
+    }
 
-    console.log(server)
-    //not sure why but this logs both true and false on the players side
+    ctxRef.current.fillStyle = "white";
 
-    if (mode != "Top Bottom"){
-      ctxRef.current.fillStyle = "white";
+    if (gamemode !== "Top Bottom"){
       ctxRef.current.fillRect(0, 0, 500, 500);
       return;
     }
 
-    ctxRef.current.fillStyle = "pink";
-
-
-    if (!server){
-      user.host ? ctxRef.current.fillRect(0, 250, 500, 250) : ctxRef.current.fillRect(0, 0, 500, 250)
-      return;
-    }
-    if (server){
-      user.host ? ctxRef.current.fillRect(0, 0, 500, 250) : ctxRef.current.fillRect(0, 250, 500, 250)
-      return;
+    else{
+      if (!server){
+        user.host ? ctxRef.current.fillRect(0, 250, 500, 250) : ctxRef.current.fillRect(0, 0, 500, 250);
+      }
+      else{
+        user.host ? ctxRef.current.fillRect(0, 0, 500, 250) : ctxRef.current.fillRect(0, 250, 500, 250);
+        return;
+      }
     }
   }
+  React.useEffect(() => {
 
-  socket.on("clear", function(data){
-    clearCanvas(data);
-  })
+    socket.on("clear", function(data){
+      console.log("server request to clear canvas in " + data[0] + "; request from host: " + data[1])
+      
+      clearCanvas(data[0], data[1], true);
+    })
+
+    socket.on("ready_swap", ()=> {
+      const canvasImage = canvasRef.current.toDataURL();
+      socket.emit("swap_fin", [canvasImage, user.key]);
+    })
+    
+    socket.on("swap", function(data){
+      clearCanvas();
+      var imageObj = new Image();
+      imageObj.src = data;
+
+      imageObj.onload = function(){
+          ctxRef.current.drawImage(this, 0, 0); 
+      };
+      setCountdown(10);
+    })
+
+    socket.on("drawing", function(data){
+      let {x1, y1, x2, y2, color, stroke} = JSON.parse(data);
+      drawLine(x1, y1, x2, y2, color, stroke, true)
+    });
+
+  }, [])
 
   function drawLine(x1, y1, x2, y2, color = brush.strokeStyle, stroke = brush.lineWidth, server = false){
   
-    if (!server && (mode != "Canvas Swap")){
+    if (!server && (mode !== "Canvas Swap")){
       socket.emit("drawing", JSON.stringify({x1, y1, x2, y2, color, stroke}));
     }
 
@@ -316,9 +322,6 @@ export default function Game ({mode, socket, player, host, user}) {
     }
   }
 
-  
-
-  
 	return (
     <div className = "canvas"  style={{height: '100vh' }}>
       {(mode !== "Draw Together" && !initialCountdown) && <Countdown seconds = {3} setInitialCountdown = {setInitialCountdown}/>}
@@ -334,7 +337,7 @@ export default function Game ({mode, socket, player, host, user}) {
         <div className = "canvas--buttons">
           {(mode !== "Draw Together") && <Button variant = "icon" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}
           {tutOpen && <Tutorial mode = {mode} setTutOpen = {setTutOpen}/>}
-          {mode == "Draw Together" && <Button variant = "icon" text = "Preview" onClick = {() => {setFinalOpen(prev => !prev)}} src = {eyeIcon}/>}
+          {mode === "Draw Together" && <Button variant = "icon" text = "Preview" onClick = {() => {setFinalOpen(prev => !prev)}} src = {eyeIcon}/>}
           {finalOpen && 
           <FinalDrawing  
             player = {player} 
@@ -364,23 +367,23 @@ export default function Game ({mode, socket, player, host, user}) {
         }
       </div>
       <div className = "canvas--section-3">
-        <input type = "image" src = {backIcon} onClick = {() => {
+        <input type = "image" alt = "back icon" src = {backIcon} onClick = {() => {
           setExitOpen(true);
         }} />
         {exitOpen && <ExitConfirmation setExitOpen = {setExitOpen} />}
       </div>
       <div className = "canvas--palette">
-        <Palette brush = {brush} setBrush = {setBrush} setClear = {setClear}/>
+        <Palette brush = {brush} setBrush = {setBrush} clearCanvas = {() => clearCanvas(mode, user.host)}/>
       </div>
       <div className = "canvas--section-4">
         <div className = "canvas--icon-wrapper">
-          <input type = "image"  src = {zoomIn} className = "canvas--icon"/>
+          <input type = "image"  alt = "zoom in icon" src = {zoomIn} className = "canvas--icon"/>
         </div>
         <div className = "canvas--icon-wrapper">
           <p>100%</p>
         </div>
         <div className = "canvas--icon-wrapper">
-          <input type = "image"  src = {zoomOut} className = "canvas--icon" />
+          <input type = "image" alt = "zoom out icon" src = {zoomOut} className = "canvas--icon" />
         </div>
       </div>
     </div>

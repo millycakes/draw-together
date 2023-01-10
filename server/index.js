@@ -79,9 +79,14 @@ io.on("connection", (socket) => {
         console.log("Host has changed their avatar");
     })
     socket.on("clear", (data) => {
-        console.log("request to clear canvas")
+        if (!data[0]){
+            console.log("request to clear canvas: invalid mode")
+            return;
+        }
+        console.log("request to clear canvas; game mode: " + data[0] + " ;host: " + data[1])
         socket.broadcast.emit("clear", data);
     })
+    
     socket.on("swap", (data) => {
         const[key, ishost] = data;
         console.log("swapping canvas" + ishost);
