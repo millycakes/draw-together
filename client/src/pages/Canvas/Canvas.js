@@ -123,7 +123,7 @@ export default function Game ({mode, socket, player, host, user}) {
       setCountdown(90)
     }
     else if (mode == "Canvas Swap"){
-      setCountdown(30)
+      setCountdown(10);
     }
 
     timerId.current = setInterval(() => {
@@ -140,7 +140,7 @@ export default function Game ({mode, socket, player, host, user}) {
           setFinalOpen(true);
       }
     }
-    else if (mode == "Canvas Swap"){
+    else if (mode === "Canvas Swap"){
       if (round > 4){
         return;
       }
@@ -149,7 +149,6 @@ export default function Game ({mode, socket, player, host, user}) {
         setFinalOpen(true);
       }
       if (countdown <= 0 && round < 4){
-        setCountdown(10)
         setRound(prev => prev+1)
         swapCanvas();
       }
@@ -158,9 +157,13 @@ export default function Game ({mode, socket, player, host, user}) {
   
 
   function swapCanvas(){
-    const canvasImage = canvasRef.current.toDataURL();
-    socket.emit("swap", canvasImage);
+    socket.emit("swap", [user.key, user.host]);
   }
+  
+  socket.on("ready_swap", ()=> {
+    const canvasImage = canvasRef.current.toDataURL();
+    socket.emit("swap_fin", [canvasImage, user.key]);
+  })
   
   socket.on("swap", function(data){
     clearCanvas();
@@ -170,6 +173,7 @@ export default function Game ({mode, socket, player, host, user}) {
     imageObj.onload = function(){
         ctxRef.current.drawImage(this, 0, 0); 
      };
+     setCountdown(10);
   })
 
   socket.on("drawing", function(data){

@@ -49,6 +49,7 @@ io.on("connection", (socket) => {
             socket.to(user.key).emit("ready_two");
             updateMode(getUsers(user.key)[0].mode,user.key);
             socket.to(user.key).emit("player_selection");
+            socket.to(user.key).emit("player_mode",getUsers(user.key)[0].mode);
         }
         else if (getUsers(user.key).length===2) {
             socket.to(user.key).emit("ready_two");
@@ -82,8 +83,27 @@ io.on("connection", (socket) => {
         socket.broadcast.emit("clear", data);
     })
     socket.on("swap", (data) => {
-        console.log("swapping canvas")
-        socket.broadcast.emit("swap", data)
+        const[key, ishost] = data;
+        console.log("swapping canvas" + ishost);
+        let i = 0;
+        while (i<2) {
+            if (getUsers(key)[i].host===ishost) {
+                getUsers(key)[i].swapkey = key;
+            }
+        }
+        if (getUsers(key)[0].swapkey!=null && getUsers(key)[1].swapkey!=null && getUsers(key)[0].swapkey===getUsers(key)[1].swapkey) {
+            socket.emit("ready_swap");
+        }
+    })
+
+    socket.on("swap_fin", (data)=> {
+        console.log("finish swapping");
+        const[canvas, key] = data;
+        let i = 0;
+        while (i<2) {
+            getUsers(key)[i].swapkey = i;
+        }
+        socket.broadcast.emit("swap", canvas);
     })
 })
 
