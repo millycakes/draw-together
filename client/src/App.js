@@ -48,6 +48,12 @@ function App() {
   const [mode, setMode] = React.useState("");
   const [hostAvatar, setHostAvatar] = React.useState(bear);
   const [retrieve, setRetrieve] = React.useState(false);
+  const[bothSwapped, setBothSwapped] = React.useState(false);
+
+  socket.on("both_swap", ()=> {
+    setBothSwapped(true);
+  })
+
 
   socket.on("player_data", (data)=> {
     setPlayer(data);
@@ -176,6 +182,8 @@ function App() {
               setPlayer = {setPlayer}
               host = {host}
               setHost = {setHost}
+              bothSwapped = {bothSwapped}
+              setBothSwapped = {setBothSwapped}
             />}
           />
           

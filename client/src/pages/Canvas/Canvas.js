@@ -17,7 +17,8 @@ import Tutorial from "./Tutorial"
 
 import "./canvas.css"
 
-export default function Game ({mode, socket, player, host, user}) {  
+export default function Game ({mode, socket, player, host, user, bothSwapped, setBothSwapped}) {  
+  
 
   /**
    * todo: 
@@ -123,7 +124,7 @@ export default function Game ({mode, socket, player, host, user}) {
       setCountdown(90)
     }
     else if (mode == "Canvas Swap"){
-      setCountdown(30)
+      setCountdown(10)
     }
 
     timerId.current = setInterval(() => {
@@ -149,7 +150,6 @@ export default function Game ({mode, socket, player, host, user}) {
         setFinalOpen(true);
       }
       if (countdown <= 0 && round < 4){
-        setCountdown(10)
         setRound(prev => prev+1)
         swapCanvas();
       }
@@ -157,12 +157,31 @@ export default function Game ({mode, socket, player, host, user}) {
   }, [countdown])
   
 
+  React.useEffect(()=> {
+    if (bothSwapped) {
+      setCountdown(10);
+      setBothSwapped(false);
+    }
+  },[bothSwapped])
+  
+
   function swapCanvas(){
-    const canvasImage = canvasRef.current.toDataURL();
-    socket.emit("swap", canvasImage);
+    if (!bothSwapped) {
+      const canvasImage = canvasRef.current.toDataURL();
+      socket.emit("swap", [canvasImage, user.key, user.host]);
+    }
+    else {
+      return;
+    }
   }
+
+  socket.on("stop_time", ()=> {
+    //temporary attempt
+    setCountdown(20);
+  })
   
   socket.on("swap", function(data){
+    swapCanvas();
     clearCanvas();
     var imageObj = new Image();
     imageObj.src = data;
