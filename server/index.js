@@ -88,27 +88,53 @@ io.on("connection", (socket) => {
     })
     
     socket.on("swap", (data) => {
-        const[key, ishost] = data;
-        console.log("swapping canvas" + ishost);
+        const[canvasImage, key, ishost] = data;
+        console.log("swapping canvas");
         let i = 0;
         while (i<2) {
             if (getUsers(key)[i].host===ishost) {
+                getUsers(key)[i].canvas = canvasImage;
                 getUsers(key)[i].swapkey = key;
             }
+            i++;
         }
         if (getUsers(key)[0].swapkey!=null && getUsers(key)[1].swapkey!=null && getUsers(key)[0].swapkey===getUsers(key)[1].swapkey) {
-            socket.emit("ready_swap");
+            socket.to(key).emit("ready_swap");
         }
     })
 
     socket.on("swap_fin", (data)=> {
-        console.log("finish swapping");
-        const[canvas, key] = data;
-        let i = 0;
-        while (i<2) {
-            getUsers(key)[i].swapkey = i;
+        const[key, ishost] = data;
+        let swapdata = "";
+        let c = 0;
+        while (c<2) {
+            if (getUsers(key)[c].host===ishost) {
+                swapdata = getUsers(key)[c].canvas;
+            }
+            c++;
         }
-        socket.broadcast.emit("swap", canvas);
+        socket.broadcast.emit("swap", swapdata);
+        let temp = 0;
+        let count = 0;
+        while(temp<2) {
+            if (getUsers(key)[temp].host===ishost) {
+                getUsers(key)[temp].swapped=true;
+            }
+            if (getUsers(key)[temp].swapped!=null && getUsers(key)[temp].swapped) {
+                count++;
+            }
+
+            temp++;
+        }
+        console.log("finish swapping " +ishost);
+        if (count===2) {
+            let i = 0;
+            while (i<2) {
+                getUsers(key)[i].swapkey = i;
+                getUsers(key)[i].swapped = false;
+                i++;
+            }
+        }
     })
 })
 

@@ -48,6 +48,20 @@ function App() {
   const [mode, setMode] = React.useState("");
   const [hostAvatar, setHostAvatar] = React.useState(bear);
   const [retrieve, setRetrieve] = React.useState(false);
+  const [readySwap, setReadySwap] = React.useState(false);
+  const[url, setUrl] = React.useState("");
+
+  React.useEffect(()=> {
+    socket.on("swap", (data)=> {
+      alert("called");
+      setUrl(data);
+    })
+  })
+
+  socket.on("ready_swap", ()=> {
+    setReadySwap(true);
+  })
+
 
   socket.on("player_data", (data)=> {
     setPlayer(data);
@@ -176,6 +190,9 @@ function App() {
               setPlayer = {setPlayer}
               host = {host}
               setHost = {setHost}
+              readySwap = {readySwap}
+              setReadySwap = {setReadySwap}
+              url = {url}
             />}
           />
           

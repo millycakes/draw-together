@@ -18,7 +18,7 @@ import Tutorial from "./Tutorial"
 import "./canvas.css"
 import "./modal.css"
 
-export default function Game ({mode, socket, player, host, user}) {  
+export default function Game ({mode, socket, player, host, user, readySwap, setReadySwap, url}) {  
 
   /**
    * todo: 
@@ -147,16 +147,17 @@ export default function Game ({mode, socket, player, host, user}) {
         clearInterval(timerId.current)
         setFinalOpen(true);
       }
-      if (countdown <= 0 && round < 4){
-        setRound(prev => prev+1)
-        swapCanvas();
+      if (countdown === 0 && round < 4){
+          swapCanvas();
+        
       }
     }
   }, [countdown])
   
 
   function swapCanvas(){
-    socket.emit("swap", [user.key, user.host]);
+    const canvasImage = canvasRef.current.toDataURL();
+    socket.emit("swap", [canvasImage, user.key, user.host]);
   }
   
   const startDrawing = ({nativeEvent}) => {
@@ -240,6 +241,28 @@ export default function Game ({mode, socket, player, host, user}) {
       }
     }
   }
+
+  React.useEffect(()=> {
+    if (readySwap) {
+      socket.emit("swap_fin", [user.key, user.host]);
+      setReadySwap(false);
+    }
+  }, [readySwap]);
+
+  React.useEffect(()=> {
+    if (url!=="") {
+      var imageObj = new Image();
+      imageObj.src = url;
+  
+      imageObj.onload = function(){
+          ctxRef.current.drawImage(this, 0, 0); 
+      };
+      setCountdown(10);
+      setRound(prev => prev+1)
+    }
+  },[url]);
+  
+
   React.useEffect(() => {
 
     socket.on("clear", function(data){
@@ -248,21 +271,7 @@ export default function Game ({mode, socket, player, host, user}) {
       clearCanvas(data[0], data[1], true);
     })
 
-    socket.on("ready_swap", ()=> {
-      const canvasImage = canvasRef.current.toDataURL();
-      socket.emit("swap_fin", [canvasImage, user.key]);
-    })
     
-    socket.on("swap", function(data){
-      clearCanvas();
-      var imageObj = new Image();
-      imageObj.src = data;
-
-      imageObj.onload = function(){
-          ctxRef.current.drawImage(this, 0, 0); 
-      };
-      setCountdown(10);
-    })
 
     socket.on("drawing", function(data){
       let {x1, y1, x2, y2, color, stroke} = JSON.parse(data);
