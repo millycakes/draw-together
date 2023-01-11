@@ -1,34 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto+Mono&display=swap");
 
 *{
     margin: 0;
     padding: 0;
 }
 
-.input{
+:root{
+  --clr-white: #FFFFFF;
+  --clr-grey-lightest: #F5F5F5;
+  --clr-grey-light: #E3E3E3;
+  --clr-grey-default: #A4A4A4;
+  --clr-grey-dark: #707070;
+  --clr-grey-darkest: #444444;
+  --clr-black: #2C2C2C;
+  --clr-cream: #FCFAF6;
+  --clr-accent-light: #FDF3F3;
+  --clr-accent: #FEEAEA;
+  --clr-accent-dark: #FBD6D6;
+  --clr-error: #C23232;
+
+  --ff-heading: "Patrick Hand", cursive;
+  --ff-body: "Roboto Mono", monospace;
+
+  --fs-heading: 1.5rem;
+  --fs-logo: 1.375rem;
+  --fs-body-large: 1rem;
+  --fs-body-regular: 0.875rem;
+  --fs-body-small: 0.75rem;
+}
+
+h1, h2, h3 {
+  font-family: var(--ff-heading);
+  font-size: var(--fs-heading);
+}
+
+p, label, li {
+  font-family: var(--ff-body);
+  font-size: var(--fs-body-regular);
+}
+
+.body-large{
+  font-size: var(--fs-body-large);
+  font-weight: bolder;
+}
+
+.body-small{
+  font-size: var(--fs-body-small);
+}
+
+.body-x-small{
+  font-size: var(--fs-body-x-small);
+}
+
+input{
+  font-family: var(--ff-body);
   width: 100%;
   box-sizing:border-box;
   margin: 0 !important;
-}
-
-:root{
-    --text: #2C2C2C;
-    --stroke-light: #E3E3E3;
-    --stroke-default: #A4A4A4;
-    --stroke-dark: #707070;
-    --stroke-brown: #CDC1B3;
-    --background-white: #FFFFFF;
-    --background-grey: #F5F5F5;
-    --accent: #FEEAEA;
-    --accent-hover: #fee4e4;
-}
-
-h1, p{
-  font-family: 'Patrick Hand', cursive;
-}
-
-label{
-  font-family: 'Patrick Hand', cursive;
+  text-align: center;
 }
 
 a:link {

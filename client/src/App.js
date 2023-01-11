@@ -1,10 +1,10 @@
-// import logo from './logo.svg';
+// import logo from "./logo.svg";
 import React, { useEffect } from "react";
 import {Routes, Route} from "react-router-dom"
 import io from "socket.io-client";
 import bear from "./assets/avatar/bear.png"
 
-import Home from './pages/Home/Home';
+import Home from "./pages/Home/Home";
 import Loading from "./pages/Loading/Loading";
 import GameSelection from "./pages/Settings/GameSelection";
 import HostSettings from "./pages/Settings/HostSettings";

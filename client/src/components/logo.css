@@ -1,8 +1,8 @@
 .logo--default{
-    font-family: 'Patrick Hand';
+    font-family: var(--ff-heading);
     font-style: normal;
     font-weight: 400;
-    font-size: 22px;
+    font-size: var(--fs-logo);
     line-height: 30px;
     letter-spacing: 0.2em;
     
@@ -12,10 +12,19 @@
 }
 
 .logo--canvas{
-    font-family: 'Patrick Hand';
+    font-family: var(--ff-heading);
     font-style: normal;
     font-weight: 400;
-    font-size: 22px;
+    font-size: var(--fs-logo);
+    line-height: 30px;
+    letter-spacing: 0.2em;
+}
+
+.logo--final{
+    font-family: var(--ff-heading);
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--fs-logo);
     line-height: 30px;
     letter-spacing: 0.2em;
 }

@@ -24,10 +24,12 @@
 }
 
 .home--form{
+    display: flex;
     flex-direction: column;
+    gap: 8px;
     text-align: center;
-    background: #FFFFFF;
-    border: 1px solid #CDC1B3;
+    background: var(--clr-white);
+    border: 1px solid var(--clr-grey-default);
     border-radius: 16px;
     padding: 48px 48px;
 }
@@ -41,7 +43,7 @@
 } 
  
 .home--line-block span{ 
-    background:#fff; 
+    background: var(--clr-white); 
     padding:0 10px; 
 }
 
@@ -56,15 +58,15 @@
 
 .key-format{
     text-align: right;
-    color: var(--error)
 }
 
 .home--key-input{
-    font-size: 14px;
     padding: 12px;
-    font-family: 'Roboto Mono', monospace;
+    text-align: center;
 }
-
-.home p {
-    margin-bottom: 12px;
+.error-message{
+    color: var(--clr-error);
+    display: flex;
+    gap: 4px;
+    font-size: var(--fs-body-small)
 }

@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import closeIcon from "../../assets/icons/close.png"
-import Button from '../../components/Button';
+import Button from "../../components/Button";
 
 export default function ExitConfirmation({setExitOpen}){
     const navigate = useNavigate();

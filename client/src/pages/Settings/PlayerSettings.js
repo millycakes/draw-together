@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import editIcon from "../../assets/icons/edit.png"
-import AvatarSelection from './AvatarSelection';
-import { useNavigate } from 'react-router-dom';
+import AvatarSelection from "./AvatarSelection";
+import { useNavigate } from "react-router-dom";
 import "./settings.css"
-import Logo from '../../components/Logo';
-import Button from '../../components/Button';
+import Logo from "../../components/Logo";
+import Button from "../../components/Button";
 
 export default function PlayerSettings({user, setUser, setJoined, playerKey, hostAvatar, setRetrieve, setHostAvatar, host}) {
 
@@ -33,7 +33,7 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, hos
     }
 
     return(
-        <div className = "settings" style={{height: '100vh'}}>
+        <div className = "settings" style={{height: "100vh"}}>
             <Logo />
             <div className = "settings--avatar">
                 <div className = "settings--inner-wrapper">

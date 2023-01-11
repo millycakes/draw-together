@@ -56,7 +56,7 @@ export default function Palette({brush, setBrush, clearCanvas}){
     let stroke = e.target.value;
 
     let valPercent = (stroke / slider.max)*100;
-    slider.style.background = `linear-gradient(to right, var(--stroke-dark) ${valPercent}%, #d5d5d5 ${valPercent}%)`;
+    slider.style.background = `linear-gradient(to right, var(--clr-grey-dark) ${valPercent}%, #d5d5d5 ${valPercent}%)`;
     
     
     setBrush(prev => ({
@@ -68,20 +68,28 @@ export default function Palette({brush, setBrush, clearCanvas}){
     return(
         <div className = "palette">
             <ul className = "palette--tools" onClick = {updateTool}>
-                <li><img id = "tools--pencil" alt = "pencil icon" src = {pencil}/></li>
-                <li><img id = "tools--eraser" alt = "eraser icon" src = {eraser}/></li>
-                <li><img id = "tools--eyedropper" alt = "eyedropper icon" src = {eyedropper}/></li>
-                <li><img id = "tools--clear" alt = "clear icon" src = {clear}/></li>
+                <li>
+                  <img id = "tools--pencil" alt = "pencil icon" src = {pencil}/>
+                </li>
+                <li>
+                  <img id = "tools--eraser" alt = "eraser icon" src = {eraser}/>
+                </li>
+                <li>
+                  <img id = "tools--eyedropper" alt = "eyedropper icon" src = {eyedropper}/>
+                </li>
+                <li>
+                  <img id = "tools--clear" alt = "clear icon" src = {clear}/>
+                </li>
             </ul>
             <div className = "palette--vl"/>
             <div className = "palette--stroke" onClick = {updateStroke}>
-                <label htmlFor="stroke">Thickness</label>
+                <label className = "body-small" htmlFor="stroke">Thickness</label>
                 <input 
                   type="range" 
                   id="stroke" 
                   name="stroke" 
                   min="1" 
-                  max="100"
+                  max="50"
                   onChange={updateStroke}
                   defaultValue = "5"
                 />

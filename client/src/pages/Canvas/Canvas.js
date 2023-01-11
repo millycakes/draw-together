@@ -8,7 +8,7 @@ import zoomIn from "../../assets/icons/zoom-in.png"
 import zoomOut from "../../assets/icons/zoom-out.png"
 
 import Countdown from "./Countdown"
-import Button from '../../components/Button';
+import Button from "../../components/Button";
 import Palette from "./Palette"
 import Logo from "../../components/Logo"
 import FinalDrawing from "./FinalDrawing"
@@ -29,8 +29,14 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
    * fix top/bottom cover assignment issue
    * -----fix clear issue
    * fix swap issue
-   * clean up css
-   * 
+   * -----clean up css
+   * -----key error
+   * minor css changes
+   * handle zoom
+   * -----fix eyedropper
+   * focus/hover css
+   * -----drawing download name
+   * button color css
    */
   
   const [isDrawing, setIsDrawing] = React.useState(false);
@@ -162,11 +168,21 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
   
   const startDrawing = ({nativeEvent}) => {
 
-    if (mode !== "Draw Together" && countdown <= 0){
-      return;
+    const {offsetX, offsetY} = nativeEvent;
+
+    if (brush.tool == "eyedropper"){
+      const color = ctxRef.current.getImageData(offsetX, offsetY, 1, 1).data;
+
+      setBrush(prev => ({
+        ...prev,
+        strokeStyle: `RGB(${color[0]}, ${color[1]}, ${color[2]})`,
+        tool: "pencil"
+      }))
     }
 
-    const {offsetX, offsetY} = nativeEvent;
+    if (mode !== "Draw Together" && countdown <= 0){
+      return;
+    }   
 
     setBrush(prev => ({
       ...prev,
@@ -297,11 +313,11 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
   }
 
   function downloadDrawing(canvasRef){
-    let downloadLink = document.createElement('a');
-    downloadLink.setAttribute('download', 'CanvasAsImage.png');
-    const canvasImage = canvasRef.toDataURL('image/png');
-    let url = canvasImage.replace(/^data:image\/png/,'data:application/octet-stream');
-    downloadLink.setAttribute('href', url);
+    let downloadLink = document.createElement("a");
+    downloadLink.setAttribute("download", "draw-together.png");
+    const canvasImage = canvasRef.toDataURL("image/png");
+    let url = canvasImage.replace(/^data:image\/png/,"data:application/octet-stream");
+    downloadLink.setAttribute("href", url);
     downloadLink.click();
   }
 
@@ -311,7 +327,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
         return <p>{mode}</p>;
       case "Canvas Swap":
         return (
-          <div>
+          <div className="canvas--game-info">
             <p>{mode}</p>
             <p>/</p>
             <p>Round {round}/4</p>
@@ -322,7 +338,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
         )
       case "Top Bottom":
         return (
-          <div>
+          <div className="canvas--game-info">
             <p>{mode}</p>
             <p>/</p>
             {(!initialCountdown) && <p>Starting soon</p>}
@@ -333,7 +349,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
   }
 
 	return (
-    <div className = "canvas"  style={{height: '100vh' }}>
+    <div className = "canvas"  style={{height: "100vh" }}>
       {(mode !== "Draw Together" && !initialCountdown) && <Countdown seconds = {3} setInitialCountdown = {setInitialCountdown}/>}
       <div className = "canvas--section-1">
         <Logo variant = "canvas canvas--vl"/>
@@ -368,7 +384,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
           onMouseLeave = {stopDrawing}>
         </canvas>
         {(mode === "Top Bottom") && 
-        <div className = {`canvas--cover ${user.host ? "top" : "bottom"}`}><p>Player's Drawing</p></div>}
+        <div className = {`canvas--cover ${user.host ? "top" : "bottom"}`}><p>Player"s Drawing</p></div>}
         {(mode === "Top Bottom") &&
         <div className = "canvas--swap-avatars">
           <img src = {host.avatar} className = "avatar-small" alt = "avatar"/>
