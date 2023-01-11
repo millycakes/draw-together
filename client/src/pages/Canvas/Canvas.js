@@ -29,8 +29,13 @@ export default function Game ({mode, socket, player, host, user}) {
    * fix top/bottom cover assignment issue
    * -----fix clear issue
    * fix swap issue
-   * clean up css
-   * 
+   * -----clean up css
+   * minor css changes
+   * handle zoom
+   * fix eyedropper
+   * focus/hover css
+   * drawing download name
+   * button color css
    */
   
   const [isDrawing, setIsDrawing] = React.useState(false);
