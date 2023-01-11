@@ -24,10 +24,12 @@
 }
 
 .home--form{
+    display: flex;
     flex-direction: column;
+    gap: 8px;
     text-align: center;
     background: var(--clr-white);
-    border: 1px solid #CDC1B3;
+    border: 1px solid var(--clr-grey-default);
     border-radius: 16px;
     padding: 48px 48px;
 }
