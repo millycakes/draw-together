@@ -23,7 +23,7 @@
 
 .settings--edit-icon{
     position: absolute;
-    background-color: var(--background-white);
+    background-color: var(--clr-white);
     border: 0;
     right: 0;
     bottom: 0;
@@ -75,12 +75,12 @@
     border: 1px solid black;
     border-radius: 4px;
     gap: 8px;
-    background-color: var(--background-white);
+    background-color: var(--clr-white);
     z-index: 2;
 }
 
 .avatar--selector{
-    background-color: var(--background-white);
+    background-color: var(--clr-white);
     border: 0;
 }
 

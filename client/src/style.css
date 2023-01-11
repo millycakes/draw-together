@@ -12,15 +12,18 @@
 }
 
 :root{
-    --text: #2C2C2C;
-    --stroke-light: #E3E3E3;
-    --stroke-default: #A4A4A4;
-    --stroke-dark: #707070;
-    --stroke-brown: #CDC1B3;
-    --background-white: #FFFFFF;
-    --background-grey: #F5F5F5;
-    --accent: #FEEAEA;
-    --accent-hover: #fee4e4;
+  --clr-white: #FFFFFF;
+  --clr-grey-lightest: #F5F5F5;
+  --clr-grey-light: #E3E3E3;
+  --clr-grey-default: #A4A4A4;
+  --clr-grey-dark: #707070;
+  --clr-grey-darkest: #444444;
+  --clr-black: #2C2C2C;
+  --clr-cream: #FCFAF6;
+  --clr-accent-light: #FDF3F3;
+  --clr-accent: #FEEAEA;
+  --clr-accent-dark: #FBD6D6;
+  --clr-error: #C23232;
 }
 
 h1, p{

@@ -26,7 +26,7 @@
 .home--form{
     flex-direction: column;
     text-align: center;
-    background: #FFFFFF;
+    background: var(--clr-white);
     border: 1px solid #CDC1B3;
     border-radius: 16px;
     padding: 48px 48px;
@@ -41,7 +41,7 @@
 } 
  
 .home--line-block span{ 
-    background:#fff; 
+    background: var(--clr-white); 
     padding:0 10px; 
 }
 

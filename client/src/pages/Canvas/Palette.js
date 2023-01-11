@@ -56,7 +56,7 @@ export default function Palette({brush, setBrush, clearCanvas}){
     let stroke = e.target.value;
 
     let valPercent = (stroke / slider.max)*100;
-    slider.style.background = `linear-gradient(to right, var(--stroke-dark) ${valPercent}%, #d5d5d5 ${valPercent}%)`;
+    slider.style.background = `linear-gradient(to right, var(--clr-grey-dark) ${valPercent}%, #d5d5d5 ${valPercent}%)`;
     
     
     setBrush(prev => ({
