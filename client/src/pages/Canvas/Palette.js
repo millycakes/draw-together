@@ -4,7 +4,7 @@ import eyedropper from "../../assets/tools/eyedropper.png"
 import clear from "../../assets/tools/clear.png"
 import "./palette.css"
 
-export default function Palette({brush, setBrush, clearCanvas, setEyedropper}){
+export default function Palette({brush, setBrush, clearCanvas}){
     
   function updateTool(e){
     let tool = e.target.id;
@@ -19,10 +19,6 @@ export default function Palette({brush, setBrush, clearCanvas, setEyedropper}){
       ...prev,
       tool: tool
     }))
-
-    if (brush.tool === "eyedropper"){
-      setEyedropper(true);
-    }
 
     if (brush.tool === "pencil" && tool === "eraser"){
       setBrush(prev => ({
@@ -72,10 +68,18 @@ export default function Palette({brush, setBrush, clearCanvas, setEyedropper}){
     return(
         <div className = "palette">
             <ul className = "palette--tools" onClick = {updateTool}>
-                <li><img id = "tools--pencil" alt = "pencil icon" src = {pencil}/></li>
-                <li><img id = "tools--eraser" alt = "eraser icon" src = {eraser}/></li>
-                <li><img id = "tools--eyedropper" alt = "eyedropper icon" src = {eyedropper}/></li>
-                <li><img id = "tools--clear" alt = "clear icon" src = {clear}/></li>
+                <li>
+                  <img id = "tools--pencil" alt = "pencil icon" src = {pencil}/>
+                </li>
+                <li>
+                  <img id = "tools--eraser" alt = "eraser icon" src = {eraser}/>
+                </li>
+                <li>
+                  <img id = "tools--eyedropper" alt = "eyedropper icon" src = {eyedropper}/>
+                </li>
+                <li>
+                  <img id = "tools--clear" alt = "clear icon" src = {clear}/>
+                </li>
             </ul>
             <div className = "palette--vl"/>
             <div className = "palette--stroke" onClick = {updateStroke}>
@@ -85,7 +89,7 @@ export default function Palette({brush, setBrush, clearCanvas, setEyedropper}){
                   id="stroke" 
                   name="stroke" 
                   min="1" 
-                  max="100"
+                  max="50"
                   onChange={updateStroke}
                   defaultValue = "5"
                 />

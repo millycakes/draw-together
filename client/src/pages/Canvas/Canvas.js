@@ -62,7 +62,6 @@ export default function Game ({mode, socket, player, host, user}) {
       y: 0
     }
   )
-  const [eyedropper, setEyedropper] = React.useState(false);
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -170,15 +169,14 @@ export default function Game ({mode, socket, player, host, user}) {
 
     const {offsetX, offsetY} = nativeEvent;
 
-    if (eyedropper){
+    if (brush.tool == "eyedropper"){
       const color = ctxRef.current.getImageData(offsetX, offsetY, 1, 1).data;
 
       setBrush(prev => ({
         ...prev,
-        strokeStyle: `RGB(${color[0]}, ${color[1]}, ${color[2]})`
+        strokeStyle: `RGB(${color[0]}, ${color[1]}, ${color[2]})`,
+        tool: "pencil"
       }))
-
-      setEyedropper(false);
     }
 
     if (mode !== "Draw Together" && countdown <= 0){
@@ -392,7 +390,7 @@ export default function Game ({mode, socket, player, host, user}) {
         {exitOpen && <ExitConfirmation setExitOpen = {setExitOpen} />}
       </div>
       <div className = "canvas--palette">
-        <Palette brush = {brush} setEyedropper = {setEyedropper} setBrush = {setBrush} clearCanvas = {() => clearCanvas(mode, user.host)}/>
+        <Palette brush = {brush} setBrush = {setBrush} clearCanvas = {() => clearCanvas(mode, user.host)}/>
       </div>
       <div className = "canvas--section-4">
         <div className = "canvas--icon-wrapper">
