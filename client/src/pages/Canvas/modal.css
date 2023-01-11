@@ -76,3 +76,8 @@
     flex-direction: row;
     gap: 12px;
 }
+
+.final-drawing--wrapper{
+    display: flex;
+    justify-content: space-between;
+}

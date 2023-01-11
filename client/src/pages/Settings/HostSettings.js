@@ -1,10 +1,10 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import editIcon from "../../assets/icons/edit.png"
-import Button from '../../components/Button';
-import Logo from '../../components/Logo';
-import AvatarSelection from './AvatarSelection';
+import Button from "../../components/Button";
+import Logo from "../../components/Logo";
+import AvatarSelection from "./AvatarSelection";
 import "./settings.css"
 
 export default function HostSettings({user, setUser, setJoined, hostKey, setHostKey, setHostSocket, setRetrieve, setHostAvatar}) {
@@ -15,8 +15,8 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
     const navigate = useNavigate();
 
     const uuid = () => {
-        let fin = '';
-        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let fin = "";
+        let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         for (let i = 0; i<6; i++) {
             fin+=chars.charAt(Math.floor(Math.random()*chars.length));
         }
@@ -57,7 +57,7 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
     }
 
     return(
-        <div className = "settings" style={{height: '100vh'}}>
+        <div className = "settings" style={{height: "100vh"}}>
             <Logo />
             <div className = "settings--avatar">
                 <div className = "settings--outer-wrapper">
@@ -72,8 +72,8 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
             </div>
             <div className ="settings--vl"></div>
             <div className = "settings--key">
-                <p>Copy the following key to invite your friend!</p>
-                <p className = "input">{hostKey}</p>
+                <p className="body-large">Copy the following key to invite your friend!</p>
+                <p >{hostKey}</p>
                 <Button text = "Copy Room Key" variant = "round" onClick = {copyKey}/>
             </div>
             <Button variant = "primary left" text = "Return" onClick = {() => navigate("/")}/>

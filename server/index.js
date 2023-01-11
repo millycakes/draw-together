@@ -1,13 +1,13 @@
-const express = require ('express');
+const express = require ("express");
 const app = express();
 const PORT = 4000;
-const http = require('http').Server(app);
-const cors = require('cors');
+const http = require("http").Server(app);
+const cors = require("cors");
 const {newUser, getUsers, updateMode} = require("./users");
-const e = require('express');
+const e = require("express");
 app.use(cors());
 
-const io = require('socket.io')(http, {
+const io = require("socket.io")(http, {
     cors: {
         origin: "http://localhost:3000"
     }

@@ -1,14 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto+Mono&display=swap");
 
 *{
     margin: 0;
     padding: 0;
-}
-
-.input{
-  width: 100%;
-  box-sizing:border-box;
-  margin: 0 !important;
 }
 
 :root{
@@ -24,14 +18,48 @@
   --clr-accent: #FEEAEA;
   --clr-accent-dark: #FBD6D6;
   --clr-error: #C23232;
+
+  --ff-heading: "Patrick Hand", cursive;
+  --ff-body: "Roboto Mono", monospace;
+
+  --fs-heading: 1.5rem;
+  --fs-logo: 1.375rem;
+  --fs-body-large: 1rem;
+  --fs-body-regular: 0.875rem;
+  --fs-body-small: 0.75rem;
+  --fs-body-x-small: 0.625rem;
 }
 
-h1, p{
-  font-family: 'Patrick Hand', cursive;
+h1, h2, h3 {
+  font-family: var(--ff-heading);
+  font-size: var(--fs-heading);
 }
 
-label{
-  font-family: 'Patrick Hand', cursive;
+p, label {
+  font-family: var(--ff-body);
+  font-size: var(--fs-body-regular);
+}
+
+.body-large{
+  font-size: var(--fs-body-large);
+  font-weight: bolder;
+}
+
+.body-small{
+  font-size: var(--fs-body-small);
+}
+
+.body-x-small{
+  font-size: var(--fs-body-x-small);
+}
+
+
+input{
+  font-family: var(--ff-body);
+  width: 100%;
+  box-sizing:border-box;
+  margin: 0 !important;
+  text-align: center;
 }
 
 a:link {

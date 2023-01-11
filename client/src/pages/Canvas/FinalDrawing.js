@@ -1,7 +1,8 @@
 import Button from "../../components/Button"
 import downloadIcon from "../../assets/icons/download.png"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import closeIcon from "../../assets/icons/close.png"
+import Logo from "../../components/Logo";
 
 export default function FinalDrawing({player, host, canvas, user, setFinalOpen}){
 
@@ -24,11 +25,11 @@ export default function FinalDrawing({player, host, canvas, user, setFinalOpen})
    
 
     function downloadDrawing(canvasRef){
-        let downloadLink = document.createElement('a');
-        downloadLink.setAttribute('download', 'CanvasAsImage.png');
-        const canvasImage = canvasRef.toDataURL('image/png');
-        let url = canvasImage.replace(/^data:image\/png/,'data:application/octet-stream');
-        downloadLink.setAttribute('href', url);
+        let downloadLink = document.createElement("a");
+        downloadLink.setAttribute("download", "CanvasAsImage.png");
+        const canvasImage = canvasRef.toDataURL("image/png");
+        let url = canvasImage.replace(/^data:image\/png/,"data:application/octet-stream");
+        downloadLink.setAttribute("href", url);
         downloadLink.click();
       }
     
@@ -36,19 +37,22 @@ export default function FinalDrawing({player, host, canvas, user, setFinalOpen})
     return(
         <div className="modal">
             <div className="final-drawing">
+                <Logo variant="final"/>
                 <button className = "tutorial--close" onClick = {() => setFinalOpen(false)}>
                     <img alt = "close icon" src = {closeIcon}/>
                 </button>
-                <div className= "final-drawing--creators">
-                    <p>Drawing by:</p>
-                    <p>{`${host.name} & ${player.name}`}</p>
-                </div>
-                <div className = "final-drawing--avatars">
-                    <img alt = "host avatar" className = "avatar-small" src = {host.avatar}/>
-                    <img alt = "player avatar" className = "avatar-small" src = {player.avatar}/>
-                    <button onClick={() => {downloadDrawing(canvas)}}>
-                        <img alt = "download icon" src = {downloadIcon}/>
-                    </button>
+                <div className="final-drawing--wrapper">
+                    <div className= "final-drawing--creators">
+                        <p className="body-small">Drawing by:</p>
+                        <p className="body-large">{`${host.name} & ${player.name}`}</p>
+                    </div>
+                    <div className = "final-drawing--avatars">
+                        <img alt = "host avatar" className = "avatar-small" src = {host.avatar}/>
+                        <img alt = "player avatar" className = "avatar-small" src = {player.avatar}/>
+                        <button onClick={() => {downloadDrawing(canvas)}}>
+                            <img alt = "download icon" src = {downloadIcon}/>
+                        </button>
+                    </div>
                 </div>
                 <img alt = "final drawing" className = "final-drawing--image" src = {canvas.toDataURL()} />
                 <div className="final-drawing--buttons">

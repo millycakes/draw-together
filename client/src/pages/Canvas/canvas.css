@@ -43,6 +43,11 @@
     border-radius: 8px;
 }
 
+.canvas--game-info{
+    display: flex;
+    gap: 16px;
+}
+
 .canvas--section-2{
     display: flex;
     flex-direction: row;
@@ -117,7 +122,6 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
-    opacity: 50%;
 }
 
 .canvas--icon-wrapper{

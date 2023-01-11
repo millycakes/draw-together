@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import swap from "../../assets/modes/canvasswap.png"
 import together from "../../assets/modes/drawtogether.png"
 import split from "../../assets/modes/topbottom.png"
@@ -43,9 +43,9 @@ export default function GameSelection({setSelection,setMode,selection,twoready})
     }
 
     return (
-        <div className = "selection" style={{height: '100vh'}}>
+        <div className = "selection" style={{height: "100vh"}}>
             <Logo />
-            <p>Choose a game to play:</p>
+            <h2>Choose a game to play:</h2>
             <div className = "selection--options">
                 <div className = "selection--option">
                     <p>Draw Together</p>

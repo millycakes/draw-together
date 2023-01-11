@@ -60,9 +60,8 @@
 }
 
 .home--key-input{
-    font-size: 14px;
     padding: 12px;
-    font-family: 'Roboto Mono', monospace;
+    text-align: center;
 }
 
 .home p {

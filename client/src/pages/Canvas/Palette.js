@@ -75,7 +75,7 @@ export default function Palette({brush, setBrush, clearCanvas}){
             </ul>
             <div className = "palette--vl"/>
             <div className = "palette--stroke" onClick = {updateStroke}>
-                <label htmlFor="stroke">Thickness</label>
+                <label className = "body-x-small" htmlFor="stroke">Thickness</label>
                 <input 
                   type="range" 
                   id="stroke" 

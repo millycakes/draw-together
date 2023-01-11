@@ -8,7 +8,7 @@ import zoomIn from "../../assets/icons/zoom-in.png"
 import zoomOut from "../../assets/icons/zoom-out.png"
 
 import Countdown from "./Countdown"
-import Button from '../../components/Button';
+import Button from "../../components/Button";
 import Palette from "./Palette"
 import Logo from "../../components/Logo"
 import FinalDrawing from "./FinalDrawing"
@@ -288,11 +288,11 @@ export default function Game ({mode, socket, player, host, user}) {
   }
 
   function downloadDrawing(canvasRef){
-    let downloadLink = document.createElement('a');
-    downloadLink.setAttribute('download', 'CanvasAsImage.png');
-    const canvasImage = canvasRef.toDataURL('image/png');
-    let url = canvasImage.replace(/^data:image\/png/,'data:application/octet-stream');
-    downloadLink.setAttribute('href', url);
+    let downloadLink = document.createElement("a");
+    downloadLink.setAttribute("download", "CanvasAsImage.png");
+    const canvasImage = canvasRef.toDataURL("image/png");
+    let url = canvasImage.replace(/^data:image\/png/,"data:application/octet-stream");
+    downloadLink.setAttribute("href", url);
     downloadLink.click();
   }
 
@@ -302,7 +302,7 @@ export default function Game ({mode, socket, player, host, user}) {
         return <p>{mode}</p>;
       case "Canvas Swap":
         return (
-          <div>
+          <div className="canvas--game-info">
             <p>{mode}</p>
             <p>/</p>
             <p>Round {round}/4</p>
@@ -313,7 +313,7 @@ export default function Game ({mode, socket, player, host, user}) {
         )
       case "Top Bottom":
         return (
-          <div>
+          <div className="canvas--game-info">
             <p>{mode}</p>
             <p>/</p>
             {(!initialCountdown) && <p>Starting soon</p>}
@@ -324,7 +324,7 @@ export default function Game ({mode, socket, player, host, user}) {
   }
 
 	return (
-    <div className = "canvas"  style={{height: '100vh' }}>
+    <div className = "canvas"  style={{height: "100vh" }}>
       {(mode !== "Draw Together" && !initialCountdown) && <Countdown seconds = {3} setInitialCountdown = {setInitialCountdown}/>}
       <div className = "canvas--section-1">
         <Logo variant = "canvas canvas--vl"/>
@@ -359,7 +359,7 @@ export default function Game ({mode, socket, player, host, user}) {
           onMouseLeave = {stopDrawing}>
         </canvas>
         {(mode === "Top Bottom") && 
-        <div className = {`canvas--cover ${user.host ? "top" : "bottom"}`}><p>Player's Drawing</p></div>}
+        <div className = {`canvas--cover ${user.host ? "top" : "bottom"}`}><p>Player"s Drawing</p></div>}
         {(mode === "Top Bottom") &&
         <div className = "canvas--swap-avatars">
           <img src = {host.avatar} className = "avatar-small" alt = "avatar"/>
