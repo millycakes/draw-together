@@ -113,7 +113,7 @@ io.on("connection", (socket) => {
             }
             c++;
         }
-        socket.broadcast.emit("swap", swapdata);
+        socket.broadcast.emit("swap", [swapdata, ishost]);
         let temp = 0;
         let count = 0;
         while(temp<2) {

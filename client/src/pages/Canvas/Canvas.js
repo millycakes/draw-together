@@ -259,6 +259,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
   }
 
   React.useEffect(()=> {
+    
     if (readySwap) {
       socket.emit("swap_fin", [user.key, user.host]);
       setReadySwap(false);
@@ -266,9 +267,12 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
   }, [readySwap]);
 
   React.useEffect(()=> {
-    if (url!=="") {
+    socket.on("swap", (data)=> {
+      const[link, ishost] = data;
+      if (ishost!==user.host) {
+      console.log(url);
       var imageObj = new Image();
-      imageObj.src = url;
+      imageObj.src = link;
   
       imageObj.onload = function(){
           ctxRef.current.drawImage(this, 0, 0); 
@@ -276,7 +280,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
       setCountdown(10);
       setRound(prev => prev+1)
     }
-  },[url]);
+    })}, [])
   
 
   React.useEffect(() => {

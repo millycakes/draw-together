@@ -49,14 +49,6 @@ function App() {
   const [hostAvatar, setHostAvatar] = React.useState(bear);
   const [retrieve, setRetrieve] = React.useState(false);
   const [readySwap, setReadySwap] = React.useState(false);
-  const[url, setUrl] = React.useState("");
-
-  React.useEffect(()=> {
-    socket.on("swap", (data)=> {
-      alert("called");
-      setUrl(data);
-    })
-  })
 
   socket.on("ready_swap", ()=> {
     setReadySwap(true);
@@ -192,7 +184,6 @@ function App() {
               setHost = {setHost}
               readySwap = {readySwap}
               setReadySwap = {setReadySwap}
-              url = {url}
             />}
           />
           
