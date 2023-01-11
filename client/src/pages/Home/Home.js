@@ -1,5 +1,6 @@
 import React from "react"
 import logo from "../../assets/logo.png"
+import alert from "../../assets//icons/alert.png"
 import { useNavigate } from "react-router-dom";
 import "./home.css"
 import Button from "../../components/Button";
@@ -7,6 +8,7 @@ import Button from "../../components/Button";
 export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket, setRetrieveKeys}) {
 
     const navigate = useNavigate();
+    const [error, setError] = React.useState(false);
 
     function handleCreateSubmit(event){
         event.preventDefault();
@@ -16,6 +18,7 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
 
     function handleJoinSubmit(event) {
         event.preventDefault();
+
         if (validKey){
             console.log("join room");
             setPlayerSocket(true);
@@ -23,7 +26,7 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
         }
         //handle error
         else{
-            console.log("key invalid")
+            setError(true);
         }
     }
 
@@ -58,6 +61,7 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
                                 name = "key"
                                 onChange = {updateKey}>
                             </input>
+                            {error && <p className="error-message"><img style = {{width: "16px"}} src = {alert}/>invalid key</p>}
                         </div>
                         <div style = {{margin: "16px 0px"}}>
                             <Button text = "Join Room" variant = "large" onClick = {handleJoinSubmit} />

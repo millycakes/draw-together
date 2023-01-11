@@ -22,8 +22,6 @@ export default function FinalDrawing({player, host, canvas, user, setFinalOpen})
         navigate("/loading")
     }
 
-   
-
     function downloadDrawing(canvasRef){
         let downloadLink = document.createElement("a");
         downloadLink.setAttribute("download", "CanvasAsImage.png");
@@ -31,9 +29,8 @@ export default function FinalDrawing({player, host, canvas, user, setFinalOpen})
         let url = canvasImage.replace(/^data:image\/png/,"data:application/octet-stream");
         downloadLink.setAttribute("href", url);
         downloadLink.click();
-      }
+    }
     
-
     return(
         <div className="modal">
             <div className="final-drawing">
@@ -49,7 +46,7 @@ export default function FinalDrawing({player, host, canvas, user, setFinalOpen})
                     <div className = "final-drawing--avatars">
                         <img alt = "host avatar" className = "avatar-small" src = {host.avatar}/>
                         <img alt = "player avatar" className = "avatar-small" src = {player.avatar}/>
-                        <button onClick={() => {downloadDrawing(canvas)}}>
+                        <button className = "final-drawing--download" onClick={() => {downloadDrawing(canvas)}}>
                             <img alt = "download icon" src = {downloadIcon}/>
                         </button>
                     </div>

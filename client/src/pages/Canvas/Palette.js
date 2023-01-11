@@ -4,7 +4,7 @@ import eyedropper from "../../assets/tools/eyedropper.png"
 import clear from "../../assets/tools/clear.png"
 import "./palette.css"
 
-export default function Palette({brush, setBrush, clearCanvas}){
+export default function Palette({brush, setBrush, clearCanvas, setEyedropper}){
     
   function updateTool(e){
     let tool = e.target.id;
@@ -19,6 +19,10 @@ export default function Palette({brush, setBrush, clearCanvas}){
       ...prev,
       tool: tool
     }))
+
+    if (brush.tool === "eyedropper"){
+      setEyedropper(true);
+    }
 
     if (brush.tool === "pencil" && tool === "eraser"){
       setBrush(prev => ({
@@ -75,7 +79,7 @@ export default function Palette({brush, setBrush, clearCanvas}){
             </ul>
             <div className = "palette--vl"/>
             <div className = "palette--stroke" onClick = {updateStroke}>
-                <label className = "body-x-small" htmlFor="stroke">Thickness</label>
+                <label className = "body-small" htmlFor="stroke">Thickness</label>
                 <input 
                   type="range" 
                   id="stroke" 

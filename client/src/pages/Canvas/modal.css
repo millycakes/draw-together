@@ -20,10 +20,18 @@
 
 /* || tutorial */
 
+li{
+    box-sizing: border-box;
+}
+
 .tutorial{
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
     position: relative;
     background-color: var(--clr-white);
-    padding: 36px 32px 42px 32px;
+    padding: 36px 32px 42px 64px;
+    align-items: center;
     z-index: 3;
     min-width: 320px;
 }
@@ -80,4 +88,13 @@
 .final-drawing--wrapper{
     display: flex;
     justify-content: space-between;
+}
+
+.final-drawing--download{
+    padding: 8px;
+    background-color: var(--clr-white);
+    margin: 0px;
+    border: 1px solid var(--clr-grey-default);
+    border-radius: 4px;
+
 }

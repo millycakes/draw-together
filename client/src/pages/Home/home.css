@@ -58,14 +58,15 @@
 
 .key-format{
     text-align: right;
-    color: var(--error)
 }
 
 .home--key-input{
     padding: 12px;
     text-align: center;
 }
-
-.home p {
-    margin-bottom: 12px;
+.error-message{
+    color: var(--clr-error);
+    display: flex;
+    gap: 4px;
+    font-size: var(--fs-body-small)
 }

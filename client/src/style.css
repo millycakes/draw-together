@@ -27,7 +27,6 @@
   --fs-body-large: 1rem;
   --fs-body-regular: 0.875rem;
   --fs-body-small: 0.75rem;
-  --fs-body-x-small: 0.625rem;
 }
 
 h1, h2, h3 {
@@ -35,7 +34,7 @@ h1, h2, h3 {
   font-size: var(--fs-heading);
 }
 
-p, label {
+p, label, li {
   font-family: var(--ff-body);
   font-size: var(--fs-body-regular);
 }

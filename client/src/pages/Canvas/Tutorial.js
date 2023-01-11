@@ -36,8 +36,8 @@ export default function Tutorial ({mode, setTutOpen}) {
                 <button className = "tutorial--close" onClick = {closeDiv}>
                     <img alt = "close icon" src = {closeIcon}/>
                 </button>
-                <p>TUTORIAL</p>
-                <p>{mode}</p>
+                <p className="body-small">TUTORIAL</p>
+                <h2 className="heading">{mode}</h2>
                 {getInstructions()}
             </div>
         </div>

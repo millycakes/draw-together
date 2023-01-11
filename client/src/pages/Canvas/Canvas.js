@@ -30,11 +30,12 @@ export default function Game ({mode, socket, player, host, user}) {
    * -----fix clear issue
    * fix swap issue
    * -----clean up css
+   * -----key error
    * minor css changes
    * handle zoom
-   * fix eyedropper
+   * -----fix eyedropper
    * focus/hover css
-   * drawing download name
+   * -----drawing download name
    * button color css
    */
   
@@ -61,6 +62,7 @@ export default function Game ({mode, socket, player, host, user}) {
       y: 0
     }
   )
+  const [eyedropper, setEyedropper] = React.useState(false);
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -166,11 +168,22 @@ export default function Game ({mode, socket, player, host, user}) {
   
   const startDrawing = ({nativeEvent}) => {
 
-    if (mode !== "Draw Together" && countdown <= 0){
-      return;
+    const {offsetX, offsetY} = nativeEvent;
+
+    if (eyedropper){
+      const color = ctxRef.current.getImageData(offsetX, offsetY, 1, 1).data;
+
+      setBrush(prev => ({
+        ...prev,
+        strokeStyle: `RGB(${color[0]}, ${color[1]}, ${color[2]})`
+      }))
+
+      setEyedropper(false);
     }
 
-    const {offsetX, offsetY} = nativeEvent;
+    if (mode !== "Draw Together" && countdown <= 0){
+      return;
+    }   
 
     setBrush(prev => ({
       ...prev,
@@ -294,7 +307,7 @@ export default function Game ({mode, socket, player, host, user}) {
 
   function downloadDrawing(canvasRef){
     let downloadLink = document.createElement("a");
-    downloadLink.setAttribute("download", "CanvasAsImage.png");
+    downloadLink.setAttribute("download", "draw-together.png");
     const canvasImage = canvasRef.toDataURL("image/png");
     let url = canvasImage.replace(/^data:image\/png/,"data:application/octet-stream");
     downloadLink.setAttribute("href", url);
@@ -379,7 +392,7 @@ export default function Game ({mode, socket, player, host, user}) {
         {exitOpen && <ExitConfirmation setExitOpen = {setExitOpen} />}
       </div>
       <div className = "canvas--palette">
-        <Palette brush = {brush} setBrush = {setBrush} clearCanvas = {() => clearCanvas(mode, user.host)}/>
+        <Palette brush = {brush} setEyedropper = {setEyedropper} setBrush = {setBrush} clearCanvas = {() => clearCanvas(mode, user.host)}/>
       </div>
       <div className = "canvas--section-4">
         <div className = "canvas--icon-wrapper">
