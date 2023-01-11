@@ -9,15 +9,21 @@
 .input{
     font-family: var(--ff-body);
     text-align: center;
-    max-width: 120px;
+    width: 128px;
     margin-top: 16px;
     border: none;
+    padding-bottom: 8px;
     border-bottom: 1px solid #9A9A9A;
 }
 
 .settings--vl{
     border-left: 1px solid rgb(222, 222, 222);
     height: 80%;
+}
+
+.settings--key-copy{
+    max-width: 240px;
+    text-align: center;
 }
 
 .settings--edit-icon{
@@ -103,6 +109,8 @@
 .selection--options{
     display: flex;
     flex-direction: row;
+    gap: 120px;
+    margin-top: 16px
 }
 
 .selection--option{
@@ -110,4 +118,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    max-width: 300px;
+    gap: 16px
+}
+
+.selection--option p {
+    text-align: center;
 }

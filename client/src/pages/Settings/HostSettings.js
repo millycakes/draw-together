@@ -72,8 +72,8 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
             </div>
             <div className ="settings--vl"></div>
             <div className = "settings--key">
-                <p className="body-large">Copy the following key to invite your friend!</p>
-                <p >{hostKey}</p>
+                <p className="body-large settings--key-copy">Copy the following key to invite your friend!</p>
+                <p className = "input">{hostKey}</p>
                 <Button text = "Copy Room Key" variant = "round" onClick = {copyKey}/>
             </div>
             <Button variant = "primary left" text = "Return" onClick = {() => navigate("/")}/>
