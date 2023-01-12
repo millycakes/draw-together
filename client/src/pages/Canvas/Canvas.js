@@ -28,7 +28,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
    * -----fix download issue
    * fix top/bottom cover assignment issue
    * -----fix clear issue
-   * fix swap issue
+   * -----fix swap issue
    * -----clean up css
    * -----key error
    * minor css changes
@@ -69,6 +69,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
 
   //initialize game settings
   React.useEffect(()=> {
+    alert("called");
     if (mode==="Top Bottom") {
       let random = Math.random()*2;
 
@@ -81,7 +82,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
         host.half = "top";
       }
     }
-  })
+  }, [mode])
 
   //initialize canvas
   React.useEffect(() => {
@@ -388,7 +389,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
           onMouseLeave = {stopDrawing}>
         </canvas>
         {(mode === "Top Bottom") && 
-        <div className = {`canvas--cover ${user.host ? "top" : "bottom"}`}><p>Player"s Drawing</p></div>}
+        <div className = {`canvas--cover ${user.host ? host.half : player.half}`}><p>Player"s Drawing</p></div>}
         {(mode === "Top Bottom") &&
         <div className = "canvas--swap-avatars">
           <img src = {host.avatar} className = "avatar-small" alt = "avatar"/>
