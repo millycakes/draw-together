@@ -8,7 +8,7 @@ import Button from "../../components/Button";
 
 export default function PlayerSettings({user, setUser, setJoined, playerKey, hostAvatar, setRetrieve, setHostAvatar, host}) {
 
-    const[name, setName] = React.useState("");
+    const[name, setName] = React.useState("Player 2");
     const [avatarSelection, setAvatarSelection] = React.useState(false);
 
     const navigate = useNavigate();
@@ -21,13 +21,14 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, hos
         event.preventDefault();
 
         const userData = {
-            name: name,
+            name: name===""?"Player 2":name,
             key: playerKey,
             host: false,
             avatar: user.avatar
         };
 
         setUser(userData);
+
         setJoined(true);
         navigate("/loading")
     }

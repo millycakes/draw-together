@@ -9,7 +9,7 @@ import "./settings.css"
 
 export default function HostSettings({user, setUser, setJoined, hostKey, setHostKey, setHostSocket, setRetrieve, setHostAvatar}) {
 
-    const [name, setName] = React.useState("");
+    const [name, setName] = React.useState("Player 1");
     const [avatarSelection, setAvatarSelection] = React.useState(false);
 
     const navigate = useNavigate();
@@ -32,12 +32,8 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
     function hostJoin(event)  {
         event.preventDefault();
 
-        if (name==="") {
-            setName("Player 1");
-        }
-
         const userData = {
-            name: name,
+            name: name===""?"Player 1":name,
             key: hostKey,
             host: true,
             avatar: user.avatar
