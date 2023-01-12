@@ -46,7 +46,7 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
             <div className = "home--background">
                 <div className = "home--form">
                     <img className = "home--logo" alt = "logo" src = {logo}/>
-                    <form onSubmit = {handleCreateSubmit} style = {{margin: "20px 0"}}>
+                    <form className = "home--create-form" onSubmit = {handleCreateSubmit}>
                         <p className = "body-small">Create your room to begin</p>
                         <Button text = "Create Room" variant = "large" onClick = {handleCreateSubmit} />
                     </form>
@@ -57,7 +57,7 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
                             <input 
                                 type = "text" 
                                 placeholder = "A1B2C3" 
-                                className = "home--key-input" 
+                                className = {`home--key-input ${error ? "home--input-error" : "abc"}`}
                                 name = "key"
                                 onChange = {updateKey}>
                             </input>

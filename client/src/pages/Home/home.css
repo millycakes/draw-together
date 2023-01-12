@@ -26,12 +26,18 @@
 .home--form{
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 20px;
     text-align: center;
     background: var(--clr-white);
     border: 1px solid var(--clr-grey-default);
     border-radius: 16px;
     padding: 48px 48px;
+}
+
+.home--create-form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .home--line-block {
@@ -50,6 +56,12 @@
 .home--key-form{
     display: flex;
     flex-direction: column;
+    gap: 8px;
+}
+
+.home--input-error{
+    border: 1px solid var(--clr-error);
+    border-radius: 4px;
 }
 
 .enter-key{
