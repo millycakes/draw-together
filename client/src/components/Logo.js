@@ -5,7 +5,7 @@ import "./logo.css"
 
 export default function Logo({variant}){
     return(
-        <Link to = "/" className = {`logo--${variant}`}>DRAW TOGETHER</Link>
+        <h2 to = "/" className = {`logo--${variant}`}>DRAW TOGETHER</h2>
     )
 }
 

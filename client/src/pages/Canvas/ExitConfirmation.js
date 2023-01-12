@@ -12,10 +12,12 @@ export default function ExitConfirmation({setExitOpen}){
         <div className = "modal">
             <div className = "exit">
                 <button className = "tutorial--close" onClick = {() => setExitOpen(false)}><img src = {closeIcon}/></button>
-                <p>Are you sure you want to quit?</p>
+                <p className="body-large">Are you sure you want to quit?</p>
                 <p>You will not be able to recover this drawing.</p>
-                <Button onClick = {() => setExitOpen(false)} text = "Continue Game"/>
-                <Button onClick = {navigateHome} text = "Quit"/>
+                <div className="exit--buttons">
+                    <Button onClick = {() => setExitOpen(false)} text = "Play Again"/>
+                    <Button color = "grey" onClick = {navigateHome} text = "Quit"/>
+                </div>
             </div>
         </div>
     )

@@ -66,14 +66,14 @@ export default function HostSettings({user, setUser, setJoined, hostKey, setHost
                         <button className = "settings--edit-icon" onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
                         <img className = "avatar---avatar" src = {user.avatar}/>
                         {avatarSelection && <AvatarSelection isHost = {true} setUser = {setUser} setAvatarSelection = {setAvatarSelection} setRetrieve = {setRetrieve} setHostAvatar = {setHostAvatar}/>}
-                        <input className = "input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
+                        <input className = "settings--input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
                     </div>
                 </div>
             </div>
             <div className ="settings--vl"></div>
             <div className = "settings--key">
                 <p className="body-large settings--key-copy">Copy the following key to invite your friend!</p>
-                <p className = "input">{hostKey}</p>
+                <p>{hostKey}</p>
                 <Button text = "Copy Room Key" variant = "round" onClick = {copyKey}/>
             </div>
             <Button variant = "primary left" text = "Return" onClick = {() => navigate("/")}/>

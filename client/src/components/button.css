@@ -3,10 +3,6 @@ button {
     font-family: var(--ff-body);
 }
 
-button:hover{
-    background-color: var(--clr-accent-dark);
-}
-
 .button--primary{
     padding: 10px 20px;
     background: var(--clr-accent);
@@ -55,11 +51,22 @@ button:hover{
     align-items: center;
     padding: 8px;
     gap: 8px;
-    background: var(--clr-grey-lightest);
     border: none;
     border-radius: 8px;
 }
 
-.pink{
+.button--pink{
     background-color: var(--clr-accent);
+}
+
+.button--pink:hover{
+    background-color: var(--clr-accent-dark);
+}
+
+.button--grey{
+    background-color: var(--clr-grey-lightest);
+}
+
+.button--grey:hover{
+    background-color: var(--clr-grey-light);
 }

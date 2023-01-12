@@ -45,10 +45,16 @@ export default function Palette({brush, setBrush, clearCanvas}){
 
   function updateColor(e){
     let color = window.getComputedStyle(e.target, null).getPropertyValue("background-color");
+    if (color === "rgba(0, 0, 0, 0)"){
+      return;
+    }
+
     setBrush(prev => ({
       ...prev,
       strokeStyle: color
     }))
+
+    console.log(brush)
   }
 
   function updateStroke(e){
@@ -57,7 +63,6 @@ export default function Palette({brush, setBrush, clearCanvas}){
 
     let valPercent = (stroke / slider.max)*100;
     slider.style.background = `linear-gradient(to right, var(--clr-grey-dark) ${valPercent}%, #d5d5d5 ${valPercent}%)`;
-    
     
     setBrush(prev => ({
       ...prev,
@@ -68,13 +73,13 @@ export default function Palette({brush, setBrush, clearCanvas}){
     return(
         <div className = "palette">
             <ul className = "palette--tools" onClick = {updateTool}>
-                <li>
+                <li className = {brush.tool == "pencil" ? "tools--selected" : ""}>
                   <img id = "tools--pencil" alt = "pencil icon" src = {pencil}/>
                 </li>
-                <li>
+                <li className = {brush.tool == "eraser" ? "tools--selected" : ""}>
                   <img id = "tools--eraser" alt = "eraser icon" src = {eraser}/>
                 </li>
-                <li>
+                <li className = {brush.tool == "eyedropper" ? "tools--selected" : ""}>
                   <img id = "tools--eyedropper" alt = "eyedropper icon" src = {eyedropper}/>
                 </li>
                 <li>
@@ -96,15 +101,42 @@ export default function Palette({brush, setBrush, clearCanvas}){
             </div>
             <div className = "palette--vl"/>
             <ul className = "palette--colors" onClick = {updateColor}>
-                <li id = "palette--pink"></li>
-                <li id = "palette--red"></li>
-                <li id = "palette--orange"></li>
-                <li id = "palette--yellow"></li>
-                <li id = "palette--green"></li>
-                <li id = "palette--blue"></li>
-                <li id = "palette--purple"></li>
-                <li id = "palette--black"></li>
-                <li id = "palette--white"></li>
+                <li 
+                  id = "colors--pink"
+                  className = {brush.strokeStyle == "rgb(250, 148, 194)" ? "colors--selected" : ""}>
+                </li>
+                <li
+                  id = "colors--red"
+                  className = {brush.strokeStyle == "rgb(246, 108, 108)" ? "colors--selected" : ""}>
+                </li>
+                <li 
+                  id = "colors--orange"
+                  className = {brush.strokeStyle == "rgb(245, 148, 63)" ? "colors--selected" : ""}>
+                </li>
+                <li 
+                  id = "colors--yellow"
+                  className = {brush.strokeStyle == "rgb(249, 217, 72)" ? "colors--selected" : ""}>
+                </li>
+                <li 
+                  id = "colors--green"
+                  className = {brush.strokeStyle == "rgb(116, 194, 131)" ? "colors--selected" : ""}>
+                </li>
+                <li 
+                  id = "colors--blue"
+                  className = {brush.strokeStyle == "rgb(109, 166, 232)" ? "colors--selected" : ""}>
+                </li>
+                <li 
+                  id = "colors--purple"
+                  className = {brush.strokeStyle == "rgb(105, 108, 212)" ? "colors--selected" : ""}>
+                </li>
+                <li 
+                  id = "colors--black"
+                  className = {brush.strokeStyle == "rgb(79, 79, 79)" ? "colors--selected" : ""}>
+                </li>
+                <li 
+                  id = "colors--white"
+                  className = {brush.strokeStyle == "rgb(255, 255, 255)" ? "colors--selected" : ""}>
+                </li>
             </ul>
         </div>
     )

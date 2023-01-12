@@ -50,7 +50,7 @@ export default function PlayerSettings({user, setUser, setJoined, playerKey, hos
                         <button className = "settings--edit-icon" onClick = {() => setAvatarSelection(prev => !prev)}><img src = {editIcon}/></button>
                         <img className = "avatar---avatar" src = {user.avatar}/>
                         {avatarSelection && <AvatarSelection isHost = {false} setUser = {setUser} setAvatarSelection = {setAvatarSelection} setRetrieve = {setRetrieve} setHostAvatar = {setHostAvatar}/>}
-                        <input className = "input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
+                        <input className = "settings--input" type = "text" placeholder = "Enter your name" onChange = {updateName}/>
                     </div>
                 </div>
             </div>

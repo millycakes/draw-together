@@ -19,25 +19,6 @@ import "./canvas.css"
 import "./modal.css"
 
 export default function Game ({mode, socket, player, host, user, readySwap, setReadySwap, url}) {  
-
-  /**
-   * todo: 
-   * -----reset host and player data for play again and quit
-   * countdown not going down at the same time
-   * -----stop players from drawing when the countdown is up
-   * -----fix download issue
-   * -----fix top/bottom cover assignment issue
-   * -----fix clear issue
-   * -----fix swap issue
-   * -----clean up css
-   * -----key error
-   * minor css changes
-   * handle zoom
-   * -----fix eyedropper
-   * focus/hover css
-   * -----drawing download name
-   * button color css
-   */
   
   const [isDrawing, setIsDrawing] = React.useState(false);
 
@@ -365,9 +346,9 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
           <img src = {player.avatar} className = "avatar-small canvas--vl" alt = "avatar"/>
         </div>
         <div className = "canvas--buttons">
-          {(mode !== "Draw Together") && <Button variant = "icon" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}
+          {(mode !== "Draw Together") && <Button variant = "icon" color = "grey" text = "Tutorial" onClick = {() => {setTutOpen(prev => !prev)}} src = {helpIcon}/>}
           {tutOpen && <Tutorial mode = {mode} setTutOpen = {setTutOpen}/>}
-          {mode === "Draw Together" && <Button variant = "icon" text = "Preview" onClick = {() => {setFinalOpen(prev => !prev)}} src = {eyeIcon}/>}
+          {mode === "Draw Together" && <Button variant = "icon" color = "grey" text = "Preview" onClick = {() => {setFinalOpen(prev => !prev)}} src = {eyeIcon}/>}
           {finalOpen && 
           <FinalDrawing  
             player = {player} 
@@ -376,7 +357,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
             canvas = {canvasRef.current}
             setFinalOpen = {setFinalOpen}
           />}
-          <Button variant = "icon pink" text = "Download" onClick = {() => downloadDrawing(canvasRef.current)} src = {downloadIcon}/>
+          <Button variant = "icon" text = "Download" onClick = {() => downloadDrawing(canvasRef.current)} src = {downloadIcon}/>
         </div>
       </div>
       <div className = "canvas--wrapper">
@@ -388,7 +369,7 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
           onMouseLeave = {stopDrawing}>
         </canvas>
         {(mode === "Top Bottom") && 
-        <div className = {`canvas--cover ${user.host ? host.half : player.half}`}><p>Player"s Drawing</p></div>}
+        <div className = {`canvas--cover ${user.host ? host.half : player.half}`}><p>{`${user.host ? player.name : host.name}'s Drawing`}</p></div>}
         {(mode === "Top Bottom") &&
         <div className = "canvas--swap-avatars">
           <img src = {host.avatar} className = "avatar-small" alt = "avatar"/>

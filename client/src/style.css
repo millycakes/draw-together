@@ -18,6 +18,7 @@
   --clr-accent: #FEEAEA;
   --clr-accent-dark: #FBD6D6;
   --clr-error: #C23232;
+  --clr-active: #275DC5;
 
   --ff-heading: "Patrick Hand", cursive;
   --ff-body: "Roboto Mono", monospace;
@@ -83,4 +84,8 @@ a:active {
 .avatar-small{
   width: 36px;
   height: 36px;
+}
+
+.bold{
+  font-weight: bolder;
 }

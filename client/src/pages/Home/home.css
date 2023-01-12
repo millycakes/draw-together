@@ -60,7 +60,8 @@
 }
 
 .home--input-error{
-    border: 1px solid var(--clr-error);
+    border: none;
+    outline: 1px solid var(--clr-error);
     border-radius: 4px;
 }
 

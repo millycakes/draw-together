@@ -54,7 +54,7 @@ export default function FinalDrawing({player, host, canvas, user, setFinalOpen})
                 <img alt = "final drawing" className = "final-drawing--image" src = {canvas.toDataURL()} />
                 <div className="final-drawing--buttons">
                     <Button text = "Play Again" variant="large" onClick={playAgain}/>
-                    <Button text = "Quit" variant = "large" onClick={quit}/>
+                    <Button text = "Quit" color = "grey" variant = "large" onClick={quit}/>
                 </div>
             </div>
         </div>
