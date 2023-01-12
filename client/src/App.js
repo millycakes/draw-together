@@ -130,6 +130,9 @@ function App() {
               setMode = {setMode}
               selection = {selection}
               twoready = {twoready}
+              player = {player}
+              host = {host}
+              user = {user}
             />
           }/>
           <Route path = "/loading" element = {
@@ -137,6 +140,7 @@ function App() {
               twoready = {twoready}
               user = {user}
               selection = {selection}
+              setSelection = {setSelection}
             />
           }/>
           <Route path = "/" element = {

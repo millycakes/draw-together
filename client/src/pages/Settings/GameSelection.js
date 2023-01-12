@@ -9,11 +9,13 @@ import Button from "../../components/Button";
 
 export default function GameSelection({setSelection,setMode,selection,twoready}) {
 
+
     const navigate = useNavigate();
     
     React.useEffect(() => {
         if (selection&&twoready) {
             navigate("/canvas");
+            setSelection(false);
         }
         else if (selection) {
             navigate("/loading")

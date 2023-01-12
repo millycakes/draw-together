@@ -4,13 +4,14 @@ import pencil from "../../assets/pencil-animation.gif"
 import Logo from "../../components/Logo";
 import "./loading.css"
 
-export default function Loading ({user, twoready, selection}) {
+export default function Loading ({user, twoready, selection, setSelection}) {
 
     const navigate = useNavigate();
 
     React.useEffect(() => {
         if (twoready && selection) {
             navigate("/canvas");
+            setSelection(false);
         }
     }, [twoready, selection])
 

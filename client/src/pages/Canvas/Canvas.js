@@ -22,11 +22,11 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
 
   /**
    * todo: 
-   * reset host and player data for play again and quit
+   * -----reset host and player data for play again and quit
    * countdown not going down at the same time
    * -----stop players from drawing when the countdown is up
    * -----fix download issue
-   * fix top/bottom cover assignment issue
+   * -----fix top/bottom cover assignment issue
    * -----fix clear issue
    * -----fix swap issue
    * -----clean up css
@@ -69,7 +69,6 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
 
   //initialize game settings
   React.useEffect(()=> {
-    alert("called");
     if (mode==="Top Bottom") {
       let random = Math.random()*2;
 
