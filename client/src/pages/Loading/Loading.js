@@ -4,12 +4,13 @@ import pencil from "../../assets/pencil-animation.gif"
 import Logo from "../../components/Logo";
 import "./loading.css"
 
-export default function Loading ({user, twoready, selection, setSelection}) {
+export default function Loading ({user, twoready, selection, setSelection, setTwoReady}) {
 
     const navigate = useNavigate();
 
         if (twoready && selection) {
             setSelection(false);
+            setTwoReady(false);
             navigate("/canvas");
         }
 

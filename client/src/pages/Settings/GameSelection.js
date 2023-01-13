@@ -7,13 +7,14 @@ import Logo from "../../components/Logo";
 import "./settings.css"
 import Button from "../../components/Button";
 
-export default function GameSelection({setSelection,setMode,selection,twoready}) {
+export default function GameSelection({setSelection,setMode,selection,twoready, setTwoReady}) {
 
 
     const navigate = useNavigate();
     
         if (selection&&twoready) {
             setSelection(false);
+            setTwoReady(false);
             navigate("/canvas");
         }
         else if (selection) {

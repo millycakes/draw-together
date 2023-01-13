@@ -94,6 +94,7 @@ function App() {
   useEffect(() => {
     if (retrieveKeys) {
       socket.emit("newKey", hostKey);
+      setRetrieveKeys(false);
     }
   }, [retrieveKeys]);
 
@@ -107,18 +108,21 @@ function App() {
   useEffect(() => {
     if (joined) {
       socket.emit("user_join", user);
+      setJoined(false);
     }
   }, [joined]);
 
   useEffect(() => {
     if (playerSocket) {
       socket.emit("join_room", playerKey);
+      setPlayerSocket(false);
     }
   }, [playerSocket]);
 
   useEffect(() => {
     if (hostSocket) {
       socket.emit("join_room", hostKey);
+      setHostSocket(false);
     }
   }, [hostSocket]);
 
@@ -130,6 +134,7 @@ function App() {
               setMode = {setMode}
               selection = {selection}
               twoready = {twoready}
+              setTwoReady = {setTwoReady}
             />
           }/>
           <Route path = "/loading" element = {
@@ -138,6 +143,7 @@ function App() {
               user = {user}
               selection = {selection}
               setSelection = {setSelection}
+              setTwoReady = {setTwoReady}
             />
           }/>
           <Route path = "/" element = {
