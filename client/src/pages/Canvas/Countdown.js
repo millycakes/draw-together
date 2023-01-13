@@ -20,7 +20,7 @@ export default function Countdown({seconds, setInitialCountdown}){
     }, [countdown])
 
     return(
-        <div className = "countdown modal">
+        <div className = "countdown modal--background">
             <h1 className="countdown--value">{countdown}</h1>
         </div>
     )

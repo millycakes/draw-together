@@ -1,5 +1,5 @@
 /* || modal */
-.modal{
+.modal--background{
     position: fixed;
     top: 0;
     left: 0;
@@ -12,10 +12,12 @@
     z-index: 2;
 }
 
-.countdown--value{
-    position: relative;
-    color: white;
-    opacity: 100%;
+.modal--close{
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    border: none;
+    background-color: none;
 }
 
 /* || tutorial */
@@ -34,14 +36,7 @@
     align-items: center;
     z-index: 3;
     min-width: 320px;
-}
-
-.tutorial--close{
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    border: none;
-    background-color: none;
+    border-radius: 8px;
 }
 
 .tutorial--descrption{
@@ -64,6 +59,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    border-radius: 8px;
 }
 
 .exit--buttons{
@@ -82,6 +78,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    border-radius: 8px;
 }
 
 .final-drawing--creators{

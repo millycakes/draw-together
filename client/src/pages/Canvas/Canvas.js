@@ -4,21 +4,21 @@ import downloadIcon from "../../assets/icons/download.png"
 import backIcon from "../../assets/icons/back.png"
 import eyeIcon from "../../assets/icons/eye.png"
 import helpIcon from "../../assets/icons/help.png"
-import zoomIn from "../../assets/icons/zoom-in.png"
-import zoomOut from "../../assets/icons/zoom-out.png"
+import zoomInIcon from "../../assets/icons/zoom-in.png"
+import zoomOutIcon from "../../assets/icons/zoom-out.png"
 
 import Countdown from "./Countdown"
 import Button from "../../components/Button";
 import Palette from "./Palette"
 import Logo from "../../components/Logo"
-import FinalDrawing from "./FinalDrawing"
-import ExitConfirmation from "./ExitConfirmation"
-import Tutorial from "./Tutorial"
+import FinalDrawing from "./Modals/FinalDrawing"
+import ExitConfirmation from "./Modals/ExitConfirmation"
+import Tutorial from "./Modals/Tutorial"
 
 import "./canvas.css"
-import "./modal.css"
+import "./Modals/modal.css"
 
-export default function Game ({mode, socket, player, host, user, readySwap, setReadySwap, url}) {  
+export default function Canvas ({mode, socket, player, host, user, readySwap, setReadySwap, url}) {  
   
   const [isDrawing, setIsDrawing] = React.useState(false);
 
@@ -306,6 +306,14 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
     downloadLink.click();
   }
 
+  function zoomIn(){
+    console.log("zoom in")
+  }
+
+  function zoomOut(){
+    console.log("zoom out")
+  }
+
   function displayGameInfo(){
     switch (mode){
       case "Draw Together":
@@ -388,13 +396,17 @@ export default function Game ({mode, socket, player, host, user, readySwap, setR
       </div>
       <div className = "canvas--section-4">
         <div className = "canvas--icon-wrapper">
-          <input type = "image"  alt = "zoom in icon" src = {zoomIn} className = "canvas--icon"/>
+          <button onClick = {zoomIn} className = "canvas--zoom">
+            <img alt = "zoom in icon" src = {zoomInIcon}/>
+          </button>
         </div>
         <div className = "canvas--icon-wrapper">
           <p>100%</p>
         </div>
         <div className = "canvas--icon-wrapper">
-          <input type = "image" alt = "zoom out icon" src = {zoomOut} className = "canvas--icon" />
+          <button onClick = {zoomOut} className = "canvas--zoom">
+            <img alt = "zoom out icon" src = {zoomOutIcon} />
+          </button>
         </div>
       </div>
     </div>

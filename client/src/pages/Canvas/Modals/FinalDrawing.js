@@ -1,8 +1,8 @@
-import Button from "../../components/Button"
-import downloadIcon from "../../assets/icons/download.png"
+import Button from "../../../components/Button"
+import downloadIcon from "../../../assets/icons/download.png"
 import { useNavigate } from "react-router-dom";
-import closeIcon from "../../assets/icons/close.png"
-import Logo from "../../components/Logo";
+import closeIcon from "../../../assets/icons/close.png"
+import Logo from "../../../components/Logo";
 
 export default function FinalDrawing({player, host, canvas, user, setFinalOpen}){
 
@@ -32,10 +32,10 @@ export default function FinalDrawing({player, host, canvas, user, setFinalOpen})
     }
     
     return(
-        <div className="modal">
+        <div className="modal--background">
             <div className="final-drawing">
                 <Logo variant="final"/>
-                <button className = "tutorial--close" onClick = {() => setFinalOpen(false)}>
+                <button className = "modal--close" onClick = {() => setFinalOpen(false)}>
                     <img alt = "close icon" src = {closeIcon}/>
                 </button>
                 <div className="final-drawing--wrapper">

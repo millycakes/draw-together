@@ -1,5 +1,5 @@
 import React from "react";
-import closeIcon from "../../assets/icons/close.png"
+import closeIcon from "../../../assets/icons/close.png"
 
 export default function Tutorial ({mode, setTutOpen}) {
 
@@ -35,9 +35,9 @@ export default function Tutorial ({mode, setTutOpen}) {
     }
 
     return(
-        <div className = "modal" onclick = {closeDiv}>
+        <div className = "modal--background" onclick = {closeDiv}>
             <div className = "tutorial">
-                <button className = "tutorial--close" onClick = {closeDiv}>
+                <button className = "modal--close" onClick = {closeDiv}>
                     <img alt = "close icon" src = {closeIcon}/>
                 </button>
                 <div className="tutorial--descrption">

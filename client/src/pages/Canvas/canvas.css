@@ -90,18 +90,18 @@
     bottom: 8px;
     right: 8px;
     border-radius: 8px;
-}
 
+    display: none;
+}
 
 .drawing--canvas{
     border-radius: 8px;
 }
 .canvas--wrapper{
+    background-color: var(--clr-white);
     display: flex;
     flex-direction: row;
     position: relative;
-    width: 500px;
-    height: 500px;
     border-radius: 8px;
     border: 1px solid var(--clr-grey-light);
 }
@@ -128,6 +128,18 @@
     padding: 8px;
 }
 
+.canvas--zoom{
+    padding: 0;
+    margin: 0;
+    background-color: var(--clr-white);
+    border: none;
+}
+
+.canvas--zoom:hover{
+    background-color: var(--clr-white);
+    border: none;
+}
+
 .top{
     left: 0px;
     top: 0px;
@@ -138,4 +150,10 @@
     left: 0px;
     top: 250px;
     border-top: var(--clr-grey-dark) dashed;
+}
+
+.countdown--value{
+    position: relative;
+    color: white;
+    opacity: 100%;
 }
