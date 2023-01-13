@@ -52,10 +52,8 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
   React.useEffect(()=> {
     if (mode==="Top Bottom") {
       let random = Math.random()*2;
-      if (!user.host) {
-        socket.emit("split_half", random);
-      }
       if (user.host) {
+        socket.emit("split_half", random);
         if (random<1) {
           host.half = "top";
           player.half = "bottom";
@@ -123,10 +121,10 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
     }
     
     if (mode === "Top Bottom"){
-      setCountdown(90)
+      setCountdown(10);
     }
     else if (mode === "Canvas Swap"){
-      setCountdown(10);
+      setCountdown(2);
     }
 
     timerId.current = setInterval(() => {
