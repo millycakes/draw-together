@@ -52,7 +52,9 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
   React.useEffect(()=> {
     if (mode==="Top Bottom") {
       let random = Math.random()*2;
-      socket.emit("split_half", random);
+      if (!user.host) {
+        socket.emit("split_half", random);
+      }
       if (user.host) {
         if (random<1) {
           host.half = "top";
@@ -68,7 +70,6 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
 
   React.useEffect(()=> {
     socket.on("split_half", (data)=> {
-      if (!user.host) {
         if (data<1) {
           host.half = "top";
           player.half = "bottom";
@@ -77,7 +78,6 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
           host.half = "bottom";
           player.half = "top";
         }
-      }
     })
   }, []);
 

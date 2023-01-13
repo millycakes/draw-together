@@ -138,6 +138,7 @@ io.on("connection", (socket) => {
     })
 
     socket.on("split_half", (data)=> {
+        console.log("two halves assigned")
         socket.broadcast.emit("split_half", data);
     })
 })
