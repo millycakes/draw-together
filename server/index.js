@@ -136,6 +136,10 @@ io.on("connection", (socket) => {
             }
         }
     })
+
+    socket.on("split_half", (data)=> {
+        socket.broadcast.emit("split_half", data);
+    })
 })
 
 http.listen(4000, () => {
