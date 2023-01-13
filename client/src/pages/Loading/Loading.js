@@ -8,12 +8,10 @@ export default function Loading ({user, twoready, selection, setSelection}) {
 
     const navigate = useNavigate();
 
-    React.useEffect(() => {
         if (twoready && selection) {
-            navigate("/canvas");
             setSelection(false);
+            navigate("/canvas");
         }
-    }, [twoready, selection])
 
     return(
         <div className = "loading" style={{height: "100vh" }}>

@@ -12,15 +12,13 @@ export default function GameSelection({setSelection,setMode,selection,twoready})
 
     const navigate = useNavigate();
     
-    React.useEffect(() => {
         if (selection&&twoready) {
-            navigate("/canvas");
             setSelection(false);
+            navigate("/canvas");
         }
         else if (selection) {
             navigate("/loading")
         }
-    }, [selection])
 
     function swapSelection (event) {
         event.preventDefault();
