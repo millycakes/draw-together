@@ -99,6 +99,8 @@
 }
 .canvas--wrapper{
     background-color: var(--clr-white);
+    width: 500px;
+    height: 500px;
     display: flex;
     flex-direction: row;
     position: relative;
