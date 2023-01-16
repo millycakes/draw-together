@@ -121,10 +121,10 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
     }
     
     if (mode === "Top Bottom"){
-      setCountdown(10);
+      setCountdown(90);
     }
     else if (mode === "Canvas Swap"){
-      setCountdown(2);
+      setCountdown(30);
     }
 
     timerId.current = setInterval(() => {
@@ -273,7 +273,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
       imageObj.onload = function(){
           ctxRef.current.drawImage(this, 0, 0); 
       };
-      setCountdown(10);
+      setCountdown(30);
       setRound(prev => prev+1)
     }
     })}, [])
