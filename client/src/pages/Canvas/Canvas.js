@@ -50,6 +50,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
 
   //initialize game settings
   React.useEffect(()=> {
+    console.log(user.host);
     if (mode==="Top Bottom") {
       let random = Math.random()*2;
       if (user.host) {
@@ -124,7 +125,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
       setCountdown(90);
     }
     else if (mode === "Canvas Swap"){
-      setCountdown(30);
+      setCountdown(120);
     }
 
     timerId.current = setInterval(() => {
