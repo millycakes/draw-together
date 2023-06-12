@@ -10,7 +10,8 @@ const getUsers = (matchkey) => {
     const temp = []
     for (let i = 0; i<users.length; i++) {
         if (users[i].key===matchkey) {
-            temp.push(users[i]);
+            const u = {name: users[i].name,key: users[i].key,host: users[i].host, avatar: users[i].avatar};
+            temp.push(u);
         } 
     }
     return temp;
@@ -20,6 +21,14 @@ const updateMode = (mode, userkey) => {
     for (let i = 0; i<users.length; i++) {
         if (users[i].key===userkey) {
             users[i].mode = mode;
+        } 
+    }
+}
+
+const getMode = (key)=> {
+    for (let i = 0; i<users.length; i++) {
+        if (users[i].key===key) {
+            return users[i].mode;
         } 
     }
 }
@@ -39,5 +48,6 @@ module.exports = {
     newUser,
     getUsers,
     updateMode,
-    findSocket
+    findSocket,
+    getMode
   };

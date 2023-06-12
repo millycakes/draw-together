@@ -3,7 +3,7 @@ const app = express();
 const PORT = 4000;
 const http = require("http").Server(app);
 const cors = require("cors");
-const {newUser, getUsers, updateMode, findSocket} = require("./users");
+const {newUser, getUsers, updateMode, findSocket,getMode} = require("./users");
 app.use(cors());
 
 const io = require("socket.io")(http, {
@@ -13,6 +13,7 @@ const io = require("socket.io")(http, {
 });
 
 const keys = [];
+const net = 0;
 
 io.on("connection", (socket) => {
     socket.on("join_room", (key) => {
@@ -32,25 +33,27 @@ io.on("connection", (socket) => {
             socket.to(user.key).emit("player_data",data);
         }
         console.log(name + " is ready to play");
-        if (getUsers(user.key).length===2) {
+        const usersinroom = getUsers(user.key);
+        const mode = getMode(user.key);
+        if (usersinroom.length===2) {
             let i = 0;
-            while (i<getUsers(user.key).length) {
-                if (getUsers(user.key)[i].host) {
-                    socket.to(user.key).emit("host_data",getUsers(user.key)[i]);
+            while (i<usersinroom.length) {
+                if (usersinroom[i].host) {
+                    socket.to(user.key).emit("host_data",usersinroom[i]);
                 }
                 else {
-                    socket.to(user.key).emit("player_data",getUsers(user.key)[i]);
+                    socket.to(user.key).emit("player_data",usersinroom[i]);
                 }
                 i++;
             }
         }
-        if (getUsers(user.key).length===2 && getUsers(user.key)[0].mode!=null) {
+        if (usersinroom.length===2 && mode!=null) {
             socket.to(user.key).emit("ready_two");
-            updateMode(getUsers(user.key)[0].mode,user.key);
+            updateMode(mode,user.key);
             socket.to(user.key).emit("player_selection");
-            socket.to(user.key).emit("player_mode",getUsers(user.key)[0].mode);
+            socket.to(user.key).emit("player_mode",mode);
         }
-        else if (getUsers(user.key).length===2) {
+        else if (usersinroom.length===2) {
             socket.to(user.key).emit("ready_two");
         }
     })
@@ -142,9 +145,12 @@ io.on("connection", (socket) => {
     })
 
     socket.on('disconnect', () => {
-        const k = findSocket(socket.id);
-        if (k!=-1 && getUsers(k).length===0) {
-            keys.splice(keys.indexOf(k),1);
+        if (net===0) {
+            const k = findSocket(socket.id);
+            if (k!=-1 && getUsers(k).length===0) {
+                keys.splice(keys.indexOf(k),1);
+            }
+            net++;
         }
     });
 })

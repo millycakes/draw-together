@@ -39,10 +39,6 @@ export default function GameSelection({setSelection,setMode,selection,twoready, 
         setMode("Top Bottom");
     }
 
-    function hostJoin (event){
-        event.preventDefault();
-    }
-
     return (
         <div className = "selection" style={{height: "100vh"}}>
             <Logo />
