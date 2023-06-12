@@ -1,7 +1,7 @@
 const users = [];
 
-const newUser = (name, key, host, avatar) => {
-    const user = {name, key, host, avatar};
+const newUser = (name, key, host, avatar, socket) => {
+    const user = {name, key, host, avatar, socket};
     users.push(user);
     return user;
 }
@@ -24,8 +24,20 @@ const updateMode = (mode, userkey) => {
     }
 }
 
+const findSocket = (socketid) => {
+    for (let i = 0; i<users.length;i++) {
+        if (users[i].socket===socketid) {
+            users.splice(i,1);
+            return users[i].key;
+        }
+    }
+}
+
+
+
 module.exports = {
     newUser,
     getUsers,
     updateMode,
+    findSocket
   };
