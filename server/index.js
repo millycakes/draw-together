@@ -3,8 +3,7 @@ const app = express();
 const PORT = 4000;
 const http = require("http").Server(app);
 const cors = require("cors");
-const {newUser, getUsers, updateMode} = require("./users");
-const e = require("express");
+const {newUser, getUsers, updateMode, findSocket} = require("./users");
 app.use(cors());
 
 const io = require("socket.io")(http, {
@@ -25,7 +24,7 @@ io.on("connection", (socket) => {
     })
     socket.on("user_join", (data) => {
         const{name, key, host, avatar} = data;
-        const user = newUser(name, key, host, avatar);
+        const user = newUser(name, key, host, avatar, socket.id);
         if (user.host) {
             socket.to(user.key).emit("host_data",data);
         }
@@ -141,6 +140,13 @@ io.on("connection", (socket) => {
         console.log("two halves assigned")
         socket.broadcast.emit("split_half", data);
     })
+
+    socket.on('disconnect', () => {
+        const k = findSocket(socket.id);
+        if (k!=-1 && getUsers(k).length===0) {
+            keys.splice(keys.indexOf(k),1);
+        }
+    });
 })
 
 http.listen(4000, () => {
