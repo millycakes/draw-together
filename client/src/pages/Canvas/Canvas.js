@@ -281,7 +281,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
       imageObj.onload = function(){
           ctxRef.current.drawImage(this, 0, 0); 
       };
-      setCountdown(30);
+      setCountdown(120);
       setRound(prev => prev+1)
     }
     })}, [])
