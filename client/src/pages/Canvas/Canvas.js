@@ -127,7 +127,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
     if (mode === "Top Bottom"){
       setCountdown(90);
     }
-    
+
     else if (mode === "Canvas Swap"){
       setCountdown(30);
     }
@@ -164,6 +164,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
 
   function swapCanvas(){
     const canvasImage = canvasRef.current.toDataURL();
+    //current issue -> the swap transition works but it breaks socket swapping + time
     setSwapTransition(true);
     setTimeout(() => setSwapTransition(false), 1000);
     socket.emit("swap", [canvasImage, user.key, user.host]);
