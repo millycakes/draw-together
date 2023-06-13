@@ -100,14 +100,17 @@ io.on("connection", (socket) => {
         const[canvasImage, key, ishost] = data;
         console.log("swapping canvas");
         let i = 0;
+        const u = getUsers(key);
         while (i<2) {
-            if (getUsers(key)[i].host===ishost) {
-                getUsers(key)[i].canvas = canvasImage;
-                getUsers(key)[i].swapkey = key;
+            if (u[i].host===ishost) {
+                u[i].canvas = canvasImage;
+                u[i].swapkey = key;
             }
             i++;
         }
-        if (getUsers(key)[0].swapkey!=null && getUsers(key)[1].swapkey!=null && getUsers(key)[0].swapkey===getUsers(key)[1].swapkey) {
+        console.log(u[0].swapkey+" " + u[1].swapkey);
+        if (u[0].hasOwnProperty("swapkey") && u[1].hasOwnProperty("swapkey") && u[0].swapkey===u[1].swapkey) {
+            console.log("canvas swap ready for both players");
             socket.to(key).emit("ready_swap");
         }
     })

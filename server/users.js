@@ -10,8 +10,7 @@ const getUsers = (matchkey) => {
     const temp = []
     for (let i = 0; i<users.length; i++) {
         if (users[i].key===matchkey) {
-            const u = {name: users[i].name,key: users[i].key,host: users[i].host, avatar: users[i].avatar};
-            temp.push(u);
+            temp.push(users[i]);
         } 
     }
     return temp;
