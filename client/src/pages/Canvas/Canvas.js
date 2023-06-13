@@ -1,7 +1,7 @@
 import React, { useRef } from "react"
 
 import downloadIcon from "../../assets/icons/download.png"
-import backIcon from "../../assets/icons/back.png"
+import homeIcon from "../../assets/icons/home.png"
 import eyeIcon from "../../assets/icons/eye.png"
 import helpIcon from "../../assets/icons/help.png"
 import zoomInIcon from "../../assets/icons/zoom-in.png"
@@ -349,7 +349,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
             <p>Round {round}/4</p>
             <p>/</p>
             {(!initialCountdown) && <p>Starting soon</p>}
-            {(initialCountdown) && <p>Swapping in: {countdownDisplay}</p>}
+            {(initialCountdown) && <p className={countdown > 0 && countdown < 6 ? "blink" : ""}>Swapping in: {countdownDisplay}</p>}
           </div>
         )
       case "Top Bottom":
@@ -358,7 +358,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
             <p>{mode}</p>
             <p>/</p>
             {(!initialCountdown) && <p>Starting soon</p>}
-            {(initialCountdown) && <p>Reveal in: {countdownDisplay}</p>}
+            {(initialCountdown) && <p className={countdown > 0 && countdown < 6 ? "blink" : ""}>Reveal in: {countdownDisplay}</p>}
           </div>
         )
     }
@@ -414,7 +414,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
         }
       </div>
       <div className = "canvas--section-3">
-        <input type = "image" alt = "back icon" src = {backIcon} onClick = {() => {
+        <input type = "image" alt = "back icon" src = {homeIcon} onClick = {() => {
           setExitOpen(true);
         }} />
         {exitOpen && <ExitConfirmation setExitOpen = {setExitOpen} />}

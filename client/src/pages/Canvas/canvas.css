@@ -174,3 +174,14 @@
     color: white;
     opacity: 100%;
 }
+
+.blink {
+    color: var(--clr-error);
+    animation: blinker 1s linear infinite;
+}
+  
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
