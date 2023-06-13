@@ -3,7 +3,7 @@ const app = express();
 const PORT = 4000;
 const http = require("http").Server(app);
 const cors = require("cors");
-const {newUser, getUsers, updateMode, findSocket,getMode} = require("./users");
+const {newUser, getUsers, updateMode, findSocket,getMode,checkHasMode} = require("./users");
 app.use(cors());
 
 const io = require("socket.io")(http, {
@@ -13,7 +13,7 @@ const io = require("socket.io")(http, {
 });
 
 const keys = [];
-const net = 0;
+let net = 0;
 
 io.on("connection", (socket) => {
     socket.on("join_room", (key) => {
@@ -71,9 +71,16 @@ io.on("connection", (socket) => {
     socket.on("selection", (data) => {
         const[mode, userkey] = data;
         console.log(socket.id + " has selected a new game mode: " + mode);
+        let check = false;
+        if (checkHasMode(userkey)) {
+            check = true;
+        }
         updateMode(mode,userkey);
         socket.to(userkey).emit("player_selection");
         socket.to(userkey).emit("player_mode",mode);
+        if (check) {
+            socket.to(userkey).emit("ready_two");
+        }
     })
     socket.on("retrieve", (data) => {
         const[hostKey, hostAvatar] = data;

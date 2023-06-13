@@ -17,6 +17,14 @@ const getUsers = (matchkey) => {
     return temp;
 }
 
+const checkHasMode = (key)=> {
+    for (let i = 0; i<users.length; i++) {
+        if (users[i].key===key) {
+            return users[i].hasOwnProperty("mode");
+        } 
+    }
+}
+
 const updateMode = (mode, userkey) => {
     for (let i = 0; i<users.length; i++) {
         if (users[i].key===userkey) {
@@ -49,5 +57,6 @@ module.exports = {
     getUsers,
     updateMode,
     findSocket,
-    getMode
+    getMode,
+    checkHasMode
   };

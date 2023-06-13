@@ -8,8 +8,6 @@ export default function FinalDrawing({player, host, canvas, user, setFinalOpen})
 
     const navigate = useNavigate();
 
-    //ISSUE HERE -> user data is not cleared when u quit/playagain
-
     function quit(){
         navigate("/")
     }
