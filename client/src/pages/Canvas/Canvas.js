@@ -14,6 +14,7 @@ import Logo from "../../components/Logo"
 import FinalDrawing from "./Modals/FinalDrawing"
 import ExitConfirmation from "./Modals/ExitConfirmation"
 import Tutorial from "./Modals/Tutorial"
+import Intro from "./Modals/Intro"
 
 import "./canvas.css"
 import "./Modals/modal.css"
@@ -359,6 +360,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
 
 	return (
     <div className = "canvas"  style={{height: "100vh" }}>
+      <Intro user = {user} mode = {mode} host = {host} player = {player} />
       {(mode !== "Draw Together" && !initialCountdown) && <Countdown seconds = {3} setInitialCountdown = {setInitialCountdown}/>}
       <div className = "canvas--section-1">
         <Logo variant = "canvas canvas--vl"/>

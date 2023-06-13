@@ -131,3 +131,50 @@
     width: 16px;
     height: 16px;
 }
+
+/* intro */
+
+.intro{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--clr-white);
+    padding: 64px 48px 24px;
+    border-radius: 8px;
+    gap: 64px;
+}
+
+.intro--info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 36px;
+}
+
+.intro--heading{
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.intro--description{
+    width: 320px;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro--vl{
+    border-left: 1px solid rgb(222, 222, 222);
+    height: 80%;
+}
+
+.intro--buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.intro--player{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
