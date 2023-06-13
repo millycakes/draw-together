@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../../../components/Button";
 
-export default function Intro ({user, mode, host, player}) {
+export default function Intro ({user, mode, host, player, setIntroOpen}) {
 
     function getInstructions(){
         if (mode === "Draw Together"){
@@ -55,7 +55,7 @@ export default function Intro ({user, mode, host, player}) {
                         <p>{user.host ? player.name : host.name}</p>
                     </div>
                 </div>
-                <Button className = "intro--button" text = "Start Game"/>
+                <Button className = "intro--button" text = "Start Game" onClick = {() => setIntroOpen(false)}/>
             </div>
         </div>
     )

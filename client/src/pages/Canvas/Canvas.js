@@ -27,7 +27,9 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
   const [exitOpen, setExitOpen] = React.useState(false);
   const [tutOpen, setTutOpen] = React.useState(false);
   const [finalOpen, setFinalOpen] = React.useState(false);
+  const [introOpen, setIntroOpen] = React.useState(true);
   const [initialCountdown, setInitialCountdown] = React.useState(false);
+  const [swapTransition, setSwapTransition] = React.useState(false);
 
   //game countdown
   const [countdown, setCountdown] = React.useState(10);
@@ -125,8 +127,9 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
     if (mode === "Top Bottom"){
       setCountdown(90);
     }
+    
     else if (mode === "Canvas Swap"){
-      setCountdown(120);
+      setCountdown(30);
     }
 
     timerId.current = setInterval(() => {
@@ -161,6 +164,8 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
 
   function swapCanvas(){
     const canvasImage = canvasRef.current.toDataURL();
+    setSwapTransition(true);
+    setTimeout(() => setSwapTransition(false), 1000);
     socket.emit("swap", [canvasImage, user.key, user.host]);
   }
   
@@ -360,7 +365,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
 
 	return (
     <div className = "canvas"  style={{height: "100vh" }}>
-      <Intro user = {user} mode = {mode} host = {host} player = {player} />
+      {introOpen && <Intro user = {user} mode = {mode} host = {host} player = {player} setIntroOpen={setIntroOpen} />}
       {(mode !== "Draw Together" && !initialCountdown) && <Countdown seconds = {3} setInitialCountdown = {setInitialCountdown}/>}
       <div className = "canvas--section-1">
         <Logo variant = "canvas canvas--vl"/>
@@ -396,6 +401,10 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
         </canvas>
         {(mode === "Top Bottom") && 
         <div className = {`canvas--cover ${user.host ? host.half : player.half}`}><p>{`${user.host ? player.name : host.name}'s Drawing`}</p></div>}
+        {swapTransition && <div className="canvas--swap">
+          <p className="body-large" style={{marginBottom: "8px"}}> {`Swapping with ${user.host ? player.name : host.name}`}</p>
+          <img className = "avatar---avatar" src = {user.host ? player.avatar : host.avatar}/>
+        </div>}
         {(mode === "Top Bottom") &&
         <div className = "canvas--swap-avatars">
           <img src = {host.avatar} className = "avatar-small" alt = "avatar"/>
