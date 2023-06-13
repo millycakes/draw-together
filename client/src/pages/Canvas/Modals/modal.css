@@ -147,7 +147,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 36px;
+    gap: 48px;
 }
 
 .intro--heading{
@@ -163,14 +163,7 @@
 
 .intro--vl{
     border-left: 1px solid rgb(222, 222, 222);
-    height: 80%;
-}
-
-.intro--buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    height: 240px;
 }
 
 .intro--player{

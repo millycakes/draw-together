@@ -26,7 +26,7 @@ export default function Intro ({user, mode, host, player}) {
         }
         else if (mode === "Top Bottom"){
             return(
-                <ol>
+                <ol style={{paddingLeft: "32px"}}>
                     <li>You and your friend will each draw on either the top half of the canvas or the bottom half</li>
                     <br/>
                     <li>You will not be able to see the other half of the drawing</li>
@@ -51,14 +51,11 @@ export default function Intro ({user, mode, host, player}) {
                     <div className="intro--vl"></div>
                     <div className="intro--player">
                         <p>Playing with</p>
-                        <img src = {user === host ? player.avatar : host.avatar} className = "avatar---avatar" alt = "avatar"/>
-                        <p>{user === host ? player.name : host.name}</p>
+                        <img src = {user.host ? player.avatar : host.avatar} className = "avatar---avatar" alt = "avatar"/>
+                        <p>{user.host ? player.name : host.name}</p>
                     </div>
                 </div>
-                <div className="intro--buttons">
-                    <p className="intro--prompts">Enable Prompts</p>
-                    <Button text = "Start Game"/>
-                </div>
+                <Button className = "intro--button" text = "Start Game"/>
             </div>
         </div>
     )
