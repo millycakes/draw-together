@@ -19,7 +19,7 @@ import Intro from "./Modals/Intro"
 import "./canvas.css"
 import "./Modals/modal.css"
 
-export default function Canvas ({mode, socket, player, host, user, readySwap, setReadySwap, url}) {  
+export default function Canvas ({mode, socket, player, host, user, readySwap, setReadySwap, url, readyStart, setReadyStart}) {  
   
   const [isDrawing, setIsDrawing] = React.useState(false);
 
@@ -32,7 +32,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
   const [swapTransition, setSwapTransition] = React.useState(false);
 
   //game countdown
-  const [countdown, setCountdown] = React.useState(10);
+  const [countdown, setCountdown] = React.useState(30);
   const [countdownDisplay, setCountdownDisplay] = React.useState("");
   const [round, setRound] = React.useState(1);
 
@@ -128,15 +128,24 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
       setCountdown(90);
     }
 
-    else if (mode === "Canvas Swap"){
-      setCountdown(30);
+    else if (mode === "Canvas Swap" && readyStart){
+      console.log("reached");
+      setCountdown(90);
+      setReadyStart(false);
     }
 
     timerId.current = setInterval(() => {
         setCountdown(prev => prev-1);
     }, 1000)
     return () => clearInterval(timerId.current)
-  }, [initialCountdown])
+  }, [initialCountdown,readyStart])
+
+  React.useEffect(()=> {
+    if (readyStart) {
+      setCountdown(120);
+      setReadyStart(false);
+    }
+  },[readyStart])
   
   //handle countdown
   React.useEffect(() => {
@@ -164,7 +173,6 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
 
   function swapCanvas(){
     const canvasImage = canvasRef.current.toDataURL();
-    //current issue -> the swap transition works but it breaks socket swapping + time
     setSwapTransition(true);
     setTimeout(() => setSwapTransition(false), 1000);
     socket.emit("swap", [canvasImage, user.key, user.host]);
@@ -281,11 +289,11 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
       imageObj.onload = function(){
           ctxRef.current.drawImage(this, 0, 0); 
       };
-      setCountdown(120);
+      setCountdown(90);
       setRound(prev => prev+1)
     }
     })}, [])
-  
+
 
   React.useEffect(() => {
 
@@ -366,7 +374,7 @@ export default function Canvas ({mode, socket, player, host, user, readySwap, se
 
 	return (
     <div className = "canvas"  style={{height: "100vh" }}>
-      {introOpen && <Intro user = {user} mode = {mode} host = {host} player = {player} setIntroOpen={setIntroOpen} />}
+      {introOpen && <Intro user = {user} mode = {mode} host = {host} player = {player} setIntroOpen={setIntroOpen} socket = {socket} />}
       {(mode !== "Draw Together" && !initialCountdown) && <Countdown seconds = {3} setInitialCountdown = {setInitialCountdown}/>}
       <div className = "canvas--section-1">
         <Logo variant = "canvas canvas--vl"/>

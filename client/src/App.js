@@ -49,6 +49,11 @@ function App() {
   const [hostAvatar, setHostAvatar] = React.useState(bear);
   const [retrieve, setRetrieve] = React.useState(false);
   const [readySwap, setReadySwap] = React.useState(false);
+  const [readyStart, setReadyStart] = React.useState(false);
+
+  socket.on("ready_start", ()=> {
+    setReadyStart(true);
+  }) 
 
   socket.on("ready_swap", ()=> {
     setReadySwap(true);
@@ -191,6 +196,8 @@ function App() {
               setHost = {setHost}
               readySwap = {readySwap}
               setReadySwap = {setReadySwap}
+              readyStart = {readyStart}
+              setReadyStart = {setReadyStart}
             />}
           />
           

@@ -108,7 +108,6 @@ io.on("connection", (socket) => {
             }
             i++;
         }
-        console.log(u[0].swapkey+" " + u[1].swapkey);
         if (u[0].hasOwnProperty("swapkey") && u[1].hasOwnProperty("swapkey") && u[0].swapkey===u[1].swapkey) {
             console.log("canvas swap ready for both players");
             socket.to(key).emit("ready_swap");
@@ -162,7 +161,23 @@ io.on("connection", (socket) => {
             }
             net++;
         }
-    });
+    })
+    socket.on("ready_start", (data)=> {
+        const[key, isHost] = data;
+        console.log("user is ready to start");
+        let i = 0;
+        const u = getUsers(key);
+        while (i<2) {
+            if (u[i].host===isHost) {
+                u[i].startkey = key;
+            }
+            i++;
+        }
+        if (u[0].hasOwnProperty("startkey") && u[1].hasOwnProperty("startkey") && u[0].startkey===u[1].startkey) {
+            console.log("both players are ready to start");
+            socket.to(key).emit("ready_start");
+        }
+    })
 })
 
 http.listen(4000, () => {

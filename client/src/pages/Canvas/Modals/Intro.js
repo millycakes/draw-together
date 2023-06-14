@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../../../components/Button";
 
-export default function Intro ({user, mode, host, player, setIntroOpen}) {
+export default function Intro ({user, mode, host, player, setIntroOpen, socket}) {
 
     function getInstructions(){
         if (mode === "Draw Together"){
@@ -55,7 +55,7 @@ export default function Intro ({user, mode, host, player, setIntroOpen}) {
                         <p>{user.host ? player.name : host.name}</p>
                     </div>
                 </div>
-                <Button className = "intro--button" text = "Start Game" onClick = {() => setIntroOpen(false)}/>
+                <Button className = "intro--button" text = "Start Game" onClick = {() => {setIntroOpen(false); socket.emit("ready_start",[user.key, user.host]) }}/>
             </div>
         </div>
     )
