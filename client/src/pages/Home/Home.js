@@ -4,10 +4,13 @@ import alert from "../../assets//icons/alert.png"
 import { useNavigate } from "react-router-dom";
 import "./home.css"
 import Button from "../../components/Button";
+import together from "../../assets/modes/drawtogether.png"
+
 
 export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket, setRetrieveKeys}) {
 
     const navigate = useNavigate();
+
     const [error, setError] = React.useState(false);
 
     function handleCreateSubmit(event){
@@ -44,6 +47,10 @@ export default function Home ({allKeys, playerKey, setPlayerKey, setPlayerSocket
     return(
         <div className = "home" style={{height: "100vh"}}>
             <div className = "home--background">
+                <div className="home--mobile">
+                    <img style = {{width: "320px"}} src = {together} />
+                    <h1>Please visit me on a larger screen!</h1>
+                </div>
                 <div className = "home--form">
                     <img className = "home--logo" alt = "logo" src = {logo}/>
                     <form className = "home--create-form" onSubmit = {handleCreateSubmit}>

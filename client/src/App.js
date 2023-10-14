@@ -13,6 +13,7 @@ import Canvas from "./pages/Canvas/Canvas";
 import "./style.css"
 
 function App() {
+
   const socket = io.connect("http://localhost:4000");
 
   const[user, setUser] = React.useState({
@@ -200,7 +201,6 @@ function App() {
               setReadyStart = {setReadyStart}
             />}
           />
-          
       </Routes>
   );
 }

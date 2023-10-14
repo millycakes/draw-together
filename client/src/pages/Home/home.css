@@ -47,7 +47,7 @@
     line-height: 0.1em;
     margin: 4px 0 4px; 
 } 
- 
+
 .home--line-block span{ 
     background: var(--clr-white); 
     padding:0 10px; 
@@ -77,9 +77,28 @@
     padding: 12px;
     text-align: center;
 }
+
 .error-message{
     color: var(--clr-error);
     display: flex;
     gap: 4px;
     font-size: var(--fs-body-small)
+}
+
+.home--mobile{
+    display: none;
+}
+
+@media screen and (max-width: 1200px) {
+    .home--form{
+        display: none;
+    }
+    .home--mobile{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 100px;
+        border-radius: 12px;
+    }
 }
